@@ -7,6 +7,7 @@ final class FeedInfoView: UIView {
 		let summary: String?
 		let date: String
 		let source: String
+		let isRead: Bool
 	}
 
 	var props: Props? {
@@ -21,6 +22,8 @@ final class FeedInfoView: UIView {
 
 				self.summaryLabelTopConstraint?.update(offset: props.summary == nil ? 0 : 8)
 
+				self.titleLabel.textColor = props.isRead ? .systemGray2 : .systemBlue
+
 				self.setNeedsLayout()
 				self.invalidateIntrinsicContentSize()
 			}
@@ -33,7 +36,6 @@ final class FeedInfoView: UIView {
 		let label = UILabel()
 
 		label.numberOfLines = 2
-		label.textColor = .systemGray
 		label.font = .preferredFont(forTextStyle: .title2)
 		label.adjustsFontSizeToFitWidth = true
 

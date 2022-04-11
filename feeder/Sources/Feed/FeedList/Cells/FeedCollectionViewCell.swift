@@ -87,7 +87,8 @@ private extension FeedCollectionViewCell {
 			title: props.title,
 			summary: props.shouldShowSummary ? props.summary : nil,
 			date: props.date,
-			source: props.source
+			source: props.source,
+			isRead: props.isRead
 		)
 
 		self.setNeedsLayout()
