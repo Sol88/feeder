@@ -1,10 +1,18 @@
 import UIKit
 
 final class FeedListFactory: IFeedListFactory {
-	func make() -> UIViewController {
+	func make(
+		postsRepository: IPostsRepository,
+		dateFormatter: IDateFormatter,
+		sourceFormatter: ISourceFormatter
+	) -> UIViewController {
+		let feedCollectionViewCellPropsFactory = FeedCollectionViewCellPropsFactory(
+			dateFormatter: dateFormatter,
+			sourceFormatter: sourceFormatter
+		)
 		let viewController = FeedListViewController()
-		let presenter = FeedListPresenter()
-		let interactor = FeedListInteractor()
+		let presenter = FeedListPresenter(cellPropsFactory: feedCollectionViewCellPropsFactory)
+		let interactor = FeedListInteractor(repository: postsRepository)
 		let router = FeedListRouter()
 
 		viewController.output = presenter

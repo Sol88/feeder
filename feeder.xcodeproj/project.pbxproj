@@ -31,6 +31,12 @@
 		DE7907572802D037003296B8 /* FeedCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7907562802D037003296B8 /* FeedCollectionViewLayout.swift */; };
 		DE79075A2802D5E4003296B8 /* FeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7907592802D5E4003296B8 /* FeedCollectionViewCell.swift */; };
 		DE79075D28031D34003296B8 /* FeedInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE79075C28031D34003296B8 /* FeedInfoView.swift */; };
+		DED586EC280493AF00F037D5 /* Posts.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED586EB280493AF00F037D5 /* Posts.swift */; };
+		DED586EE280493D200F037D5 /* IPostsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED586ED280493D200F037D5 /* IPostsRepository.swift */; };
+		DED586F02804952200F037D5 /* PostsCoreDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED586EF2804952200F037D5 /* PostsCoreDataRepository.swift */; };
+		DED586F228049FD300F037D5 /* FeedCollectionViewCellPropsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED586F128049FD300F037D5 /* FeedCollectionViewCellPropsFactory.swift */; };
+		DED586F528049FF800F037D5 /* SourceFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED586F428049FF800F037D5 /* SourceFormatter.swift */; };
+		DED586F72804A0BB00F037D5 /* IDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED586F62804A0BB00F037D5 /* IDateFormatter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +65,12 @@
 		DE7907562802D037003296B8 /* FeedCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCollectionViewLayout.swift; sourceTree = "<group>"; };
 		DE7907592802D5E4003296B8 /* FeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCollectionViewCell.swift; sourceTree = "<group>"; };
 		DE79075C28031D34003296B8 /* FeedInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedInfoView.swift; sourceTree = "<group>"; };
+		DED586EB280493AF00F037D5 /* Posts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Posts.swift; sourceTree = "<group>"; };
+		DED586ED280493D200F037D5 /* IPostsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPostsRepository.swift; sourceTree = "<group>"; };
+		DED586EF2804952200F037D5 /* PostsCoreDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsCoreDataRepository.swift; sourceTree = "<group>"; };
+		DED586F128049FD300F037D5 /* FeedCollectionViewCellPropsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCollectionViewCellPropsFactory.swift; sourceTree = "<group>"; };
+		DED586F428049FF800F037D5 /* SourceFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceFormatter.swift; sourceTree = "<group>"; };
+		DED586F62804A0BB00F037D5 /* IDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDateFormatter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +113,9 @@
 		DE7907282801580B003296B8 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				DED586F328049FE900F037D5 /* Formatters */,
+				DED586EA280493A300F037D5 /* Models */,
+				DED586E92804937A00F037D5 /* PostsRepository */,
 				DE7907532802CFE2003296B8 /* Extensions */,
 				DE7907352801C642003296B8 /* Settings */,
 				DE79073428019C9B003296B8 /* Feed */,
@@ -220,6 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				DE7907592802D5E4003296B8 /* FeedCollectionViewCell.swift */,
+				DED586F128049FD300F037D5 /* FeedCollectionViewCellPropsFactory.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -230,6 +246,32 @@
 				DE79075C28031D34003296B8 /* FeedInfoView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		DED586E92804937A00F037D5 /* PostsRepository */ = {
+			isa = PBXGroup;
+			children = (
+				DED586ED280493D200F037D5 /* IPostsRepository.swift */,
+				DED586EF2804952200F037D5 /* PostsCoreDataRepository.swift */,
+			);
+			path = PostsRepository;
+			sourceTree = "<group>";
+		};
+		DED586EA280493A300F037D5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DED586EB280493AF00F037D5 /* Posts.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		DED586F328049FE900F037D5 /* Formatters */ = {
+			isa = PBXGroup;
+			children = (
+				DED586F428049FF800F037D5 /* SourceFormatter.swift */,
+				DED586F62804A0BB00F037D5 /* IDateFormatter.swift */,
+			);
+			path = Formatters;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -311,12 +353,15 @@
 				DE7907402801CBE6003296B8 /* FeedListFactory.swift in Sources */,
 				DE79072D280192A8003296B8 /* Coordinator.swift in Sources */,
 				DE79075A2802D5E4003296B8 /* FeedCollectionViewCell.swift in Sources */,
+				DED586EE280493D200F037D5 /* IPostsRepository.swift in Sources */,
+				DED586F72804A0BB00F037D5 /* IDateFormatter.swift in Sources */,
 				DE79071928015727003296B8 /* ViewController.swift in Sources */,
 				DE79071528015727003296B8 /* AppDelegate.swift in Sources */,
 				DE79075D28031D34003296B8 /* FeedInfoView.swift in Sources */,
 				DE7907552802CFF9003296B8 /* UIView+AddSubview.swift in Sources */,
 				DE79074B2801CF0F003296B8 /* IFeedListViewOutput.swift in Sources */,
 				DE7907572802D037003296B8 /* FeedCollectionViewLayout.swift in Sources */,
+				DED586F228049FD300F037D5 /* FeedCollectionViewCellPropsFactory.swift in Sources */,
 				DE79072F280194B4003296B8 /* MainCoordinator.swift in Sources */,
 				DE79073C2801CAAA003296B8 /* FeedListInteractor.swift in Sources */,
 				DE79073E2801CABB003296B8 /* FeedListRouter.swift in Sources */,
@@ -325,10 +370,13 @@
 				DE7907472801CED5003296B8 /* IFeedListFactory.swift in Sources */,
 				DE79073128019C5A003296B8 /* FeedCoordinator.swift in Sources */,
 				DE7907382801C8FA003296B8 /* FeedListViewController.swift in Sources */,
+				DED586EC280493AF00F037D5 /* Posts.swift in Sources */,
 				DE79074F2801CF38003296B8 /* IFeedListRouter.swift in Sources */,
+				DED586F02804952200F037D5 /* PostsCoreDataRepository.swift in Sources */,
 				DE79073A2801CA9A003296B8 /* FeedListPresenter.swift in Sources */,
 				DE7907492801CEFD003296B8 /* IFeedListViewIntput.swift in Sources */,
 				DE79071728015727003296B8 /* SceneDelegate.swift in Sources */,
+				DED586F528049FF800F037D5 /* SourceFormatter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

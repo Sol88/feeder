@@ -1,5 +1,9 @@
 import UIKit
 
 protocol IFeedListFactory: AnyObject {
-	func make() -> UIViewController
+	func make(
+		postsRepository: IPostsRepository,
+		dateFormatter: IDateFormatter,
+		sourceFormatter: ISourceFormatter
+	) -> UIViewController
 }

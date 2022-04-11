@@ -9,6 +9,7 @@ final class FeedCollectionViewCell: UICollectionViewCell {
 		let summary: String?
 		let date: String
 		let source: String
+		let isRead: Bool
 		var shouldShowSummary: Bool = false
 	}
 
