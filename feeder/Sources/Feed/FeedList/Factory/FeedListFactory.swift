@@ -12,7 +12,7 @@ final class FeedListFactory: IFeedListFactory {
 		)
 		let viewController = FeedListViewController()
 		let presenter = FeedListPresenter(cellPropsFactory: feedCollectionViewCellPropsFactory)
-		let interactor = FeedListInteractor(repository: postsRepository)
+		let interactor = FeedListInteractor(repository: postsRepository, imageLoader: ImageLoader())
 		let router = FeedListRouter()
 
 		viewController.output = presenter

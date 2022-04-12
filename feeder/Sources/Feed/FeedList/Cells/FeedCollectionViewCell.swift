@@ -3,7 +3,7 @@ import UIKit
 final class FeedCollectionViewCell: UICollectionViewCell {
 	struct Props: Identifiable, Hashable {
 		let id: String
-		let imageURL: URL
+		var image: UIImage?
 		let title: String
 		let content: URL
 		let summary: String?
@@ -75,6 +75,7 @@ final class FeedCollectionViewCell: UICollectionViewCell {
 	override func prepareForReuse() {
 		super.prepareForReuse()
 		self.infoView.clear()
+		self.imageView.image = nil
 	}
 }
 
@@ -90,6 +91,7 @@ private extension FeedCollectionViewCell {
 			source: props.source,
 			isRead: props.isRead
 		)
+		self.imageView.image = props.image
 
 		self.setNeedsLayout()
 	}

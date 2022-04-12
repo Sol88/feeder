@@ -48,6 +48,7 @@ final class FeedListViewController: UIViewController {
 		let collectionView = UICollectionView(frame: .zero, collectionViewLayout: .feedLayout)
 
 		collectionView.backgroundColor = .secondarySystemBackground
+		collectionView.prefetchDataSource = self
 
 		return collectionView
 	}()
@@ -82,6 +83,13 @@ extension FeedListViewController: IFeedListViewIntput {
 				self.handleLoadingState()
 		}
 		self.view.setNeedsLayout()
+	}
+}
+
+// MAKR: - UICollectionViewDataSourcePrefetching
+extension FeedListViewController: UICollectionViewDataSourcePrefetching {
+	func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+		self.output?.didPrefetchItems(at: indexPaths)
 	}
 }
 
@@ -180,6 +188,7 @@ private extension FeedListViewController {
 private extension FeedListViewController {
 	func configureDataSource() {
 		let cellRegistration = FeedCellRegistration { [weak output] cell, index, itemIdentifier in
+			output?.didRegisterCell(at: index)
 			cell.props = output?.post(for: itemIdentifier)
 			cell.infoViewDidTouched = { [weak output] id in
 				output?.didTouchPostInfoView(with: id)

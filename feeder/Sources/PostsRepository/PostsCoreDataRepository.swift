@@ -10,4 +10,8 @@ final class PostsCoreDataRepository: IPostsRepository {
 	func getAll(completion: ([Post]) -> Void) {
 		completion(Post.dummy)
 	}
+
+	func fetchPost(postId: String, completion: @escaping (Post?) -> Void) {
+		completion(Post.dummy.first(where: { $0.id == postId }))
+	}
 }

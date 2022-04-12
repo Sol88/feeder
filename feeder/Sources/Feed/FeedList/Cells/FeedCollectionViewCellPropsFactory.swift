@@ -13,7 +13,7 @@ final class FeedCollectionViewCellPropsFactory {
 		posts.map {
 			FeedCollectionViewCell.Props(
 				id: $0.id,
-				imageURL: $0.imageURL,
+				image: nil,
 				title: $0.title,
 				content: $0.content,
 				summary: $0.summary,

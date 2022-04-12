@@ -2,7 +2,7 @@ import UIKit
 
 extension UICollectionViewLayout {
 	static var feedLayout: UICollectionViewLayout {
-		let layoutSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(200))
+		let layoutSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(300))
 		let item = NSCollectionLayoutItem(
 			layoutSize: layoutSize,
 			supplementaryItems: []
