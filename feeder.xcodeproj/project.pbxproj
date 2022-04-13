@@ -39,6 +39,12 @@
 		DED586F228049FD300F037D5 /* FeedCollectionViewCellPropsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED586F128049FD300F037D5 /* FeedCollectionViewCellPropsFactory.swift */; };
 		DED586F528049FF800F037D5 /* SourceFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED586F428049FF800F037D5 /* SourceFormatter.swift */; };
 		DED586F72804A0BB00F037D5 /* IDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED586F62804A0BB00F037D5 /* IDateFormatter.swift */; };
+		DEF1183328071CDE005AA8D1 /* PostXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF1183228071CDE005AA8D1 /* PostXMLParser.swift */; };
+		DEF11838280720BA005AA8D1 /* PostsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF11837280720BA005AA8D1 /* PostsLoader.swift */; };
+		DEF1183B2807230C005AA8D1 /* Updater.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF1183A2807230C005AA8D1 /* Updater.swift */; };
+		DEF1183D28075305005AA8D1 /* XMLPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF1183C28075305005AA8D1 /* XMLPost.swift */; };
+		DEF1183F28075DA6005AA8D1 /* IPostsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF1183E28075DA6005AA8D1 /* IPostsLoader.swift */; };
+		DEF118452807631C005AA8D1 /* IPostXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF118442807631C005AA8D1 /* IPostXMLParser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +81,12 @@
 		DED586F128049FD300F037D5 /* FeedCollectionViewCellPropsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCollectionViewCellPropsFactory.swift; sourceTree = "<group>"; };
 		DED586F428049FF800F037D5 /* SourceFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceFormatter.swift; sourceTree = "<group>"; };
 		DED586F62804A0BB00F037D5 /* IDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDateFormatter.swift; sourceTree = "<group>"; };
+		DEF1183228071CDE005AA8D1 /* PostXMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostXMLParser.swift; sourceTree = "<group>"; };
+		DEF11837280720BA005AA8D1 /* PostsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsLoader.swift; sourceTree = "<group>"; };
+		DEF1183A2807230C005AA8D1 /* Updater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updater.swift; sourceTree = "<group>"; };
+		DEF1183C28075305005AA8D1 /* XMLPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMLPost.swift; sourceTree = "<group>"; };
+		DEF1183E28075DA6005AA8D1 /* IPostsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPostsLoader.swift; sourceTree = "<group>"; };
+		DEF118442807631C005AA8D1 /* IPostXMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPostXMLParser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +138,9 @@
 		DE7907282801580B003296B8 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				DEF11839280722DE005AA8D1 /* Updater */,
+				DEF1183428071F44005AA8D1 /* Loaders */,
+				DEF1183128071CC6005AA8D1 /* PostXMLParser */,
 				DE2E1F712805F8F7003B6C5A /* ImageLoader */,
 				DED586F328049FE900F037D5 /* Formatters */,
 				DED586EA280493A300F037D5 /* Models */,
@@ -288,6 +303,41 @@
 			path = Formatters;
 			sourceTree = "<group>";
 		};
+		DEF1183128071CC6005AA8D1 /* PostXMLParser */ = {
+			isa = PBXGroup;
+			children = (
+				DEF1183228071CDE005AA8D1 /* PostXMLParser.swift */,
+				DEF1183C28075305005AA8D1 /* XMLPost.swift */,
+				DEF118442807631C005AA8D1 /* IPostXMLParser.swift */,
+			);
+			path = PostXMLParser;
+			sourceTree = "<group>";
+		};
+		DEF1183428071F44005AA8D1 /* Loaders */ = {
+			isa = PBXGroup;
+			children = (
+				DEF1184328075E08005AA8D1 /* PostsLoader */,
+			);
+			path = Loaders;
+			sourceTree = "<group>";
+		};
+		DEF11839280722DE005AA8D1 /* Updater */ = {
+			isa = PBXGroup;
+			children = (
+				DEF1183A2807230C005AA8D1 /* Updater.swift */,
+			);
+			path = Updater;
+			sourceTree = "<group>";
+		};
+		DEF1184328075E08005AA8D1 /* PostsLoader */ = {
+			isa = PBXGroup;
+			children = (
+				DEF11837280720BA005AA8D1 /* PostsLoader.swift */,
+				DEF1183E28075DA6005AA8D1 /* IPostsLoader.swift */,
+			);
+			path = PostsLoader;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -365,6 +415,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE7907402801CBE6003296B8 /* FeedListFactory.swift in Sources */,
+				DEF1183D28075305005AA8D1 /* XMLPost.swift in Sources */,
 				DE79072D280192A8003296B8 /* Coordinator.swift in Sources */,
 				DE79075A2802D5E4003296B8 /* FeedCollectionViewCell.swift in Sources */,
 				DED586EE280493D200F037D5 /* IPostsRepository.swift in Sources */,
@@ -378,18 +429,23 @@
 				DED586F228049FD300F037D5 /* FeedCollectionViewCellPropsFactory.swift in Sources */,
 				DE79072F280194B4003296B8 /* MainCoordinator.swift in Sources */,
 				DE79073C2801CAAA003296B8 /* FeedListInteractor.swift in Sources */,
+				DEF118452807631C005AA8D1 /* IPostXMLParser.swift in Sources */,
 				DE2E1F732805F908003B6C5A /* ImageLoader.swift in Sources */,
 				DE79073E2801CABB003296B8 /* FeedListRouter.swift in Sources */,
+				DEF1183B2807230C005AA8D1 /* Updater.swift in Sources */,
 				DE79074D2801CF25003296B8 /* IFeedListInteractor.swift in Sources */,
 				DE79073328019C73003296B8 /* SettingsCoordinator.swift in Sources */,
 				DE7907472801CED5003296B8 /* IFeedListFactory.swift in Sources */,
 				DE79073128019C5A003296B8 /* FeedCoordinator.swift in Sources */,
+				DEF11838280720BA005AA8D1 /* PostsLoader.swift in Sources */,
+				DEF1183328071CDE005AA8D1 /* PostXMLParser.swift in Sources */,
 				DE7907382801C8FA003296B8 /* FeedListViewController.swift in Sources */,
 				DED586EC280493AF00F037D5 /* Posts.swift in Sources */,
 				DE2E1F752805F91F003B6C5A /* IImageLoader.swift in Sources */,
 				DE79074F2801CF38003296B8 /* IFeedListRouter.swift in Sources */,
 				DED586F02804952200F037D5 /* PostsCoreDataRepository.swift in Sources */,
 				DE79073A2801CA9A003296B8 /* FeedListPresenter.swift in Sources */,
+				DEF1183F28075DA6005AA8D1 /* IPostsLoader.swift in Sources */,
 				DE7907492801CEFD003296B8 /* IFeedListViewIntput.swift in Sources */,
 				DE79071728015727003296B8 /* SceneDelegate.swift in Sources */,
 				DED586F528049FF800F037D5 /* SourceFormatter.swift in Sources */,

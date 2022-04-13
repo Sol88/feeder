@@ -9,9 +9,18 @@ import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
+	let updater = PostsUpdater(
+		feedURLs: [
+			(URL(string: "http://lenta.ru/rss")!, PostXMLParser()),
+			(URL(string: "https://www.nytimes.com/svc/collections/v1/publish/https://www.nytimes.com/section/world/rss.xml")!, PostXMLParser())
+		]
+	)
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 		// Override point for customization after application launch.
+
+		updater.update()
+
 		return true
 	}
 
