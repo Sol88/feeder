@@ -4,15 +4,16 @@ final class FeedCoordinator: Coordinator {
 	private(set) var parentCoordinator: Coordinator?
 	private(set) var rootViewController: UIViewController?
 
-	private let postsRepository: IPostsRepository = PostsCoreDataRepository()
+	private let postsRepository: IPostsRepository
 	private let dateFormatter: IDateFormatter
 	private let sourceFormatter: ISourceFormatter = SourceFormatter()
 
-	init(parentCoordinator: Coordinator?) {
+	init(parentCoordinator: Coordinator?, postsRepository: IPostsRepository) {
 		self.parentCoordinator = parentCoordinator
 		let formatter = RelativeDateTimeFormatter()
 		formatter.dateTimeStyle = .named
 		self.dateFormatter = formatter
+		self.postsRepository = postsRepository
 	}
 
 	func start() -> UIViewController {

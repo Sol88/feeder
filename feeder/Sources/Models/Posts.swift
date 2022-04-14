@@ -6,7 +6,7 @@ enum PostSource {
 
 struct Post {
 	let id: String
-	let imageURL: URL
+	let imageURL: URL?
 	let title: String
 	let content: URL
 	let summary: String
