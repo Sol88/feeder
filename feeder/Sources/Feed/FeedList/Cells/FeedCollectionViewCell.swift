@@ -15,8 +15,6 @@ final class FeedCollectionViewCell: UICollectionViewCell {
 
 	var props: Props? {
 		didSet {
-			guard oldValue != self.props else { return }
-
 			DispatchQueue.main.async {
 				self.handlePropsUpdate()
 			}
