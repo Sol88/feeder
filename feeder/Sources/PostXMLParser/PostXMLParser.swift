@@ -7,6 +7,7 @@ final class PostXMLParser: NSObject {
 	private var link: String = ""
 	private var summary: String = ""
 	private var pubDate: String = ""
+	private var imageURL: String? = ""
 
 	private(set) var posts: [XMLPost] = []
 }
@@ -29,6 +30,10 @@ extension PostXMLParser: XMLParserDelegate {
 
 	func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
 		self.currentElement = elementName
+
+		if elementName == "enclosure" && attributeDict["type"] == "image/jpeg" {
+			self.imageURL = attributeDict["url"]
+		}
 	}
 
 	func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
@@ -37,7 +42,7 @@ extension PostXMLParser: XMLParserDelegate {
 		guard elementName == "item" else { return }
 		
 		self.posts.append(
-			XMLPost(id: self.id, title: self.title, link: self.link, pubDate: self.pubDate, description: self.summary)
+			XMLPost(id: self.id, title: self.title, link: self.link, pubDate: self.pubDate, description: self.summary, imageURL: self.imageURL)
 		)
 
 		self.id = ""
@@ -45,6 +50,7 @@ extension PostXMLParser: XMLParserDelegate {
 		self.link = ""
 		self.summary = ""
 		self.pubDate = ""
+		self.imageURL = nil
 	}
 
 	func parser(_ parser: XMLParser, foundCDATA CDATABlock: Data) {

@@ -4,4 +4,5 @@ struct XMLPost {
 	let link: String
 	let pubDate: String
 	let description: String
+	let imageURL: String?
 }

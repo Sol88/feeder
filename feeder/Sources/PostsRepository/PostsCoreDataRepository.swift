@@ -92,5 +92,6 @@ private extension PostsCoreDataRepository {
 		post.link = xmlPost.link
 		post.title = xmlPost.title
 		post.source = "Lenta.ru"
+		post.imageURL = xmlPost.imageURL
 	}
 }
