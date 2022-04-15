@@ -14,7 +14,7 @@ final class FeedListInteractor {
 // MARK: - IFeedListInteractor
 extension FeedListInteractor: IFeedListInteractor {
 	func fetchPosts(_ completion: @escaping ([Post]) -> Void) {
-		self.repository.getAll { posts in
+		self.repository.fetchAll { posts in
 			completion(posts)
 		}
 	}

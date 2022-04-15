@@ -1,7 +1,13 @@
 import CoreData
 
 final class PostsCoreDataRepository: IPostsRepository {
-	private let dateFormatter = ISO8601DateFormatter()
+	private let dateFormatter: DateFormatter = {
+		let formatter = DateFormatter()
+		formatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss ZZZZ"
+		formatter.locale = Locale(identifier: "en_US")
+		return formatter
+	}()
+
 	private let coreDataContainer: CoreDataContainer
 
 	init(coreDataContainer: CoreDataContainer) {
@@ -9,57 +15,27 @@ final class PostsCoreDataRepository: IPostsRepository {
 	}
 
 	func add(_ elements: [XMLPost]) {
-		let fetchRequest = NSFetchRequest<PostCoreData>(entityName: "PostCoreData")
-		fetchRequest.propertiesToFetch = ["id"]
-		var idSet = Set<String>()
-		if let result = try? self.coreDataContainer.persistentContainer.newBackgroundContext().fetch(fetchRequest) {
-			idSet = Set(result.compactMap(\.id))
-		}
-		let createBackgroundContext = self.coreDataContainer.persistentContainer.newBackgroundContext()
+		let idSet = self.savedPostIds()
+		let backgroundContext = self.coreDataContainer.persistentContainer.newBackgroundContext()
 		for element in elements where !idSet.contains(element.id) {
-			guard let entity = NSEntityDescription.entity(
-				forEntityName: "PostCoreData",
-				in: createBackgroundContext)
-			else { break }
-			let post = PostCoreData(entity: entity, insertInto: createBackgroundContext)
-			post.id = element.id
-			post.summary = element.description
-			post.pubDate = self.dateFormatter.date(from: element.pubDate)
-			post.link = element.link
-			post.title = element.title
+			self.insert(xmlPost: element, context: backgroundContext)
 		}
 
 		do {
-			try createBackgroundContext.save()
+			try backgroundContext.save()
 		} catch {
 			assertionFailure("Cannot save content \(error)")
 		}
 	}
 
-	func update(elementWithId id: String, isRead: Bool) {
-		// TODO: implement
-	}
-
-	func getAll(completion: @escaping ([Post]) -> Void) {
+	func fetchAll(completion: @escaping ([Post]) -> Void) {
+		let descendingSortDescriptor = NSSortDescriptor(key: "pubDate", ascending: false)
 		let fetchRequest = NSFetchRequest<PostCoreData>(entityName: "PostCoreData")
+		fetchRequest.sortDescriptors = [descendingSortDescriptor]
 		do {
-			let posts = try self.coreDataContainer.persistentContainer.viewContext.fetch(fetchRequest)
-			var newPosts: [Post] = []
-			for post in posts {
-				newPosts.append(
-					Post(
-						id: post.id ?? "",
-						imageURL: nil,
-						title: post.title ?? "",
-						content: URL(string: post.link!)!,
-						summary: post.summary ?? "",
-						date: post.pubDate ?? Date(),
-						source: PostSource.lenta,
-						isRead: false
-					)
-				)
-			}
-			completion(newPosts)
+			let allPosts = try self.coreDataContainer.persistentContainer.viewContext.fetch(fetchRequest)
+			let posts = allPosts.compactMap { Post.make(fromCoreData: $0, dateFormatter: self.dateFormatter) }
+			completion(posts)
 		} catch {
 			assertionFailure("Cannot save content \(error)")
 			completion([])
@@ -67,6 +43,54 @@ final class PostsCoreDataRepository: IPostsRepository {
 	}
 
 	func fetchPost(postId: String, completion: @escaping (Post?) -> Void) {
-		completion(Post.dummy.first(where: { $0.id == postId }))
+		let fetchRequest = NSFetchRequest<PostCoreData>(entityName: "PostCoreData")
+		fetchRequest.predicate = NSPredicate(format: "id == %@", postId)
+
+		let backgroundContext = self.coreDataContainer.persistentContainer.newBackgroundContext()
+
+		do {
+			guard let post = try backgroundContext.fetch(fetchRequest).first else {
+				completion(nil)
+				return
+			}
+			completion(Post.make(fromCoreData: post, dateFormatter: self.dateFormatter))
+		} catch {
+			assertionFailure("Cannot save content \(error)")
+			completion(nil)
+		}
+	}
+}
+
+// MARK: - Private
+private extension PostsCoreDataRepository {
+	func savedPostIds() -> Set<String> {
+		let fetchRequest = NSFetchRequest<PostCoreData>(entityName: "PostCoreData")
+		fetchRequest.propertiesToFetch = ["id"]
+
+		let backgroundContext = self.coreDataContainer.persistentContainer.newBackgroundContext()
+
+		guard let result = try? backgroundContext.fetch(fetchRequest) else {
+			return Set()
+		}
+
+		return Set(result.compactMap(\.id))
+	}
+
+	func insert(
+		xmlPost: XMLPost,
+		context: NSManagedObjectContext
+	) {
+		guard let date = self.dateFormatter.date(from: xmlPost.pubDate) else { return }
+		guard let entity = NSEntityDescription.entity(
+			forEntityName: "PostCoreData",
+			in: context
+		) else { return }
+		let post = PostCoreData(entity: entity, insertInto: context)
+		post.id = xmlPost.id
+		post.summary = xmlPost.description
+		post.pubDate = date
+		post.link = xmlPost.link
+		post.title = xmlPost.title
+		post.source = "Lenta.ru"
 	}
 }

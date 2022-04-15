@@ -3,11 +3,11 @@
     <entity name="PostCoreData" representedClassName="PostCoreData" syncable="YES" codeGenerationType="class">
         <attribute name="id" attributeType="String"/>
         <attribute name="imageURL" optional="YES" attributeType="String"/>
-        <attribute name="link" optional="YES" attributeType="String"/>
-        <attribute name="pubDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="source" optional="YES" attributeType="String"/>
-        <attribute name="summary" optional="YES" attributeType="String"/>
-        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="link" attributeType="String"/>
+        <attribute name="pubDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="source" attributeType="String"/>
+        <attribute name="summary" attributeType="String"/>
+        <attribute name="title" attributeType="String"/>
         <fetchIndex name="byId">
             <fetchIndexElement property="id" type="Binary" order="ascending"/>
         </fetchIndex>
@@ -16,6 +16,6 @@
         </fetchIndex>
     </entity>
     <elements>
-        <element name="PostCoreData" positionX="-63" positionY="-18" width="128" height="148"/>
+        <element name="PostCoreData" positionX="-63" positionY="-18" width="128" height="134"/>
     </elements>
 </model>
