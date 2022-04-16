@@ -13,6 +13,7 @@ final class FeedListPresenter {
 		}
 	}
 	private var summaryOpenedPosts: Set<FeedCollectionViewCell.Props.ID> = Set()
+	private var preparedImages: Dictionary<Post.ID, UIImage> = [:]
 	private let cellPropsFactory: FeedCollectionViewCellPropsFactory
 
 	// MARK: - Public
@@ -59,18 +60,40 @@ extension FeedListPresenter: IFeedListViewOutput {
 	}
 
 	func didPrefetchItems(at indexPaths: [IndexPath]) {
-		self.interactor?.fetchImages(at: indexPaths)
+		for indexPath in indexPaths {
+			self.interactor?.fetchImage(at: indexPath) { _ in }
+		}
 	}
 
 	func didRegisterCell(at indexPath: IndexPath) {
-		
+		guard let id = self.interactor?.fetchPost(at: indexPath)?.id else { return }
+		guard !self.preparedImages.keys.contains(id) else { return }
+		self.interactor?.fetchImage(at: indexPath) { [weak self, id] image in
+			image?.prepareForDisplay { image in
+				DispatchQueue.main.async {
+					self?.preparedImages[id] = image
+				}
+
+				if case .snapshot(var currentSnapshot) = self?.props {
+					currentSnapshot.reconfigureItems([id])
+					self?.props = .snapshot(currentSnapshot)
+				}
+			}
+		}
 	}
 
 	func post(for indexPath: IndexPath) -> FeedCollectionViewCell.Props? {
 		guard let post = self.interactor?.fetchPost(at: indexPath) else { return nil }
 		var props = self.cellPropsFactory.make(from: post)
 		props.shouldShowSummary = self.summaryOpenedPosts.contains(props.id)
+		props.image = self.preparedImages[post.id]
 		return props
+	}
+
+	func didReceiveMemoryWarning() {
+		DispatchQueue.main.async {
+			self.preparedImages.removeAll()
+		}
 	}
 }
 

@@ -4,6 +4,5 @@ protocol IFeedListInteractor: AnyObject {
 	
 	func fetchPost(at indexPath: IndexPath) -> Post?
 	func fetchAllPosts()
-	func fetchImages(at indexPaths: [IndexPath])
 	func fetchImage(at indexPath: IndexPath, completion: @escaping (UIImage?) -> Void)
 }

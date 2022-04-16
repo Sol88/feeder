@@ -6,6 +6,7 @@ protocol IFeedListViewOutput: AnyObject {
 	func didTouchPostInfoView(with id: FeedCollectionViewCell.Props.ID)
 	func didPrefetchItems(at indexPaths: [IndexPath])
 	func didRegisterCell(at indexPath: IndexPath)
+	func didReceiveMemoryWarning()
 
 	func post(for indexPath: IndexPath) -> FeedCollectionViewCell.Props?
 }
