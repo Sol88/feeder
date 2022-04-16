@@ -4,6 +4,7 @@ protocol IFeedListFactory: AnyObject {
 	func make(
 		postsRepository: IPostsRepository,
 		dateFormatter: IDateFormatter,
-		sourceFormatter: ISourceFormatter
+		sourceFormatter: ISourceFormatter,
+		imageLoader: IImageLoader
 	) -> UIViewController
 }

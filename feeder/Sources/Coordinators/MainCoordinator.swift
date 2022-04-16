@@ -4,12 +4,17 @@ final class MainCoordinator: Coordinator {
 	private(set) var parentCoordinator: Coordinator?
 	private(set) var rootViewController: UIViewController?
 
-	private lazy var feedCoordinator: Coordinator = FeedCoordinator(parentCoordinator: self, postsRepository: self.postsRepository)
+	private lazy var feedCoordinator: Coordinator = FeedCoordinator(
+		parentCoordinator: self,
+		postsRepository: self.postsRepository,
+		imageLoader: self.imageLoader
+	)
 	private lazy var settingsCoordinator: Coordinator = SettingsCoordinator(parentCoordinator: self)
 
 	private let coreDataContainer = CoreDataContainer()
 	private let updater: PostsUpdater
 	private let postsRepository: IPostsRepository
+	private let imageLoader: IImageLoader = ImageLoader()
 
 	init(parentCoordinator: Coordinator?) {
 		self.parentCoordinator = parentCoordinator

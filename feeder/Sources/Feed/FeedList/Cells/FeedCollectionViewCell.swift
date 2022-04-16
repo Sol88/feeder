@@ -89,7 +89,7 @@ private extension FeedCollectionViewCell {
 			source: props.source,
 			isRead: props.isRead
 		)
-		self.imageView.image = props.image
+		self.imageView.image = props.image ?? UIImage(named: "placeholder")
 
 		self.setNeedsLayout()
 	}

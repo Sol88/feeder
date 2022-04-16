@@ -29,4 +29,15 @@ extension FeedListInteractor: IFeedListInteractor {
 	func fetchAllPosts() {
 		self.repository.fetchAllPosts()
 	}
+
+	func fetchImages(at indexPaths: [IndexPath]) {
+		for indexPath in indexPaths {
+			self.fetchImage(at: indexPath) { _ in }
+		}
+	}
+
+	func fetchImage(at indexPath: IndexPath, completion: @escaping (UIImage?) -> Void) {
+		guard let post = self.repository.fetchPost(at: indexPath), let imageURL = post.imageURL else { return }
+		self.imageLoader.getImage(forURL: imageURL, completion: completion)
+	}
 }

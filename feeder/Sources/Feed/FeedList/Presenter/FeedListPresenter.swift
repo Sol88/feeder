@@ -51,11 +51,11 @@ extension FeedListPresenter: IFeedListViewOutput {
 	}
 
 	func didPrefetchItems(at indexPaths: [IndexPath]) {
-
+		self.interactor?.fetchImages(at: indexPaths)
 	}
 
 	func didRegisterCell(at indexPath: IndexPath) {
-
+		
 	}
 
 	func post(for indexPath: IndexPath) -> FeedCollectionViewCell.Props? {
