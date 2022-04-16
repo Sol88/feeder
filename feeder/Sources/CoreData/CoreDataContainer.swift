@@ -8,6 +8,8 @@ final class CoreDataContainer {
 				assertionFailure("Cannot create persistence container for \(error)")
 			}
 		}
+		container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+		container.viewContext.automaticallyMergesChangesFromParent = true
 		return container
 	}()
 }

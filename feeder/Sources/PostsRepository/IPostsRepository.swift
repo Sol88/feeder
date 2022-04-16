@@ -1,5 +1,10 @@
+import Foundation
+import UIKit.UIDiffableDataSource
+
 protocol IPostsRepository: AnyObject {
+	var didChangeContentWithSnapshot: ((NSDiffableDataSourceSnapshot<String, Post.ID>) -> Void)? { get set }
+
 	func add(_ elements: [XMLPost])
-	func fetchAll(completion: @escaping ([Post]) -> Void)
-	func fetchPost(postId: String, completion: @escaping (Post?) -> Void)
+	func fetchPost(at indexPath: IndexPath) -> Post?
+	func fetchAllPosts()
 }

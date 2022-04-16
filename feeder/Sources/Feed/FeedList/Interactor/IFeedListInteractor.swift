@@ -1,5 +1,7 @@
 import UIKit
 protocol IFeedListInteractor: AnyObject {
-	func fetchPosts(_ completion: @escaping ([Post]) -> Void)
-	func fetchImage(forPostId postId: String, completion: @escaping (UIImage?) -> Void)
+	var didChangeContentWithSnapshot: ((NSDiffableDataSourceSnapshot<String, Post.ID>) -> Void)? { get set }
+	
+	func fetchPost(at indexPath: IndexPath) -> Post?
+	func fetchAllPosts()
 }

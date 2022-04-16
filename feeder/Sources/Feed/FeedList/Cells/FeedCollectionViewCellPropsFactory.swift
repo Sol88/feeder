@@ -10,17 +10,19 @@ final class FeedCollectionViewCellPropsFactory {
 	}
 
 	func make(from posts: [Post]) -> [FeedCollectionViewCell.Props] {
-		posts.map {
-			FeedCollectionViewCell.Props(
-				id: $0.id,
-				image: nil,
-				title: $0.title,
-				content: $0.content,
-				summary: $0.summary,
-				date: self.dateFormatter.string(from: $0.date),
-				source: self.sourceFormatter.string(from: $0.source),
-				isRead: $0.isRead
-			)
-		}
+		posts.map { self.make(from: $0) }
+	}
+
+	func make(from post: Post) -> FeedCollectionViewCell.Props {
+		FeedCollectionViewCell.Props(
+			id: post.id,
+			image: nil,
+			title: post.title,
+			content: post.content,
+			summary: post.summary,
+			date: self.dateFormatter.string(from: post.date),
+			source: self.sourceFormatter.string(from: post.source),
+			isRead: post.isRead
+		)
 	}
 }

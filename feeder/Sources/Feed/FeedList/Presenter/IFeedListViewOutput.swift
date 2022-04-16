@@ -7,5 +7,5 @@ protocol IFeedListViewOutput: AnyObject {
 	func didPrefetchItems(at indexPaths: [IndexPath])
 	func didRegisterCell(at indexPath: IndexPath)
 
-	func post(for id: FeedCollectionViewCell.Props.ID) -> FeedCollectionViewCell.Props?
+	func post(for indexPath: IndexPath) -> FeedCollectionViewCell.Props?
 }

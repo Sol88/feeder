@@ -1,6 +1,26 @@
 import CoreData
+import Foundation
+import UIKit.UIDiffableDataSource
 
-final class PostsCoreDataRepository: IPostsRepository {
+final class PostsCoreDataRepository: NSObject {
+	// MARK: - Private
+	private(set) lazy var fetchedResultsController: NSFetchedResultsController<PostCoreData> = {
+		let descendingSortDescriptor = NSSortDescriptor(key: "pubDate", ascending: false)
+		let fetchRequest = NSFetchRequest<PostCoreData>(entityName: "PostCoreData")
+		fetchRequest.sortDescriptors = [descendingSortDescriptor]
+
+		let controller = NSFetchedResultsController(
+			fetchRequest: fetchRequest,
+			managedObjectContext: self.viewContext,
+			sectionNameKeyPath: nil,
+			cacheName: nil
+		)
+
+		controller.delegate = self
+
+		return controller
+	}()
+
 	private let dateFormatter: DateFormatter = {
 		let formatter = DateFormatter()
 		formatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss ZZZZ"
@@ -10,10 +30,22 @@ final class PostsCoreDataRepository: IPostsRepository {
 
 	private let coreDataContainer: CoreDataContainer
 
-	init(coreDataContainer: CoreDataContainer) {
-		self.coreDataContainer = coreDataContainer
+	private var viewContext: NSManagedObjectContext {
+		self.coreDataContainer.persistentContainer.viewContext
 	}
 
+	// MARK: - Public
+	var didChangeContentWithSnapshot: ((NSDiffableDataSourceSnapshot<String, Post.ID>) -> Void)?
+
+	// MARK: - 
+	init(coreDataContainer: CoreDataContainer) {
+		self.coreDataContainer = coreDataContainer
+		super.init()
+	}
+}
+
+// MARK: - IPostsRepository
+extension PostsCoreDataRepository: IPostsRepository {
 	func add(_ elements: [XMLPost]) {
 		let idSet = self.savedPostIds()
 		let backgroundContext = self.coreDataContainer.persistentContainer.newBackgroundContext()
@@ -27,36 +59,17 @@ final class PostsCoreDataRepository: IPostsRepository {
 			assertionFailure("Cannot save content \(error)")
 		}
 	}
-
-	func fetchAll(completion: @escaping ([Post]) -> Void) {
-		let descendingSortDescriptor = NSSortDescriptor(key: "pubDate", ascending: false)
-		let fetchRequest = NSFetchRequest<PostCoreData>(entityName: "PostCoreData")
-		fetchRequest.sortDescriptors = [descendingSortDescriptor]
-		do {
-			let allPosts = try self.coreDataContainer.persistentContainer.viewContext.fetch(fetchRequest)
-			let posts = allPosts.compactMap { Post.make(fromCoreData: $0, dateFormatter: self.dateFormatter) }
-			completion(posts)
-		} catch {
-			assertionFailure("Cannot save content \(error)")
-			completion([])
-		}
+	
+	func fetchPost(at indexPath: IndexPath) -> Post? {
+		let post = self.fetchedResultsController.object(at: indexPath)
+		return Post.make(fromCoreData: post, dateFormatter: self.dateFormatter)
 	}
 
-	func fetchPost(postId: String, completion: @escaping (Post?) -> Void) {
-		let fetchRequest = NSFetchRequest<PostCoreData>(entityName: "PostCoreData")
-		fetchRequest.predicate = NSPredicate(format: "id == %@", postId)
-
-		let backgroundContext = self.coreDataContainer.persistentContainer.newBackgroundContext()
-
+	func fetchAllPosts() {
 		do {
-			guard let post = try backgroundContext.fetch(fetchRequest).first else {
-				completion(nil)
-				return
-			}
-			completion(Post.make(fromCoreData: post, dateFormatter: self.dateFormatter))
+			try self.fetchedResultsController.performFetch()
 		} catch {
-			assertionFailure("Cannot save content \(error)")
-			completion(nil)
+			assertionFailure("Fetching FRC error \(error)")
 		}
 	}
 }
@@ -93,5 +106,28 @@ private extension PostsCoreDataRepository {
 		post.title = xmlPost.title
 		post.source = "Lenta.ru"
 		post.imageURL = xmlPost.imageURL
+	}
+}
+
+// MARK: - NSFetchedResultsController
+extension PostsCoreDataRepository: NSFetchedResultsControllerDelegate {
+	func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeContentWith snapshot: NSDiffableDataSourceSnapshotReference) {
+		let snapshot = snapshot as NSDiffableDataSourceSnapshot<String, NSManagedObjectID>
+		var convertedSnapshot = NSDiffableDataSourceSnapshot<String, Post.ID>()
+
+		convertedSnapshot.appendSections(snapshot.sectionIdentifiers)
+		for section in snapshot.sectionIdentifiers {
+			let items: [Post.ID] = snapshot.itemIdentifiers(inSection: section).compactMap {
+				guard
+					let postCoreData = self.viewContext.object(with: $0) as? PostCoreData,
+					let post = Post.make(fromCoreData: postCoreData, dateFormatter: self.dateFormatter)
+				else { return nil }
+
+				return post.id
+			}
+			convertedSnapshot.appendItems(items, toSection: section)
+		}
+
+		self.didChangeContentWithSnapshot?(convertedSnapshot)
 	}
 }

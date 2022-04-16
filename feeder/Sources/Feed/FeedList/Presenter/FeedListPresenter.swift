@@ -2,6 +2,7 @@ import Foundation
 import UIKit
 
 final class FeedListPresenter {
+	// MARK: - Private
 	private var props: FeedListViewController.Props? {
 		didSet {
 			guard let props = props else { return }
@@ -13,12 +14,19 @@ final class FeedListPresenter {
 	}
 	private let cellPropsFactory: FeedCollectionViewCellPropsFactory
 
+	// MARK: - Public
 	weak var input: IFeedListViewIntput?
-	var interactor: IFeedListInteractor?
+	var interactor: IFeedListInteractor? {
+		didSet {
+			self.interactor?.didChangeContentWithSnapshot = { snapshot in
+				let convertedSnapshot = self.convertSnapshotToFeedSnapshot(snapshot)
+				self.props = .snapshot(convertedSnapshot)
+			}
+		}
+	}
 	var router: IFeedListRouter?
 
-	var items: [FeedCollectionViewCell.Props] = []
-
+	// MARK: -
 	init(cellPropsFactory: FeedCollectionViewCellPropsFactory) {
 		self.cellPropsFactory = cellPropsFactory
 	}
@@ -28,15 +36,12 @@ final class FeedListPresenter {
 extension FeedListPresenter: IFeedListViewOutput {
 	func didLoad() {
 		self.props = .loading
-		self.interactor?.fetchPosts { [weak self] posts in
-			guard let self = self else { return }
-			self.items = self.cellPropsFactory.make(from: posts)
-			self.props = .data(self.items.map(\.id))
-		}
+		self.interactor?.fetchAllPosts()
 	}
 
 	func didTouchRetryButton() {
 		self.props = .loading
+		self.interactor?.fetchAllPosts()
 	}
 
 	func didTouchPostInfoView(with id: FeedCollectionViewCell.Props.ID) {
@@ -46,23 +51,16 @@ extension FeedListPresenter: IFeedListViewOutput {
 	}
 
 	func didPrefetchItems(at indexPaths: [IndexPath]) {
-		let itemsToPrefetchImages = indexPaths.map { self.items[$0.item] }
-		for item in itemsToPrefetchImages where item.image == nil {
-			self.interactor?.fetchImage(forPostId: item.id) { _ in }
-		}
+
 	}
 
 	func didRegisterCell(at indexPath: IndexPath) {
-		let item = self.items[indexPath.item]
-		guard item.image == nil else { return }
-		self.interactor?.fetchImage(forPostId: item.id) { [weak self, item] image in
-			guard let image = image else { return }
-			self?.updateImage(forPostId: item.id, image: image)
-		}
+
 	}
 
-	func post(for id: FeedCollectionViewCell.Props.ID) -> FeedCollectionViewCell.Props? {
-		self.items.first(where: { $0.id == id })
+	func post(for indexPath: IndexPath) -> FeedCollectionViewCell.Props? {
+		guard let post = self.interactor?.fetchPost(at: indexPath) else { return nil }
+		return cellPropsFactory.make(from: post)
 	}
 }
 
@@ -77,13 +75,21 @@ private extension FeedListPresenter {
 	}
 
 	func updateItem(forId id: String, update: @escaping (inout FeedCollectionViewCell.Props) -> Void) {
-		DispatchQueue.main.async {
-			guard let index = self.items.firstIndex(where: { $0.id == id }) else { return }
 
-			var item = self.items.remove(at: index)
-			update(&item)
-			self.items.insert(item, at: index)
-			self.props = .update([item.id])
+	}
+}
+
+// MARK: - Convert snapshot
+private extension FeedListPresenter {
+	func convertSnapshotToFeedSnapshot(_ snapshot: NSDiffableDataSourceSnapshot<String, Post.ID>) -> FeedDiffableSnapshot {
+		var convertedSnapshot = FeedDiffableSnapshot()
+
+		convertedSnapshot.appendSections([.main])
+		for section in snapshot.sectionIdentifiers {
+			let items: [FeedCollectionViewCell.Props.ID] = snapshot.itemIdentifiers(inSection: section).compactMap { $0 }
+			convertedSnapshot.appendItems(items, toSection: .main)
 		}
+
+		return convertedSnapshot
 	}
 }

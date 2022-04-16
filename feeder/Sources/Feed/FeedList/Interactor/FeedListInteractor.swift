@@ -2,30 +2,31 @@ import Foundation
 import UIKit
 
 final class FeedListInteractor {
+	// MARK: - Private
 	private let repository: IPostsRepository
 	private let imageLoader: IImageLoader
 
+	// MARK: - Public
+	var didChangeContentWithSnapshot: ((NSDiffableDataSourceSnapshot<String, Post.ID>) -> Void)?
+
+	// MARK: - 
 	init(repository: IPostsRepository, imageLoader: IImageLoader) {
 		self.repository = repository
 		self.imageLoader = imageLoader
+
+		self.repository.didChangeContentWithSnapshot = { snapshot in
+			self.didChangeContentWithSnapshot?(snapshot)
+		}
 	}
 }
 
 // MARK: - IFeedListInteractor
 extension FeedListInteractor: IFeedListInteractor {
-	func fetchPosts(_ completion: @escaping ([Post]) -> Void) {
-		self.repository.fetchAll { posts in
-			completion(posts)
-		}
+	func fetchPost(at indexPath: IndexPath) -> Post? {
+		self.repository.fetchPost(at: indexPath)
 	}
 
-	func fetchImage(forPostId postId: String, completion: @escaping (UIImage?) -> Void) {
-		self.repository.fetchPost(postId: postId) { [weak self] post in
-			guard let imageURL = post?.imageURL else {
-				completion(nil)
-				return
-			}
-			self?.imageLoader.getImage(forURL: imageURL, completion: completion)
-		}
+	func fetchAllPosts() {
+		self.repository.fetchAllPosts()
 	}
 }

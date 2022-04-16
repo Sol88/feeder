@@ -1,18 +1,17 @@
 import UIKit
 import SnapKit
 
+typealias FeedCellRegistration = UICollectionView.CellRegistration<FeedCollectionViewCell, FeedCollectionViewCell.Props.ID>
+typealias FeedDiffableDataSource = UICollectionViewDiffableDataSource<FeedSection, FeedCollectionViewCell.Props.ID>
+typealias FeedDiffableSnapshot = NSDiffableDataSourceSnapshot<FeedSection, FeedCollectionViewCell.Props.ID>
+
+enum FeedSection {
+	case main
+}
+
 final class FeedListViewController: UIViewController {
-	typealias FeedDiffableSnapshot = NSDiffableDataSourceSnapshot<Section, FeedCollectionViewCell.Props.ID>
-	typealias FeedCellRegistration = UICollectionView.CellRegistration<FeedCollectionViewCell, FeedCollectionViewCell.Props.ID>
-	typealias FeedDiffableDataSource = UICollectionViewDiffableDataSource<Section, FeedCollectionViewCell.Props.ID>
-
-	enum Section {
-		case main
-	}
-
-	enum Props: Equatable {
-		case data([FeedCollectionViewCell.Props.ID])
-		case update([FeedCollectionViewCell.Props.ID])
+	enum Props {
+		case snapshot(FeedDiffableSnapshot)
 		case error(String)
 		case loading
 	}
@@ -73,14 +72,12 @@ final class FeedListViewController: UIViewController {
 extension FeedListViewController: IFeedListViewIntput {
 	func propsChanged(_ props: Props) {
 		switch props {
-			case .data(let items):
-				self.handleAddDataState(with: items)
-			case .update(let items):
-				self.handleUpdateDataState(with: items)
 			case .error(let errorText):
 				self.handleErrorState(with: errorText)
 			case .loading:
 				self.handleLoadingState()
+			case .snapshot(let snapshot):
+				self.handleSnapshotState(with: snapshot)
 		}
 		self.view.setNeedsLayout()
 	}
@@ -134,7 +131,7 @@ private extension FeedListViewController {
 
 // MARK: - Handle states
 private extension FeedListViewController {
-	func handleAddDataState(with feeds: [FeedCollectionViewCell.Props.ID]) {
+	func handleSnapshotState(with snapshot: FeedDiffableSnapshot) {
 		self.setupCollectionViewIfNeeded()
 
 		self.activityIndicator.stopAnimating()
@@ -142,18 +139,7 @@ private extension FeedListViewController {
 		self.errorLabel.isHidden = true
 
 		self.collectionView.isHidden = false
-
-		var snapshot = FeedDiffableSnapshot()
-		snapshot.appendSections([.main])
-		snapshot.appendItems(feeds, toSection: .main)
-		self.dataSource?.apply(snapshot, animatingDifferences: true)
-	}
-
-	func handleUpdateDataState(with feeds: [FeedCollectionViewCell.Props.ID]) {
-		guard var snapshot = self.dataSource?.snapshot() else { return }
-
-		snapshot.reconfigureItems(feeds)
-		self.dataSource?.apply(snapshot, animatingDifferences: false)
+		self.dataSource?.apply(snapshot, animatingDifferences: true, completion: nil)
 	}
 
 	func handleErrorState(with errorText: String) {
@@ -189,7 +175,7 @@ private extension FeedListViewController {
 	func configureDataSource() {
 		let cellRegistration = FeedCellRegistration { [weak output] cell, index, itemIdentifier in
 			output?.didRegisterCell(at: index)
-			cell.props = output?.post(for: itemIdentifier)
+			cell.props = output?.post(for: index)
 			cell.infoViewDidTouched = { [weak output] id in
 				output?.didTouchPostInfoView(with: id)
 			}

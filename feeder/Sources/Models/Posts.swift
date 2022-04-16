@@ -1,11 +1,12 @@
 import Foundation
 
-enum PostSource {
+enum PostSource: Hashable {
 	case lenta
 }
 
-struct Post {
-	let id: String
+struct Post: Identifiable, Hashable {
+	typealias ID = String
+	let id: ID
 	let imageURL: URL?
 	let title: String
 	let content: URL
