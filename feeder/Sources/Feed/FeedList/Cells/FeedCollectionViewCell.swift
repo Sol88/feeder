@@ -61,6 +61,7 @@ final class FeedCollectionViewCell: UICollectionViewCell {
 		self.contentView.addSubview(self.infoView)
 		self.contentView.addSubview(self.infoView) { make in
 			make.leading.bottom.trailing.equalToSuperview()
+			make.top.greaterThanOrEqualTo(0)
 		}
 	}
 

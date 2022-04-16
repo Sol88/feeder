@@ -45,7 +45,7 @@ final class FeedInfoView: UIView {
 	private lazy var summaryLabel: UILabel = {
 		let label = UILabel()
 
-		label.numberOfLines = 3
+		label.numberOfLines = 0
 		label.textColor = .systemGray
 		label.font = .preferredFont(forTextStyle: .subheadline)
 
@@ -88,6 +88,7 @@ final class FeedInfoView: UIView {
 			make.leading.top.trailing.equalToSuperview().inset(8)
 		}
 
+		self.summaryLabel.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
 		self.addSubview(self.summaryLabel) { make in
 			make.leading.trailing.equalTo(self.titleLabel)
 			self.summaryLabelTopConstraint = make.top.equalTo(self.titleLabel.snp.bottom).offset(8).constraint
