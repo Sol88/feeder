@@ -16,13 +16,13 @@ final class FeedCollectionViewCellPropsFactory {
 	func make(from post: Post) -> FeedCollectionViewCell.Props {
 		FeedCollectionViewCell.Props(
 			id: post.id,
-			image: nil,
 			title: post.title,
 			content: post.content,
 			summary: post.summary,
 			date: self.dateFormatter.string(from: post.date),
 			source: self.sourceFormatter.string(from: post.source),
-			isRead: post.isRead
+			isRead: post.isRead,
+			image: nil
 		)
 	}
 }

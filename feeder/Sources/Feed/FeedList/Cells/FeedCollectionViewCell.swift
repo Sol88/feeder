@@ -3,13 +3,13 @@ import UIKit
 final class FeedCollectionViewCell: UICollectionViewCell {
 	struct Props: Identifiable, Hashable {
 		let id: String
-		var image: UIImage?
 		let title: String
 		let content: URL
 		let summary: String?
 		let date: String
 		let source: String
 		let isRead: Bool
+		var image: UIImage?
 		var shouldShowSummary: Bool = false
 	}
 

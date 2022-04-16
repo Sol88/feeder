@@ -52,7 +52,14 @@ extension PostXMLParser: XMLParserDelegate {
 		guard elementName == "item" else { return }
 		
 		self.posts.append(
-			XMLPost(id: self.id, title: self.title, link: self.link, pubDate: self.pubDate, description: self.summary, imageURL: self.imageURL)
+			XMLPost(
+				id: self.id.trimmingCharacters(in: .whitespacesAndNewlines),
+				title: self.title.trimmingCharacters(in: .whitespacesAndNewlines),
+				link: self.link.trimmingCharacters(in: .whitespacesAndNewlines),
+				pubDate: self.pubDate.trimmingCharacters(in: .whitespacesAndNewlines),
+				description: self.summary.trimmingCharacters(in: .whitespacesAndNewlines),
+				imageURL: self.imageURL?.trimmingCharacters(in: .whitespacesAndNewlines)
+			)
 		)
 	}
 

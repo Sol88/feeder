@@ -12,6 +12,7 @@ final class FeedListPresenter {
 			}
 		}
 	}
+	private var summaryOpenedPosts: Set<FeedCollectionViewCell.Props.ID> = Set()
 	private let cellPropsFactory: FeedCollectionViewCellPropsFactory
 
 	// MARK: - Public
@@ -45,8 +46,15 @@ extension FeedListPresenter: IFeedListViewOutput {
 	}
 
 	func didTouchPostInfoView(with id: FeedCollectionViewCell.Props.ID) {
-		self.updateItem(forId: id) { item in
-			item.shouldShowSummary.toggle()
+		if summaryOpenedPosts.contains(id) {
+			summaryOpenedPosts.remove(id)
+		} else {
+			summaryOpenedPosts.insert(id)
+		}
+
+		if case .snapshot(var currentSnapshot) = self.props {
+			currentSnapshot.reconfigureItems([id])
+			self.props = .snapshot(currentSnapshot)
 		}
 	}
 
@@ -60,22 +68,9 @@ extension FeedListPresenter: IFeedListViewOutput {
 
 	func post(for indexPath: IndexPath) -> FeedCollectionViewCell.Props? {
 		guard let post = self.interactor?.fetchPost(at: indexPath) else { return nil }
-		return cellPropsFactory.make(from: post)
-	}
-}
-
-// MARK: - Update image
-private extension FeedListPresenter {
-	func updateImage(forPostId postId: String, image: UIImage) {
-		image.prepareForDisplay { [weak self] image in
-			self?.updateItem(forId: postId) { item in
-				item.image = image
-			}
-		}
-	}
-
-	func updateItem(forId id: String, update: @escaping (inout FeedCollectionViewCell.Props) -> Void) {
-
+		var props = self.cellPropsFactory.make(from: post)
+		props.shouldShowSummary = self.summaryOpenedPosts.contains(props.id)
+		return props
 	}
 }
 
