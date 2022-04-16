@@ -48,6 +48,7 @@ final class FeedListViewController: UIViewController {
 
 		collectionView.backgroundColor = .secondarySystemBackground
 		collectionView.prefetchDataSource = self
+		collectionView.delegate = self
 
 		return collectionView
 	}()
@@ -86,6 +87,13 @@ extension FeedListViewController: IFeedListViewIntput {
 				self.handleSnapshotState(with: snapshot)
 		}
 		self.view.setNeedsLayout()
+	}
+}
+
+// MARK: - UICollectionViewDelegate
+extension FeedListViewController: UICollectionViewDelegate {
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		self.output?.didSelectItem(at: indexPath)
 	}
 }
 

@@ -82,6 +82,10 @@ extension FeedListPresenter: IFeedListViewOutput {
 		}
 	}
 
+	func didSelectItem(at indexPath: IndexPath) {
+		print(indexPath)
+	}
+
 	func post(for indexPath: IndexPath) -> FeedCollectionViewCell.Props? {
 		guard let post = self.interactor?.fetchPost(at: indexPath) else { return nil }
 		var props = self.cellPropsFactory.make(from: post)

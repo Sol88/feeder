@@ -114,6 +114,15 @@
 			path = ImageLoader;
 			sourceTree = "<group>";
 		};
+		DE2E4F0A280B4B5400EA0F11 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				DE79073428019C9B003296B8 /* Feed */,
+				DE7907352801C642003296B8 /* Settings */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
 		DE79070828015727003296B8 = {
 			isa = PBXGroup;
 			children = (
@@ -142,6 +151,7 @@
 		DE7907282801580B003296B8 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				DE2E4F0A280B4B5400EA0F11 /* Modules */,
 				DEE0CA01280889C700750A6F /* CoreData */,
 				DEF11839280722DE005AA8D1 /* Updater */,
 				DEF1183428071F44005AA8D1 /* Loaders */,
@@ -151,8 +161,6 @@
 				DED586EA280493A300F037D5 /* Models */,
 				DED586E92804937A00F037D5 /* PostsRepository */,
 				DE7907532802CFE2003296B8 /* Extensions */,
-				DE7907352801C642003296B8 /* Settings */,
-				DE79073428019C9B003296B8 /* Feed */,
 				DE79072B28019299003296B8 /* Coordinators */,
 				DE79071428015727003296B8 /* AppDelegate.swift */,
 				DE79071628015727003296B8 /* SceneDelegate.swift */,
