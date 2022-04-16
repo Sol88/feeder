@@ -29,6 +29,16 @@ extension PostXMLParser: XMLParserDelegate {
 	}
 
 	func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
+
+		if elementName == "item" {
+			self.id = ""
+			self.title = ""
+			self.link = ""
+			self.summary = ""
+			self.pubDate = ""
+			self.imageURL = nil
+		}
+
 		self.currentElement = elementName
 
 		if elementName == "enclosure" && attributeDict["type"] == "image/jpeg" {
@@ -44,13 +54,6 @@ extension PostXMLParser: XMLParserDelegate {
 		self.posts.append(
 			XMLPost(id: self.id, title: self.title, link: self.link, pubDate: self.pubDate, description: self.summary, imageURL: self.imageURL)
 		)
-
-		self.id = ""
-		self.title = ""
-		self.link = ""
-		self.summary = ""
-		self.pubDate = ""
-		self.imageURL = nil
 	}
 
 	func parser(_ parser: XMLParser, foundCDATA CDATABlock: Data) {
@@ -61,19 +64,18 @@ extension PostXMLParser: XMLParserDelegate {
 
 	func parser(_ parser: XMLParser, foundCharacters string: String) {
 		guard let element = self.currentElement else { return }
-		let value = string.trimmingCharacters(in: .whitespacesAndNewlines)
 
 		switch element {
 			case "guid":
-				self.id += value
+				self.id += string
 			case "title":
-				self.title += value
+				self.title += string
 			case "description":
-				self.summary += value
+				self.summary += string
 			case "link":
-				self.link += value
+				self.link += string
 			case "pubDate":
-				self.pubDate += value
+				self.pubDate += string
 			default: break
 		}
 	}
