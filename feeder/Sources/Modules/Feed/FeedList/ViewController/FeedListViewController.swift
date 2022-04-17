@@ -66,6 +66,7 @@ final class FeedListViewController: UIViewController {
 		output?.didLoad()
 
 		view.backgroundColor = .secondarySystemBackground
+		title = "Feed"
 	}
 
 	override func didReceiveMemoryWarning() {

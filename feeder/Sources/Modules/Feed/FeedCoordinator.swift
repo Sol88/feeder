@@ -25,14 +25,20 @@ final class FeedCoordinator: Coordinator {
 			sourceFormatter: sourceFormatter,
 			imageLoader: imageLoader
 		)
-		feedViewController.tabBarItem = UITabBarItem(
+		let navigationController = UINavigationController(rootViewController: feedViewController)
+		navigationController.hidesBarsWhenVerticallyCompact = true
+		navigationController.view.backgroundColor = .tertiarySystemBackground
+		navigationController.tabBarItem = UITabBarItem(
 			title: "Feed",
 			image: UIImage(systemName: "list.bullet"),
 			selectedImage: UIImage(systemName: "list.bullet")
 		)
 
-		rootViewController = feedViewController
+		UINavigationBar.appearance().isTranslucent = false
+		UINavigationBar.appearance().backgroundColor = .tertiarySystemBackground
 
-		return feedViewController
+		rootViewController = navigationController
+
+		return navigationController
 	}
 }
