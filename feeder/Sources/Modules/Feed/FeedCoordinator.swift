@@ -9,6 +9,8 @@ final class FeedCoordinator: Coordinator {
 	private let imageLoader: IImageLoader
 	private let sourceFormatter: ISourceFormatter = SourceFormatter()
 
+	private let feedListFactory: IFeedListFactory
+
 	init(parentCoordinator: Coordinator?, postsRepository: IPostsRepository, imageLoader: IImageLoader) {
 		self.parentCoordinator = parentCoordinator
 		let formatter = RelativeDateTimeFormatter()
@@ -16,10 +18,11 @@ final class FeedCoordinator: Coordinator {
 		self.dateFormatter = formatter
 		self.postsRepository = postsRepository
 		self.imageLoader = imageLoader
+		self.feedListFactory = FeedListFactory()
 	}
 
 	func start() -> UIViewController {
-		let feedViewController = FeedListFactory().make(
+		let feedViewController = feedListFactory.make(
 			postsRepository: postsRepository,
 			dateFormatter: dateFormatter,
 			sourceFormatter: sourceFormatter,
