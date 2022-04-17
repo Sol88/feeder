@@ -33,9 +33,11 @@ final class FeedCoordinator: Coordinator {
 		)
 		let navigationController = UINavigationController(rootViewController: feedViewController)
 		navigationController.hidesBarsWhenVerticallyCompact = true
-		navigationController.navigationBar.isTranslucent = false
-		navigationController.navigationBar.backgroundColor = .tertiarySystemBackground
-		navigationController.view.backgroundColor = .tertiarySystemBackground
+
+		let barAppearance = UINavigationBarAppearance()
+		barAppearance.backgroundColor = .tertiarySystemBackground
+		navigationController.navigationBar.scrollEdgeAppearance = barAppearance
+
 		navigationController.tabBarItem = UITabBarItem(
 			title: "Feed",
 			image: UIImage(systemName: "list.bullet"),
