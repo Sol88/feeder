@@ -7,6 +7,9 @@ final class SourceFormatter: ISourceFormatter {
 		switch source {
 			case .lenta:
 				return "Lenta.ru"
+
+			case .nyt:
+				return "NYT"
 		}
 	}
 }

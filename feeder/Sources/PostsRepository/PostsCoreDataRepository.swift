@@ -46,11 +46,11 @@ final class PostsCoreDataRepository: NSObject {
 
 // MARK: - IPostsRepository
 extension PostsCoreDataRepository: IPostsRepository {
-	func add(_ elements: [XMLPost]) {
+	func add(_ elements: [XMLPost], forSource source: PostSource) {
 		let idSet = savedPostIds()
 		let backgroundContext = coreDataContainer.persistentContainer.newBackgroundContext()
 		for element in elements where !idSet.contains(element.id) {
-			insert(xmlPost: element, context: backgroundContext)
+			insert(xmlPost: element, source: source, context: backgroundContext)
 		}
 
 		do {
@@ -123,6 +123,7 @@ private extension PostsCoreDataRepository {
 
 	func insert(
 		xmlPost: XMLPost,
+		source: PostSource,
 		context: NSManagedObjectContext
 	) {
 		guard let date = dateFormatter.date(from: xmlPost.pubDate) else { return }
@@ -136,7 +137,7 @@ private extension PostsCoreDataRepository {
 		post.pubDate = date
 		post.link = xmlPost.link
 		post.title = xmlPost.title
-		post.source = "Lenta.ru"
+		post.source = source.rawValue
 		post.imageURL = xmlPost.imageURL
 		post.isRead = false
 	}

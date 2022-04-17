@@ -19,13 +19,7 @@ final class MainCoordinator: Coordinator {
 	init(parentCoordinator: Coordinator?) {
 		self.parentCoordinator = parentCoordinator
 		postsRepository = PostsCoreDataRepository(coreDataContainer: coreDataContainer)
-		updater = PostsUpdater(
-			feedURLs: [
-				(URL(string: "http://lenta.ru/rss")!, PostXMLParser()),
-				(URL(string: "https://www.nytimes.com/svc/collections/v1/publish/https://www.nytimes.com/section/world/rss.xml")!, PostXMLParser())
-			],
-			repository: postsRepository
-		)
+		updater = PostsUpdater(feedSources: PostSource.allCases, repository: postsRepository)
 	}
 
 	func start() -> UIViewController {

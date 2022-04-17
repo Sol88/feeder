@@ -1,9 +1,5 @@
 import Foundation
 
-enum PostSource: Hashable {
-	case lenta
-}
-
 struct Post: Identifiable, Hashable {
 	typealias ID = String
 	let id: ID
@@ -25,7 +21,9 @@ extension Post {
 			let link = post.link,
 			let content = URL(string: link),
 			let summary = post.summary,
-			let date = post.pubDate
+			let date = post.pubDate,
+			let sourceRaw = post.source,
+			let source = PostSource(rawValue: sourceRaw)
 		else { return nil }
 
 		var imageURL: URL?
@@ -40,7 +38,7 @@ extension Post {
 			content: content,
 			summary: summary,
 			date: date,
-			source: .lenta,
+			source: source,
 			isRead: post.isRead
 		)
 	}

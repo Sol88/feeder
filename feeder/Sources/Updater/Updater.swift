@@ -4,9 +4,9 @@ final class PostsUpdater {
 	private let postsLoaders: [IPostsLoader]
 	private let repository: IPostsRepository
 
-	init(feedURLs: [(url: URL, parser: IPostXMLParser)], repository: IPostsRepository) {
+	init(feedSources: [PostSource], repository: IPostsRepository) {
 		let urlSession: URLSession = .shared
-		self.postsLoaders = feedURLs.map { PostsLoader(session: urlSession, xmlParser: $0.parser, url: $0.url) }
+		self.postsLoaders = feedSources.map { PostsLoader(session: urlSession, source: $0) }
 		self.repository = repository
 	}
 
@@ -14,7 +14,7 @@ final class PostsUpdater {
 		for loader in postsLoaders {
 			Task {
 				guard let posts = try? await loader.fetchPosts() else { return }
-				repository.add(posts)
+				repository.add(posts, forSource: loader.source)
 			}
 		}
 	}
