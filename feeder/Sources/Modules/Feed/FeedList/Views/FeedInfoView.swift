@@ -76,33 +76,33 @@ final class FeedInfoView: UIView {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 
-		self.backgroundColor = .clear
+		backgroundColor = .clear
 
 		let blurEffect = UIBlurEffect(style: .systemMaterial)
 		let visualEffectView = UIVisualEffectView(effect: blurEffect)
-		self.addSubview(visualEffectView) { make in
+		addSubview(visualEffectView) { make in
 			make.edges.equalToSuperview()
 		}
 
-		self.addSubview(self.titleLabel) { make in
+		addSubview(titleLabel) { make in
 			make.leading.top.trailing.equalToSuperview().inset(8)
 		}
 
-		self.summaryLabel.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
-		self.addSubview(self.summaryLabel) { make in
-			make.leading.trailing.equalTo(self.titleLabel)
-			self.summaryLabelTopConstraint = make.top.equalTo(self.titleLabel.snp.bottom).offset(8).constraint
+		summaryLabel.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
+		addSubview(summaryLabel) { make in
+			make.leading.trailing.equalTo(titleLabel)
+			summaryLabelTopConstraint = make.top.equalTo(titleLabel.snp.bottom).offset(8).constraint
 		}
 
-		self.addSubview(self.dateLabel) { make in
-			make.leading.equalTo(self.titleLabel)
-			make.top.equalTo(self.summaryLabel.snp.bottom).offset(8)
+		addSubview(dateLabel) { make in
+			make.leading.equalTo(titleLabel)
+			make.top.equalTo(summaryLabel.snp.bottom).offset(8)
 			make.bottom.equalToSuperview().inset(8)
 		}
 
-		self.addSubview(self.sourceLabel) { make in
-			make.trailing.equalTo(self.titleLabel)
-			make.bottom.equalTo(self.dateLabel)
+		addSubview(sourceLabel) { make in
+			make.trailing.equalTo(titleLabel)
+			make.bottom.equalTo(dateLabel)
 		}
 	}
 

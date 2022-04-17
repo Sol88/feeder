@@ -15,7 +15,7 @@ final class PostsLoader {
 // MARK: - PostsLoader
 extension PostsLoader: IPostsLoader {
 	func fetchPosts() async throws -> [XMLPost] {
-		let (data, _) = try await self.session.data(from: url)
-		return self.xmlParser.parse(data: data)
+		let (data, _) = try await session.data(from: url)
+		return xmlParser.parse(data: data)
 	}
 }

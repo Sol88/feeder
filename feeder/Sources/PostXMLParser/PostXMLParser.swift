@@ -25,64 +25,64 @@ extension PostXMLParser: IPostXMLParser {
 // MARK: - XMLParserDelegate
 extension PostXMLParser: XMLParserDelegate {
 	func parserDidStartDocument(_ parser: XMLParser) {
-		self.posts = []
+		posts = []
 	}
 
 	func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
 
 		if elementName == "item" {
-			self.id = ""
-			self.title = ""
-			self.link = ""
-			self.summary = ""
-			self.pubDate = ""
-			self.imageURL = nil
+			id = ""
+			title = ""
+			link = ""
+			summary = ""
+			pubDate = ""
+			imageURL = nil
 		}
 
-		self.currentElement = elementName
+		currentElement = elementName
 
 		if elementName == "enclosure" && attributeDict["type"]?.contains("image") ?? false {
-			self.imageURL = attributeDict["url"]
+			imageURL = attributeDict["url"]
 		}
 	}
 
 	func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-		self.currentElement = nil
+		currentElement = nil
 
 		guard elementName == "item" else { return }
 		
-		self.posts.append(
+		posts.append(
 			XMLPost(
-				id: self.id.trimmingCharacters(in: .whitespacesAndNewlines),
-				title: self.title.trimmingCharacters(in: .whitespacesAndNewlines),
-				link: self.link.trimmingCharacters(in: .whitespacesAndNewlines),
-				pubDate: self.pubDate.trimmingCharacters(in: .whitespacesAndNewlines),
-				description: self.summary.trimmingCharacters(in: .whitespacesAndNewlines),
-				imageURL: self.imageURL?.trimmingCharacters(in: .whitespacesAndNewlines)
+				id: id.trimmingCharacters(in: .whitespacesAndNewlines),
+				title: title.trimmingCharacters(in: .whitespacesAndNewlines),
+				link: link.trimmingCharacters(in: .whitespacesAndNewlines),
+				pubDate: pubDate.trimmingCharacters(in: .whitespacesAndNewlines),
+				description: summary.trimmingCharacters(in: .whitespacesAndNewlines),
+				imageURL: imageURL?.trimmingCharacters(in: .whitespacesAndNewlines)
 			)
 		)
 	}
 
 	func parser(_ parser: XMLParser, foundCDATA CDATABlock: Data) {
-		guard let element = self.currentElement, element == "description" else { return }
+		guard let element = currentElement, element == "description" else { return }
 		guard let string = String(data: CDATABlock, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines) else { return }
-		self.summary += string
+		summary += string
 	}
 
 	func parser(_ parser: XMLParser, foundCharacters string: String) {
-		guard let element = self.currentElement else { return }
+		guard let element = currentElement else { return }
 
 		switch element {
 			case "guid":
-				self.id += string
+				id += string
 			case "title":
-				self.title += string
+				title += string
 			case "description":
-				self.summary += string
+				summary += string
 			case "link":
-				self.link += string
+				link += string
 			case "pubDate":
-				self.pubDate += string
+				pubDate += string
 			default: break
 		}
 	}

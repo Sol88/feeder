@@ -20,10 +20,10 @@ final class FeedCoordinator: Coordinator {
 
 	func start() -> UIViewController {
 		let feedViewController = FeedListFactory().make(
-			postsRepository: self.postsRepository,
-			dateFormatter: self.dateFormatter,
-			sourceFormatter: self.sourceFormatter,
-			imageLoader: self.imageLoader
+			postsRepository: postsRepository,
+			dateFormatter: dateFormatter,
+			sourceFormatter: sourceFormatter,
+			imageLoader: imageLoader
 		)
 		feedViewController.tabBarItem = UITabBarItem(
 			title: "Feed",
@@ -31,7 +31,7 @@ final class FeedCoordinator: Coordinator {
 			selectedImage: UIImage(systemName: "list.bullet")
 		)
 
-		self.rootViewController = feedViewController
+		rootViewController = feedViewController
 
 		return feedViewController
 	}

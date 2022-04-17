@@ -38,7 +38,7 @@ final class FeedListViewController: UIViewController {
 
 		button.setTitle("Retry", for: .normal)
 		button.setTitleColor(.systemBlue, for: .normal)
-		button.addTarget(self, action: #selector(self.retryButtonDidTouchUpInside), for: .touchUpInside)
+		button.addTarget(self, action: #selector(retryButtonDidTouchUpInside), for: .touchUpInside)
 
 		return button
 	}()
@@ -63,15 +63,15 @@ final class FeedListViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		self.output?.didLoad()
+		output?.didLoad()
 
-		self.view.backgroundColor = .secondarySystemBackground
+		view.backgroundColor = .secondarySystemBackground
 	}
 
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 
-		self.output?.didReceiveMemoryWarning()
+		output?.didReceiveMemoryWarning()
 	}
 }
 
@@ -80,20 +80,20 @@ extension FeedListViewController: IFeedListViewIntput {
 	func propsChanged(_ props: Props) {
 		switch props {
 			case .error(let errorText):
-				self.handleErrorState(with: errorText)
+				handleErrorState(with: errorText)
 			case .loading:
-				self.handleLoadingState()
+				handleLoadingState()
 			case .snapshot(let snapshot):
-				self.handleSnapshotState(with: snapshot)
+				handleSnapshotState(with: snapshot)
 		}
-		self.view.setNeedsLayout()
+		view.setNeedsLayout()
 	}
 }
 
 // MARK: - UICollectionViewDelegate
 extension FeedListViewController: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		self.output?.didSelectItem(at: indexPath)
+		output?.didSelectItem(at: indexPath)
 	}
 
 	func collectionView(
@@ -116,87 +116,87 @@ extension FeedListViewController: UICollectionViewDelegate {
 // MAKR: - UICollectionViewDataSourcePrefetching
 extension FeedListViewController: UICollectionViewDataSourcePrefetching {
 	func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-		self.output?.didPrefetchItems(at: indexPaths)
+		output?.didPrefetchItems(at: indexPaths)
 	}
 }
 
 // MARK: - Setup views
 private extension FeedListViewController {
 	func setupActivityIndicatorIfNeeded() {
-		guard self.activityIndicator.superview == nil else { return }
+		guard activityIndicator.superview == nil else { return }
 
-		self.view.addSubview(self.activityIndicator) { make in
+		view.addSubview(activityIndicator) { make in
 			make.center.equalToSuperview()
 		}
 	}
 
 	func setupErrorLabelIfNeeded() {
-		guard self.errorLabel.superview == nil else { return }
+		guard errorLabel.superview == nil else { return }
 
-		self.view.addSubview(self.errorLabel) { make in
+		view.addSubview(errorLabel) { make in
 			make.center.equalToSuperview()
 			make.leading.greaterThanOrEqualToSuperview().inset(24)
 		}
 	}
 
 	func setupRetryButtonIfNeeded() {
-		guard self.retryButton.superview == nil else { return }
+		guard retryButton.superview == nil else { return }
 
-		self.view.addSubview(self.retryButton) { make in
-			make.top.equalTo(self.errorLabel.snp.bottom).inset(8)
-			make.centerX.equalTo(self.errorLabel.snp.centerX)
+		view.addSubview(retryButton) { make in
+			make.top.equalTo(errorLabel.snp.bottom).inset(8)
+			make.centerX.equalTo(errorLabel.snp.centerX)
 		}
 	}
 
 	func setupCollectionViewIfNeeded() {
-		guard self.collectionView.superview == nil else { return }
+		guard collectionView.superview == nil else { return }
 
-		self.view.addSubview(self.collectionView) { make in
+		view.addSubview(collectionView) { make in
 			make.edges.equalToSuperview()
 		}
 
-		self.configureDataSource()
+		configureDataSource()
 	}
 }
 
 // MARK: - Handle states
 private extension FeedListViewController {
 	func handleSnapshotState(with snapshot: FeedDiffableSnapshot) {
-		self.setupCollectionViewIfNeeded()
+		setupCollectionViewIfNeeded()
 
-		self.activityIndicator.stopAnimating()
-		self.retryButton.isHidden = true
-		self.errorLabel.isHidden = true
+		activityIndicator.stopAnimating()
+		retryButton.isHidden = true
+		errorLabel.isHidden = true
 
-		self.collectionView.isHidden = false
-		self.dataSource?.apply(snapshot, animatingDifferences: true, completion: nil)
+		collectionView.isHidden = false
+		dataSource?.apply(snapshot, animatingDifferences: true, completion: nil)
 	}
 
 	func handleErrorState(with errorText: String) {
-		self.setupErrorLabelIfNeeded()
-		self.setupRetryButtonIfNeeded()
+		setupErrorLabelIfNeeded()
+		setupRetryButtonIfNeeded()
 
-		self.activityIndicator.stopAnimating()
-		self.collectionView.isHidden = true
+		activityIndicator.stopAnimating()
+		collectionView.isHidden = true
 
-		self.errorLabel.text = errorText
-		self.errorLabel.isHidden = false
-		self.retryButton.isHidden = false
+		errorLabel.text = errorText
+		errorLabel.isHidden = false
+		retryButton.isHidden = false
 	}
 
 	func handleLoadingState() {
-		self.setupActivityIndicatorIfNeeded()
-		self.errorLabel.isHidden = true
-		self.retryButton.isHidden = true
-		self.collectionView.isHidden = true
-		self.activityIndicator.startAnimating()
+		setupActivityIndicatorIfNeeded()
+		errorLabel.isHidden = true
+		retryButton.isHidden = true
+		collectionView.isHidden = true
+		activityIndicator.startAnimating()
 	}
 }
 
 // MARK: - Actions
 private extension FeedListViewController {
 	@objc func retryButtonDidTouchUpInside() {
-		self.output?.didTouchRetryButton()
+		output?.didTouchRetryButton()
 	}
 }
 
@@ -209,8 +209,8 @@ private extension FeedListViewController {
 				output?.didTouchPostInfoView(with: id)
 			}
 		}
-		self.dataSource = FeedDiffableDataSource(
-			collectionView: self.collectionView,
+		dataSource = FeedDiffableDataSource(
+			collectionView: collectionView,
 			cellProvider: { collectionView, indexPath, itemIdentifier in
 				collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
 			}

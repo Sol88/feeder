@@ -43,23 +43,23 @@ final class FeedCollectionViewCell: UICollectionViewCell {
 		view.layer.masksToBounds = true
 		view.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
 
-		view.addGestureRecognizer(self.infoTapGestureRecognizer)
+		view.addGestureRecognizer(infoTapGestureRecognizer)
 
 		return view
 	}()
 
-	private lazy var infoTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.infoTapGestureRecognizerHandler))
+	private lazy var infoTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(infoTapGestureRecognizerHandler))
 
 	// MARK: -
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 
-		self.contentView.addSubview(self.imageView) { make in
+		contentView.addSubview(imageView) { make in
 			make.edges.equalToSuperview()
 		}
 
-		self.contentView.addSubview(self.infoView)
-		self.contentView.addSubview(self.infoView) { make in
+		contentView.addSubview(infoView)
+		contentView.addSubview(infoView) { make in
 			make.leading.bottom.trailing.equalToSuperview()
 			make.top.greaterThanOrEqualTo(0)
 		}
@@ -73,34 +73,34 @@ final class FeedCollectionViewCell: UICollectionViewCell {
 	// MARK: -
 	override func prepareForReuse() {
 		super.prepareForReuse()
-		self.infoView.clear()
-		self.imageView.image = nil
+		infoView.clear()
+		imageView.image = nil
 	}
 }
 
 // MARK: - Populating cell
 private extension FeedCollectionViewCell {
 	func handlePropsUpdate() {
-		guard let props = self.props else { return }
+		guard let props = props else { return }
 
-		self.infoView.props = FeedInfoView.Props(
+		infoView.props = FeedInfoView.Props(
 			title: props.title,
 			summary: props.shouldShowSummary ? props.summary : nil,
 			date: props.date,
 			source: props.source,
 			isRead: props.isRead
 		)
-		self.imageView.image = props.image ?? UIImage(named: "placeholder")
+		imageView.image = props.image ?? UIImage(named: "placeholder")
 
-		self.setNeedsLayout()
+		setNeedsLayout()
 	}
 }
 
 // MARK: - Actions
 private extension FeedCollectionViewCell {
 	@objc func infoTapGestureRecognizerHandler() {
-		guard let id = self.props?.id else { return }
+		guard let id = props?.id else { return }
 
-		self.infoViewDidTouched?(id)
+		infoViewDidTouched?(id)
 	}
 }

@@ -6,8 +6,8 @@ final class MainCoordinator: Coordinator {
 
 	private lazy var feedCoordinator: Coordinator = FeedCoordinator(
 		parentCoordinator: self,
-		postsRepository: self.postsRepository,
-		imageLoader: self.imageLoader
+		postsRepository: postsRepository,
+		imageLoader: imageLoader
 	)
 	private lazy var settingsCoordinator: Coordinator = SettingsCoordinator(parentCoordinator: self)
 
@@ -18,8 +18,8 @@ final class MainCoordinator: Coordinator {
 
 	init(parentCoordinator: Coordinator?) {
 		self.parentCoordinator = parentCoordinator
-		self.postsRepository = PostsCoreDataRepository(coreDataContainer: coreDataContainer)
-		self.updater = PostsUpdater(
+		postsRepository = PostsCoreDataRepository(coreDataContainer: coreDataContainer)
+		updater = PostsUpdater(
 			feedURLs: [
 				(URL(string: "http://lenta.ru/rss")!, PostXMLParser()),
 				(URL(string: "https://www.nytimes.com/svc/collections/v1/publish/https://www.nytimes.com/section/world/rss.xml")!, PostXMLParser())
@@ -31,16 +31,16 @@ final class MainCoordinator: Coordinator {
 	func start() -> UIViewController {
 		let tabBarController = UITabBarController()
 
-		let feedViewController = self.feedCoordinator.start()
-		let settingsViewController = self.settingsCoordinator.start()
+		let feedViewController = feedCoordinator.start()
+		let settingsViewController = settingsCoordinator.start()
 
 		tabBarController.viewControllers = [feedViewController, settingsViewController]
 
 		UITabBar.appearance().backgroundColor = .tertiarySystemBackground
 
-		self.rootViewController = tabBarController
+		rootViewController = tabBarController
 
-		self.updater.update()
+		updater.update()
 
 		return tabBarController
 	}

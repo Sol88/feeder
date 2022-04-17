@@ -12,7 +12,6 @@
 		DE2E4F0D280C12E600EA0F11 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2E4F0C280C12E600EA0F11 /* Cache.swift */; };
 		DE79071528015727003296B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE79071428015727003296B8 /* AppDelegate.swift */; };
 		DE79071728015727003296B8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE79071628015727003296B8 /* SceneDelegate.swift */; };
-		DE79071928015727003296B8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE79071828015727003296B8 /* ViewController.swift */; };
 		DE79071E28015728003296B8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE79071D28015728003296B8 /* Assets.xcassets */; };
 		DE79072128015728003296B8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE79071F28015728003296B8 /* LaunchScreen.storyboard */; };
 		DE79072D280192A8003296B8 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE79072C280192A8003296B8 /* Coordinator.swift */; };
@@ -57,7 +56,6 @@
 		DE79071128015727003296B8 /* feeder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = feeder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE79071428015727003296B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DE79071628015727003296B8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		DE79071828015727003296B8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		DE79071D28015728003296B8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DE79072028015728003296B8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DE79072228015728003296B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = feeder/Resources/Info.plist; sourceTree = SOURCE_ROOT; };
@@ -175,7 +173,6 @@
 				DE79072B28019299003296B8 /* Coordinators */,
 				DE79071428015727003296B8 /* AppDelegate.swift */,
 				DE79071628015727003296B8 /* SceneDelegate.swift */,
-				DE79071828015727003296B8 /* ViewController.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -453,7 +450,6 @@
 				DE79075A2802D5E4003296B8 /* FeedCollectionViewCell.swift in Sources */,
 				DED586EE280493D200F037D5 /* IPostsRepository.swift in Sources */,
 				DED586F72804A0BB00F037D5 /* IDateFormatter.swift in Sources */,
-				DE79071928015727003296B8 /* ViewController.swift in Sources */,
 				DE79071528015727003296B8 /* AppDelegate.swift in Sources */,
 				DE79075D28031D34003296B8 /* FeedInfoView.swift in Sources */,
 				DE7907552802CFF9003296B8 /* UIView+AddSubview.swift in Sources */,

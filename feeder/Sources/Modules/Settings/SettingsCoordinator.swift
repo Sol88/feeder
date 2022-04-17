@@ -16,7 +16,7 @@ final class SettingsCoordinator: Coordinator {
 			selectedImage: UIImage(systemName: "gearshape.fill")
 		)
 
-		self.rootViewController = settingsViewController
+		rootViewController = settingsViewController
 
 		return settingsViewController
 	}

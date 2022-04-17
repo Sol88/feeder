@@ -11,10 +11,10 @@ final class PostsUpdater {
 	}
 
 	func update() {
-		for loader in self.postsLoaders {
+		for loader in postsLoaders {
 			Task {
 				guard let posts = try? await loader.fetchPosts() else { return }
-				self.repository.add(posts)
+				repository.add(posts)
 			}
 		}
 	}

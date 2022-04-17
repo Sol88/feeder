@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  feeder
-//
-//  Created by Виктор Заикин on 09.04.2022.
-//
-
 import UIKit
 
 @main
