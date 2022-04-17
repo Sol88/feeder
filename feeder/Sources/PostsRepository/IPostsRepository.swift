@@ -8,4 +8,5 @@ protocol IPostsRepository: AnyObject {
 	func fetchPost(at indexPath: IndexPath) -> Post?
 	func fetchPost(withPostId postId: Post.ID) -> Post?
 	func fetchAllPosts()
+	func markReadPost(withPostId postId: Post.ID)
 }

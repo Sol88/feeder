@@ -13,4 +13,8 @@ extension FeedDetailsInteractor: IFeedDetailsInteractor {
 	func fetchPost(withPostId postId: Post.ID) -> Post? {
 		postsRepository.fetchPost(withPostId: postId)
 	}
+
+	func markReadPost(withPostId postId: Post.ID) {
+		postsRepository.markReadPost(withPostId: postId)
+	}
 }

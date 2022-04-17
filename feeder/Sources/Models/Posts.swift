@@ -41,7 +41,7 @@ extension Post {
 			summary: summary,
 			date: date,
 			source: .lenta,
-			isRead: false
+			isRead: post.isRead
 		)
 	}
 }

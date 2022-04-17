@@ -31,5 +31,6 @@ extension FeedDetailsPresenter: IFeedDetailsViewOutput {
 		}
 
 		props = .url(post.content)
+		interactor?.markReadPost(withPostId: postId)
 	}
 }

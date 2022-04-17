@@ -3,6 +3,7 @@
     <entity name="PostCoreData" representedClassName="PostCoreData" syncable="YES" codeGenerationType="class">
         <attribute name="id" attributeType="String"/>
         <attribute name="imageURL" optional="YES" attributeType="String"/>
+        <attribute name="isRead" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="link" attributeType="String"/>
         <attribute name="pubDate" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="source" attributeType="String"/>
@@ -16,6 +17,6 @@
         </fetchIndex>
     </entity>
     <elements>
-        <element name="PostCoreData" positionX="-63" positionY="-18" width="128" height="134"/>
+        <element name="PostCoreData" positionX="-63" positionY="-18" width="128" height="149"/>
     </elements>
 </model>

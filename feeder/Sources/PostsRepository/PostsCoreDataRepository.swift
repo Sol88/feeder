@@ -87,6 +87,23 @@ extension PostsCoreDataRepository: IPostsRepository {
 			assertionFailure("Fetching FRC error \(error)")
 		}
 	}
+
+	func markReadPost(withPostId postId: Post.ID) {
+		let backgroundContext = coreDataContainer.persistentContainer.newBackgroundContext()
+
+		let fetchRequest = NSFetchRequest<PostCoreData>(entityName: "PostCoreData")
+		fetchRequest.predicate = NSPredicate(format: "id == %@", postId)
+		fetchRequest.fetchBatchSize = 1
+
+		do {
+			guard let postCoreData = try backgroundContext.fetch(fetchRequest).first else { return }
+			postCoreData.isRead = true
+
+			try backgroundContext.save()
+		} catch {
+			assertionFailure("Fetching post with postId \(postId) failed with error \(error)")
+		}
+	}
 }
 
 // MARK: - Private
@@ -121,6 +138,7 @@ private extension PostsCoreDataRepository {
 		post.title = xmlPost.title
 		post.source = "Lenta.ru"
 		post.imageURL = xmlPost.imageURL
+		post.isRead = false
 	}
 }
 

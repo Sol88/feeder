@@ -69,6 +69,12 @@ final class FeedListViewController: UIViewController {
 		title = "Feed"
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+
+		collectionView.reloadData()
+	}
+
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 
@@ -88,6 +94,7 @@ extension FeedListViewController: IFeedListViewIntput {
 				handleSnapshotState(with: snapshot)
 		}
 		view.setNeedsLayout()
+		view.setNeedsDisplay()
 	}
 }
 
