@@ -1,5 +1,5 @@
 import UIKit
 
 protocol IFeedDetailsFactory: AnyObject {
-	func make() -> UIViewController
+	func make(withPostId postId: Post.ID, postsRepository: IPostsRepository) -> UIViewController
 }

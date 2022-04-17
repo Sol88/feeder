@@ -65,6 +65,21 @@ extension PostsCoreDataRepository: IPostsRepository {
 		return Post.make(fromCoreData: post, dateFormatter: dateFormatter)
 	}
 
+	func fetchPost(withPostId postId: Post.ID) -> Post? {
+		let backgroundContext = coreDataContainer.persistentContainer.newBackgroundContext()
+
+		let fetchRequest = NSFetchRequest<PostCoreData>(entityName: "PostCoreData")
+		fetchRequest.predicate = NSPredicate(format: "id == %@", postId)
+		fetchRequest.fetchBatchSize = 1
+		do {
+			guard let postCoreData = try backgroundContext.fetch(fetchRequest).first else { return nil }
+			return Post.make(fromCoreData: postCoreData, dateFormatter: dateFormatter)
+		} catch {
+			assertionFailure("Fetching post with postId \(postId) failed with error \(error)")
+			return nil
+		}
+	}
+
 	func fetchAllPosts() {
 		do {
 			try fetchedResultsController.performFetch()

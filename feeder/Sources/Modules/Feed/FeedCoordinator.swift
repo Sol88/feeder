@@ -48,7 +48,7 @@ final class FeedCoordinator: Coordinator {
 	}
 
 	private func showDetails(withPostID postId: Post.ID) {
-		let viewController = feedDetailsFactory.make()
+		let viewController = feedDetailsFactory.make(withPostId: postId, postsRepository: postsRepository)
 		(rootViewController as? UINavigationController)?.pushViewController(viewController, animated: true)
 	}
 }

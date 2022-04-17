@@ -6,5 +6,6 @@ protocol IPostsRepository: AnyObject {
 
 	func add(_ elements: [XMLPost])
 	func fetchPost(at indexPath: IndexPath) -> Post?
+	func fetchPost(withPostId postId: Post.ID) -> Post?
 	func fetchAllPosts()
 }
