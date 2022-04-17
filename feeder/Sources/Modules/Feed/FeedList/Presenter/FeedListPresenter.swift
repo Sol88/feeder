@@ -86,7 +86,8 @@ extension FeedListPresenter: IFeedListViewOutput {
 	}
 
 	func didSelectItem(at indexPath: IndexPath) {
-		print(indexPath)
+		guard let post = interactor?.fetchPost(at: indexPath) else { return }
+		router?.didSelectPost(withPostID: post.id)
 	}
 
 	func post(for indexPath: IndexPath) -> FeedCollectionViewCell.Props? {

@@ -10,6 +10,7 @@ final class FeedCoordinator: Coordinator {
 	private let sourceFormatter: ISourceFormatter = SourceFormatter()
 
 	private let feedListFactory: IFeedListFactory
+	private let feedDetailsFactory: IFeedDetailsFactory
 
 	init(parentCoordinator: Coordinator?, postsRepository: IPostsRepository, imageLoader: IImageLoader) {
 		self.parentCoordinator = parentCoordinator
@@ -19,6 +20,7 @@ final class FeedCoordinator: Coordinator {
 		self.postsRepository = postsRepository
 		self.imageLoader = imageLoader
 		self.feedListFactory = FeedListFactory()
+		self.feedDetailsFactory = FeedDetailsFactory()
 	}
 
 	func start() -> UIViewController {
@@ -26,10 +28,13 @@ final class FeedCoordinator: Coordinator {
 			postsRepository: postsRepository,
 			dateFormatter: dateFormatter,
 			sourceFormatter: sourceFormatter,
-			imageLoader: imageLoader
+			imageLoader: imageLoader,
+			moduleOutput: self
 		)
 		let navigationController = UINavigationController(rootViewController: feedViewController)
 		navigationController.hidesBarsWhenVerticallyCompact = true
+		navigationController.navigationBar.isTranslucent = false
+		navigationController.navigationBar.backgroundColor = .tertiarySystemBackground
 		navigationController.view.backgroundColor = .tertiarySystemBackground
 		navigationController.tabBarItem = UITabBarItem(
 			title: "Feed",
@@ -37,11 +42,20 @@ final class FeedCoordinator: Coordinator {
 			selectedImage: UIImage(systemName: "list.bullet")
 		)
 
-		UINavigationBar.appearance().isTranslucent = false
-		UINavigationBar.appearance().backgroundColor = .tertiarySystemBackground
-
 		rootViewController = navigationController
 
 		return navigationController
+	}
+
+	private func showDetails(withPostID postId: Post.ID) {
+		let viewController = feedDetailsFactory.make()
+		(rootViewController as? UINavigationController)?.pushViewController(viewController, animated: true)
+	}
+}
+
+// MARK: - IFeedListModuleOutput
+extension FeedCoordinator: IFeedListModuleOutput {
+	func didSelectPost(withPostID postId: Post.ID) {
+		showDetails(withPostID: postId)
 	}
 }

@@ -8,6 +8,7 @@ final class SettingsViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		output?.didLoad()
+		view.backgroundColor = .secondarySystemBackground
 	}
 }
 

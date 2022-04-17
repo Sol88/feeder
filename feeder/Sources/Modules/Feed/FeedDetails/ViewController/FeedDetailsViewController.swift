@@ -8,6 +8,7 @@ final class FeedDetailsViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		output?.didLoad()
+		view.backgroundColor = .secondarySystemBackground
 	}
 }
 
