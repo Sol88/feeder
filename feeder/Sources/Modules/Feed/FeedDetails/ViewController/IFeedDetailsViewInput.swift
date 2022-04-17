@@ -1,0 +1,3 @@
+protocol IFeedDetailsViewInput: AnyObject {
+	
+}
