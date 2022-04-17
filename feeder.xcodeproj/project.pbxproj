@@ -20,6 +20,16 @@
 		DE2E4F22280C5EC000EA0F11 /* IFeedDetailsViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2E4F21280C5EC000EA0F11 /* IFeedDetailsViewInput.swift */; };
 		DE2E4F25280C5FA500EA0F11 /* FeedDetailsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2E4F24280C5FA500EA0F11 /* FeedDetailsFactory.swift */; };
 		DE2E4F27280C5FBF00EA0F11 /* IFeedDetailsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2E4F26280C5FBF00EA0F11 /* IFeedDetailsFactory.swift */; };
+		DE2E4F38280C60F800EA0F11 /* ISettingsViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2E4F2A280C60F800EA0F11 /* ISettingsViewOutput.swift */; };
+		DE2E4F39280C60F800EA0F11 /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2E4F2B280C60F800EA0F11 /* SettingsPresenter.swift */; };
+		DE2E4F3A280C60F800EA0F11 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2E4F2D280C60F800EA0F11 /* SettingsViewController.swift */; };
+		DE2E4F3B280C60F800EA0F11 /* ISettingsViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2E4F2E280C60F800EA0F11 /* ISettingsViewInput.swift */; };
+		DE2E4F3C280C60F800EA0F11 /* ISettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2E4F30280C60F800EA0F11 /* ISettingsInteractor.swift */; };
+		DE2E4F3D280C60F800EA0F11 /* SettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2E4F31280C60F800EA0F11 /* SettingsInteractor.swift */; };
+		DE2E4F3E280C60F800EA0F11 /* ISettingsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2E4F33280C60F800EA0F11 /* ISettingsFactory.swift */; };
+		DE2E4F3F280C60F800EA0F11 /* SettingsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2E4F34280C60F800EA0F11 /* SettingsFactory.swift */; };
+		DE2E4F40280C60F800EA0F11 /* ISettingsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2E4F36280C60F800EA0F11 /* ISettingsRouter.swift */; };
+		DE2E4F41280C60F800EA0F11 /* SettingsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2E4F37280C60F800EA0F11 /* SettingsRouter.swift */; };
 		DE79071528015727003296B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE79071428015727003296B8 /* AppDelegate.swift */; };
 		DE79071728015727003296B8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE79071628015727003296B8 /* SceneDelegate.swift */; };
 		DE79071E28015728003296B8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE79071D28015728003296B8 /* Assets.xcassets */; };
@@ -73,6 +83,16 @@
 		DE2E4F21280C5EC000EA0F11 /* IFeedDetailsViewInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IFeedDetailsViewInput.swift; sourceTree = "<group>"; };
 		DE2E4F24280C5FA500EA0F11 /* FeedDetailsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailsFactory.swift; sourceTree = "<group>"; };
 		DE2E4F26280C5FBF00EA0F11 /* IFeedDetailsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IFeedDetailsFactory.swift; sourceTree = "<group>"; };
+		DE2E4F2A280C60F800EA0F11 /* ISettingsViewOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISettingsViewOutput.swift; sourceTree = "<group>"; };
+		DE2E4F2B280C60F800EA0F11 /* SettingsPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
+		DE2E4F2D280C60F800EA0F11 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		DE2E4F2E280C60F800EA0F11 /* ISettingsViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISettingsViewInput.swift; sourceTree = "<group>"; };
+		DE2E4F30280C60F800EA0F11 /* ISettingsInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISettingsInteractor.swift; sourceTree = "<group>"; };
+		DE2E4F31280C60F800EA0F11 /* SettingsInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsInteractor.swift; sourceTree = "<group>"; };
+		DE2E4F33280C60F800EA0F11 /* ISettingsFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISettingsFactory.swift; sourceTree = "<group>"; };
+		DE2E4F34280C60F800EA0F11 /* SettingsFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsFactory.swift; sourceTree = "<group>"; };
+		DE2E4F36280C60F800EA0F11 /* ISettingsRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISettingsRouter.swift; sourceTree = "<group>"; };
+		DE2E4F37280C60F800EA0F11 /* SettingsRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsRouter.swift; sourceTree = "<group>"; };
 		DE79071128015727003296B8 /* feeder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = feeder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE79071428015727003296B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DE79071628015727003296B8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -208,6 +228,63 @@
 			path = Factory;
 			sourceTree = "<group>";
 		};
+		DE2E4F28280C60F800EA0F11 /* SettingsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				DE2E4F29280C60F800EA0F11 /* Presenter */,
+				DE2E4F2C280C60F800EA0F11 /* ViewController */,
+				DE2E4F2F280C60F800EA0F11 /* Interactor */,
+				DE2E4F32280C60F800EA0F11 /* Factory */,
+				DE2E4F35280C60F800EA0F11 /* Router */,
+			);
+			path = SettingsScreen;
+			sourceTree = "<group>";
+		};
+		DE2E4F29280C60F800EA0F11 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				DE2E4F2A280C60F800EA0F11 /* ISettingsViewOutput.swift */,
+				DE2E4F2B280C60F800EA0F11 /* SettingsPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		DE2E4F2C280C60F800EA0F11 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				DE2E4F2D280C60F800EA0F11 /* SettingsViewController.swift */,
+				DE2E4F2E280C60F800EA0F11 /* ISettingsViewInput.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		DE2E4F2F280C60F800EA0F11 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				DE2E4F30280C60F800EA0F11 /* ISettingsInteractor.swift */,
+				DE2E4F31280C60F800EA0F11 /* SettingsInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		DE2E4F32280C60F800EA0F11 /* Factory */ = {
+			isa = PBXGroup;
+			children = (
+				DE2E4F33280C60F800EA0F11 /* ISettingsFactory.swift */,
+				DE2E4F34280C60F800EA0F11 /* SettingsFactory.swift */,
+			);
+			path = Factory;
+			sourceTree = "<group>";
+		};
+		DE2E4F35280C60F800EA0F11 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				DE2E4F36280C60F800EA0F11 /* ISettingsRouter.swift */,
+				DE2E4F37280C60F800EA0F11 /* SettingsRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
 		DE79070828015727003296B8 = {
 			isa = PBXGroup;
 			children = (
@@ -286,6 +363,7 @@
 		DE7907352801C642003296B8 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				DE2E4F28280C60F800EA0F11 /* SettingsScreen */,
 				DE79073228019C73003296B8 /* SettingsCoordinator.swift */,
 			);
 			path = Settings;
@@ -522,6 +600,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE2E4F41280C60F800EA0F11 /* SettingsRouter.swift in Sources */,
 				DE2E4F22280C5EC000EA0F11 /* IFeedDetailsViewInput.swift in Sources */,
 				DE7907402801CBE6003296B8 /* FeedListFactory.swift in Sources */,
 				DE2E4F20280C5E7100EA0F11 /* IFeedDetailsViewOutput.swift in Sources */,
@@ -530,22 +609,29 @@
 				DE79072D280192A8003296B8 /* Coordinator.swift in Sources */,
 				DE2E4F16280C5D7500EA0F11 /* FeedDetailsPresenter.swift in Sources */,
 				DE79075A2802D5E4003296B8 /* FeedCollectionViewCell.swift in Sources */,
+				DE2E4F3F280C60F800EA0F11 /* SettingsFactory.swift in Sources */,
 				DED586EE280493D200F037D5 /* IPostsRepository.swift in Sources */,
 				DED586F72804A0BB00F037D5 /* IDateFormatter.swift in Sources */,
 				DE79071528015727003296B8 /* AppDelegate.swift in Sources */,
 				DE79075D28031D34003296B8 /* FeedInfoView.swift in Sources */,
 				DE7907552802CFF9003296B8 /* UIView+AddSubview.swift in Sources */,
+				DE2E4F3A280C60F800EA0F11 /* SettingsViewController.swift in Sources */,
+				DE2E4F40280C60F800EA0F11 /* ISettingsRouter.swift in Sources */,
 				DE2E4F10280C5BD700EA0F11 /* FeedDetailsViewController.swift in Sources */,
+				DE2E4F3D280C60F800EA0F11 /* SettingsInteractor.swift in Sources */,
 				DE2E4F18280C5DD200EA0F11 /* FeedDetailsInteractor.swift in Sources */,
 				DE2E4F27280C5FBF00EA0F11 /* IFeedDetailsFactory.swift in Sources */,
 				DE79074B2801CF0F003296B8 /* IFeedListViewOutput.swift in Sources */,
 				DE7907572802D037003296B8 /* FeedCollectionViewLayout.swift in Sources */,
 				DED586F228049FD300F037D5 /* FeedCollectionViewCellPropsFactory.swift in Sources */,
+				DE2E4F39280C60F800EA0F11 /* SettingsPresenter.swift in Sources */,
 				DE2E4F1C280C5E0700EA0F11 /* IFeedDetailsRouter.swift in Sources */,
 				DE79072F280194B4003296B8 /* MainCoordinator.swift in Sources */,
 				DE79073C2801CAAA003296B8 /* FeedListInteractor.swift in Sources */,
+				DE2E4F38280C60F800EA0F11 /* ISettingsViewOutput.swift in Sources */,
 				DEF118452807631C005AA8D1 /* IPostXMLParser.swift in Sources */,
 				DE2E4F1A280C5DE600EA0F11 /* FeedDetailsRouter.swift in Sources */,
+				DE2E4F3B280C60F800EA0F11 /* ISettingsViewInput.swift in Sources */,
 				DEE0CA0628088BCB00750A6F /* CoreDataContainer.swift in Sources */,
 				DE2E1F732805F908003B6C5A /* ImageLoader.swift in Sources */,
 				DE2E4F1E280C5E4100EA0F11 /* IFeedDetailsInteractor.swift in Sources */,
@@ -564,9 +650,11 @@
 				DE2E4F0D280C12E600EA0F11 /* Cache.swift in Sources */,
 				DE79074F2801CF38003296B8 /* IFeedListRouter.swift in Sources */,
 				DED586F02804952200F037D5 /* PostsCoreDataRepository.swift in Sources */,
+				DE2E4F3E280C60F800EA0F11 /* ISettingsFactory.swift in Sources */,
 				DE79073A2801CA9A003296B8 /* FeedListPresenter.swift in Sources */,
 				DEF1183F28075DA6005AA8D1 /* IPostsLoader.swift in Sources */,
 				DE7907492801CEFD003296B8 /* IFeedListViewIntput.swift in Sources */,
+				DE2E4F3C280C60F800EA0F11 /* ISettingsInteractor.swift in Sources */,
 				DE79071728015727003296B8 /* SceneDelegate.swift in Sources */,
 				DED586F528049FF800F037D5 /* SourceFormatter.swift in Sources */,
 			);

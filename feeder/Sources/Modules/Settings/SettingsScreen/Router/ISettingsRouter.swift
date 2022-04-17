@@ -1,0 +1,3 @@
+protocol ISettingsRouter: AnyObject {
+	
+}
