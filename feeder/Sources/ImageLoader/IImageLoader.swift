@@ -1,5 +1,6 @@
 import UIKit
 
 protocol IImageLoader {
-	func getImage(forURL url: URL, completion: @escaping (UIImage?) -> Void)
+	func fetchImage(forURL url: URL, completion: @escaping (UIImage?) -> Void)
+	func cancelFetching(forURL url: URL)
 }

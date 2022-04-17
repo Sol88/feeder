@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		DE2E1F732805F908003B6C5A /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2E1F722805F908003B6C5A /* ImageLoader.swift */; };
 		DE2E1F752805F91F003B6C5A /* IImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2E1F742805F91F003B6C5A /* IImageLoader.swift */; };
+		DE2E4F0D280C12E600EA0F11 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2E4F0C280C12E600EA0F11 /* Cache.swift */; };
 		DE79071528015727003296B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE79071428015727003296B8 /* AppDelegate.swift */; };
 		DE79071728015727003296B8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE79071628015727003296B8 /* SceneDelegate.swift */; };
 		DE79071928015727003296B8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE79071828015727003296B8 /* ViewController.swift */; };
@@ -52,6 +53,7 @@
 /* Begin PBXFileReference section */
 		DE2E1F722805F908003B6C5A /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		DE2E1F742805F91F003B6C5A /* IImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IImageLoader.swift; sourceTree = "<group>"; };
+		DE2E4F0C280C12E600EA0F11 /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		DE79071128015727003296B8 /* feeder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = feeder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE79071428015727003296B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DE79071628015727003296B8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -123,6 +125,14 @@
 			path = Modules;
 			sourceTree = "<group>";
 		};
+		DE2E4F0B280C12DD00EA0F11 /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				DE2E4F0C280C12E600EA0F11 /* Cache.swift */,
+			);
+			path = Cache;
+			sourceTree = "<group>";
+		};
 		DE79070828015727003296B8 = {
 			isa = PBXGroup;
 			children = (
@@ -151,6 +161,7 @@
 		DE7907282801580B003296B8 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				DE2E4F0B280C12DD00EA0F11 /* Cache */,
 				DE2E4F0A280B4B5400EA0F11 /* Modules */,
 				DEE0CA01280889C700750A6F /* CoreData */,
 				DEF11839280722DE005AA8D1 /* Updater */,
@@ -466,6 +477,7 @@
 				DE7907382801C8FA003296B8 /* FeedListViewController.swift in Sources */,
 				DED586EC280493AF00F037D5 /* Posts.swift in Sources */,
 				DE2E1F752805F91F003B6C5A /* IImageLoader.swift in Sources */,
+				DE2E4F0D280C12E600EA0F11 /* Cache.swift in Sources */,
 				DE79074F2801CF38003296B8 /* IFeedListRouter.swift in Sources */,
 				DED586F02804952200F037D5 /* PostsCoreDataRepository.swift in Sources */,
 				DE79073A2801CA9A003296B8 /* FeedListPresenter.swift in Sources */,

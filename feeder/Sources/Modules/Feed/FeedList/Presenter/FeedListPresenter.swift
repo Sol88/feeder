@@ -13,14 +13,18 @@ final class FeedListPresenter {
 		}
 	}
 	private var summaryOpenedPosts: Set<FeedCollectionViewCell.Props.ID> = Set()
-	private var preparedImages: Dictionary<Post.ID, UIImage> = [:]
 	private let cellPropsFactory: FeedCollectionViewCellPropsFactory
+
+	private let decompressedImageCache = Cache<Post.ID, UIImage>()
+	private var snapshotReconfigureThresholdTimer: Timer?
+	private var postIDsToReconfigure: Set<Post.ID> = Set()
 
 	// MARK: - Public
 	weak var input: IFeedListViewIntput?
 	var interactor: IFeedListInteractor? {
 		didSet {
-			self.interactor?.didChangeContentWithSnapshot = { snapshot in
+			interactor?.didChangeContentWithSnapshot = { [weak self] snapshot in
+				guard let self = self else { return }
 				let convertedSnapshot = self.convertSnapshotToFeedSnapshot(snapshot)
 				self.props = .snapshot(convertedSnapshot)
 			}
@@ -37,13 +41,13 @@ final class FeedListPresenter {
 // MARK: - IFeedListViewOutput
 extension FeedListPresenter: IFeedListViewOutput {
 	func didLoad() {
-		self.props = .loading
-		self.interactor?.fetchAllPosts()
+		props = .loading
+		interactor?.fetchAllPosts()
 	}
 
 	func didTouchRetryButton() {
-		self.props = .loading
-		self.interactor?.fetchAllPosts()
+		props = .loading
+		interactor?.fetchAllPosts()
 	}
 
 	func didTouchPostInfoView(with id: FeedCollectionViewCell.Props.ID) {
@@ -53,33 +57,32 @@ extension FeedListPresenter: IFeedListViewOutput {
 			summaryOpenedPosts.insert(id)
 		}
 
-		if case .snapshot(var currentSnapshot) = self.props {
+		if case .snapshot(var currentSnapshot) = props {
 			currentSnapshot.reconfigureItems([id])
-			self.props = .snapshot(currentSnapshot)
+			props = .snapshot(currentSnapshot)
 		}
 	}
 
 	func didPrefetchItems(at indexPaths: [IndexPath]) {
 		for indexPath in indexPaths {
-			self.interactor?.fetchImage(at: indexPath) { _ in }
+			interactor?.fetchImage(at: indexPath) { _ in }
 		}
 	}
 
-	func didRegisterCell(at indexPath: IndexPath) {
-		guard let id = self.interactor?.fetchPost(at: indexPath)?.id else { return }
-		guard !self.preparedImages.keys.contains(id) else { return }
-		self.interactor?.fetchImage(at: indexPath) { [weak self, id] image in
-			image?.prepareForDisplay { image in
-				DispatchQueue.main.async {
-					self?.preparedImages[id] = image
-				}
+	func willDisplayCell(at indexPath: IndexPath) {
+		guard
+			let id = interactor?.fetchPost(at: indexPath)?.id,
+			decompressedImageCache.value(forKey: id) == nil
+		else { return }
 
-				if case .snapshot(var currentSnapshot) = self?.props {
-					currentSnapshot.reconfigureItems([id])
-					self?.props = .snapshot(currentSnapshot)
-				}
-			}
+		interactor?.fetchImage(at: indexPath) { [weak self, id] image in
+			guard let image = image else { return }
+			self?.prepareAndDisplayImage(image, forPostId: id)
 		}
+	}
+
+	func didEndDisplayingCell(at indexPath: IndexPath) {
+		interactor?.cancelFetchingImage(at: indexPath)
 	}
 
 	func didSelectItem(at indexPath: IndexPath) {
@@ -87,17 +90,15 @@ extension FeedListPresenter: IFeedListViewOutput {
 	}
 
 	func post(for indexPath: IndexPath) -> FeedCollectionViewCell.Props? {
-		guard let post = self.interactor?.fetchPost(at: indexPath) else { return nil }
-		var props = self.cellPropsFactory.make(from: post)
-		props.shouldShowSummary = self.summaryOpenedPosts.contains(props.id)
-		props.image = self.preparedImages[post.id]
+		guard let post = interactor?.fetchPost(at: indexPath) else { return nil }
+		var props = cellPropsFactory.make(from: post)
+		props.shouldShowSummary = summaryOpenedPosts.contains(props.id)
+		props.image = decompressedImageCache.value(forKey: post.id)
 		return props
 	}
 
 	func didReceiveMemoryWarning() {
-		DispatchQueue.main.async {
-			self.preparedImages.removeAll()
-		}
+		decompressedImageCache.removeAll()
 	}
 }
 
@@ -113,5 +114,38 @@ private extension FeedListPresenter {
 		}
 
 		return convertedSnapshot
+	}
+
+	func reconfigureCurrentSnapshotIfNeeded() {
+		guard case .snapshot(var currentSnapshot) = props else { return }
+		DispatchQueue.main.async {
+			guard !self.postIDsToReconfigure.isEmpty else { return }
+			currentSnapshot.reconfigureItems(Array(self.postIDsToReconfigure))
+			self.props = .snapshot(currentSnapshot)
+			self.postIDsToReconfigure.removeAll()
+		}
+	}
+
+	func reconfigureCurrentSnapshotIfNeeded(withThreshold timeThreshold: TimeInterval) {
+		snapshotReconfigureThresholdTimer?.invalidate()
+		snapshotReconfigureThresholdTimer = Timer(timeInterval: timeThreshold, repeats: false) { [weak self] _ in
+			self?.reconfigureCurrentSnapshotIfNeeded()
+		}
+		RunLoop.main.add(snapshotReconfigureThresholdTimer!, forMode: .common)
+	}
+}
+
+// MARK: - Prepare UIImage for displaying
+private extension FeedListPresenter {
+	func prepareAndDisplayImage(_ image: UIImage, forPostId id: Post.ID) {
+		image.prepareForDisplay { [weak self] image in
+			guard let image = image, let self = self else { return }
+			self.decompressedImageCache.insert(image, forKey: id)
+			DispatchQueue.main.async {
+				self.postIDsToReconfigure.insert(id)
+			}
+
+			self.reconfigureCurrentSnapshotIfNeeded(withThreshold: 0.05)
+		}
 	}
 }

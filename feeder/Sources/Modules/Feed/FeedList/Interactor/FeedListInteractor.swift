@@ -14,8 +14,8 @@ final class FeedListInteractor {
 		self.repository = repository
 		self.imageLoader = imageLoader
 
-		self.repository.didChangeContentWithSnapshot = { snapshot in
-			self.didChangeContentWithSnapshot?(snapshot)
+		repository.didChangeContentWithSnapshot = { [weak self] snapshot in
+			self?.didChangeContentWithSnapshot?(snapshot)
 		}
 	}
 }
@@ -23,21 +23,26 @@ final class FeedListInteractor {
 // MARK: - IFeedListInteractor
 extension FeedListInteractor: IFeedListInteractor {
 	func fetchPost(at indexPath: IndexPath) -> Post? {
-		self.repository.fetchPost(at: indexPath)
+		repository.fetchPost(at: indexPath)
 	}
 
 	func fetchAllPosts() {
-		self.repository.fetchAllPosts()
+		repository.fetchAllPosts()
 	}
 
 	func fetchImages(at indexPaths: [IndexPath]) {
 		for indexPath in indexPaths {
-			self.fetchImage(at: indexPath) { _ in }
+			fetchImage(at: indexPath) { _ in }
 		}
 	}
 
 	func fetchImage(at indexPath: IndexPath, completion: @escaping (UIImage?) -> Void) {
-		guard let post = self.repository.fetchPost(at: indexPath), let imageURL = post.imageURL else { return }
-		self.imageLoader.getImage(forURL: imageURL, completion: completion)
+		guard let post = repository.fetchPost(at: indexPath), let imageURL = post.imageURL else { return }
+		imageLoader.fetchImage(forURL: imageURL, completion: completion)
+	}
+
+	func cancelFetchingImage(at indexPath: IndexPath) {
+		guard let post = repository.fetchPost(at: indexPath), let imageURL = post.imageURL else { return }
+		imageLoader.cancelFetching(forURL: imageURL)
 	}
 }

@@ -41,7 +41,7 @@ extension PostXMLParser: XMLParserDelegate {
 
 		self.currentElement = elementName
 
-		if elementName == "enclosure" && attributeDict["type"] == "image/jpeg" {
+		if elementName == "enclosure" && attributeDict["type"]?.contains("image") ?? false {
 			self.imageURL = attributeDict["url"]
 		}
 	}

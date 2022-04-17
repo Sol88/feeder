@@ -95,6 +95,22 @@ extension FeedListViewController: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		self.output?.didSelectItem(at: indexPath)
 	}
+
+	func collectionView(
+		_ collectionView: UICollectionView,
+		didEndDisplaying cell: UICollectionViewCell,
+		forItemAt indexPath: IndexPath
+	) {
+		output?.didEndDisplayingCell(at: indexPath)
+	}
+
+	func collectionView(
+		_ collectionView: UICollectionView,
+		willDisplay cell: UICollectionViewCell,
+		forItemAt indexPath: IndexPath
+	) {
+		output?.willDisplayCell(at: indexPath)
+	}
 }
 
 // MAKR: - UICollectionViewDataSourcePrefetching
@@ -188,7 +204,6 @@ private extension FeedListViewController {
 private extension FeedListViewController {
 	func configureDataSource() {
 		let cellRegistration = FeedCellRegistration { [weak output] cell, index, itemIdentifier in
-			output?.didRegisterCell(at: index)
 			cell.props = output?.post(for: index)
 			cell.infoViewDidTouched = { [weak output] id in
 				output?.didTouchPostInfoView(with: id)
