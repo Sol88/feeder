@@ -6,6 +6,7 @@ final class FeedListFactory: IFeedListFactory {
 		dateFormatter: IDateFormatter,
 		sourceFormatter: ISourceFormatter,
 		imageLoader: IImageLoader,
+		sourcesRepository: IPostSourcesRepository,
 		moduleOutput: IFeedListModuleOutput
 	) -> UIViewController {
 		let feedCollectionViewCellPropsFactory = FeedCollectionViewCellPropsFactory(
@@ -14,7 +15,7 @@ final class FeedListFactory: IFeedListFactory {
 		)
 		let viewController = FeedListViewController()
 		let presenter = FeedListPresenter(cellPropsFactory: feedCollectionViewCellPropsFactory)
-		let interactor = FeedListInteractor(repository: postsRepository, imageLoader: imageLoader)
+		let interactor = FeedListInteractor(repository: postsRepository, imageLoader: imageLoader, sourcesRepository: sourcesRepository)
 		let router = FeedListRouter()
 		router.moduleOutput = moduleOutput
 

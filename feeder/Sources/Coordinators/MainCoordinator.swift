@@ -8,7 +8,8 @@ final class MainCoordinator: Coordinator {
 		parentCoordinator: self,
 		postsRepository: postsRepository,
 		imageLoader: imageLoader,
-		sourceFormatter: sourceFormatter
+		sourceFormatter: sourceFormatter,
+		sourcesRepository: postSourcesRepository
 	)
 	private lazy var settingsCoordinator: Coordinator = SettingsCoordinator(
 		parentCoordinator: self,

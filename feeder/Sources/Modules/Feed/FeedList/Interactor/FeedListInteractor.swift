@@ -8,11 +8,13 @@ final class FeedListInteractor {
 	// MARK: - Private
 	private let repository: IPostsRepository
 	private let imageLoader: IImageLoader
+	private let sourcesRepository: IPostSourcesRepository
 
 	// MARK: - 
-	init(repository: IPostsRepository, imageLoader: IImageLoader) {
+	init(repository: IPostsRepository, imageLoader: IImageLoader, sourcesRepository: IPostSourcesRepository) {
 		self.repository = repository
 		self.imageLoader = imageLoader
+		self.sourcesRepository = sourcesRepository
 
 		repository.didChangeContentWithSnapshot = { [weak self] snapshot in
 			self?.didChangeContentWithSnapshot?(snapshot)
@@ -27,7 +29,8 @@ extension FeedListInteractor: IFeedListInteractor {
 	}
 
 	func fetchAllPosts() {
-		repository.fetchAllPosts()
+		let enabledSources = sourcesRepository.fetchAllSources().filter(sourcesRepository.fetchSourceIsEnabled(_:))
+		repository.fetchAllPosts(forSources: enabledSources)
 	}
 
 	func fetchImages(at indexPaths: [IndexPath]) {

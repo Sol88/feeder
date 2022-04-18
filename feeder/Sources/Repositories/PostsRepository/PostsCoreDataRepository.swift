@@ -7,22 +7,7 @@ final class PostsCoreDataRepository: NSObject {
 	var didChangeContentWithSnapshot: ((NSDiffableDataSourceSnapshot<String, Post.ID>) -> Void)?
 
 	// MARK: - Private
-	private(set) lazy var fetchedResultsController: NSFetchedResultsController<PostCoreData> = {
-		let descendingSortDescriptor = NSSortDescriptor(key: "pubDate", ascending: false)
-		let fetchRequest = NSFetchRequest<PostCoreData>(entityName: "PostCoreData")
-		fetchRequest.sortDescriptors = [descendingSortDescriptor]
-
-		let controller = NSFetchedResultsController(
-			fetchRequest: fetchRequest,
-			managedObjectContext: viewContext,
-			sectionNameKeyPath: nil,
-			cacheName: nil
-		)
-
-		controller.delegate = self
-
-		return controller
-	}()
+	private var fetchedResultsController: NSFetchedResultsController<PostCoreData>?
 
 	private let dateFormatter: DateFormatter = {
 		let formatter = DateFormatter()
@@ -61,7 +46,8 @@ extension PostsCoreDataRepository: IPostsRepository {
 	}
 	
 	func fetchPost(at indexPath: IndexPath) -> Post? {
-		let post = fetchedResultsController.object(at: indexPath)
+		guard indexPath.item < fetchedResultsController?.sections?[indexPath.section].numberOfObjects ?? 0 else { return nil }
+		guard let post = fetchedResultsController?.object(at: indexPath) else { return nil }
 		return Post.make(fromCoreData: post, dateFormatter: dateFormatter)
 	}
 
@@ -80,9 +66,10 @@ extension PostsCoreDataRepository: IPostsRepository {
 		}
 	}
 
-	func fetchAllPosts() {
+	func fetchAllPosts(forSources sources: [PostSource]) {
 		do {
-			try fetchedResultsController.performFetch()
+			fetchedResultsController = makeFetchedResultsController(withSourcesFilter: sources)
+			try fetchedResultsController?.performFetch()
 		} catch {
 			assertionFailure("Fetching FRC error \(error)")
 		}
@@ -108,6 +95,27 @@ extension PostsCoreDataRepository: IPostsRepository {
 
 // MARK: - Private
 private extension PostsCoreDataRepository {
+	func makeFetchedResultsController(withSourcesFilter sources: [PostSource]) -> NSFetchedResultsController<PostCoreData> {
+		let descendingSortDescriptor = NSSortDescriptor(key: "pubDate", ascending: false)
+		let fetchRequest = NSFetchRequest<PostCoreData>(entityName: "PostCoreData")
+		fetchRequest.sortDescriptors = [descendingSortDescriptor]
+		var predicates: [NSPredicate] = []
+		for source in sources {
+			predicates.append(NSPredicate(format: "source == %@", source.rawValue))
+		}
+		fetchRequest.predicate = NSCompoundPredicate(orPredicateWithSubpredicates: predicates)
+
+		let fetchedResultsController = NSFetchedResultsController(
+			fetchRequest: fetchRequest,
+			managedObjectContext: viewContext,
+			sectionNameKeyPath: nil,
+			cacheName: nil
+		)
+
+		fetchedResultsController.delegate = self
+
+		return fetchedResultsController
+	}
 	func savedPostIds() -> Set<String> {
 		let fetchRequest = NSFetchRequest<PostCoreData>(entityName: "PostCoreData")
 		fetchRequest.propertiesToFetch = ["id"]

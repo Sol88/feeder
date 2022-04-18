@@ -6,6 +6,7 @@ protocol IFeedListFactory: AnyObject {
 		dateFormatter: IDateFormatter,
 		sourceFormatter: ISourceFormatter,
 		imageLoader: IImageLoader,
+		sourcesRepository: IPostSourcesRepository,
 		moduleOutput: IFeedListModuleOutput
 	) -> UIViewController
 }

@@ -2,6 +2,7 @@ import Foundation
 
 protocol IFeedListViewOutput: AnyObject {
 	func didLoad()
+	func willAppear()
 	func didTouchRetryButton()
 	func didTouchPostInfoView(with id: FeedCollectionViewCell.Props.ID)
 	func didPrefetchItems(at indexPaths: [IndexPath])

@@ -42,6 +42,9 @@ final class FeedListPresenter {
 extension FeedListPresenter: IFeedListViewOutput {
 	func didLoad() {
 		props = .loading
+	}
+
+	func willAppear() {
 		interactor?.fetchAllPosts()
 	}
 

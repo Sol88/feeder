@@ -72,6 +72,7 @@ final class FeedListViewController: UIViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
+		output?.willAppear()
 		collectionView.reloadData()
 	}
 
