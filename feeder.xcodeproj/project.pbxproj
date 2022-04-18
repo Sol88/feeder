@@ -55,6 +55,8 @@
 		DE7907572802D037003296B8 /* FeedCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7907562802D037003296B8 /* FeedCollectionViewLayout.swift */; };
 		DE79075A2802D5E4003296B8 /* FeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7907592802D5E4003296B8 /* FeedCollectionViewCell.swift */; };
 		DE79075D28031D34003296B8 /* FeedInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE79075C28031D34003296B8 /* FeedInfoView.swift */; };
+		DEAA04B6280DD7C200C0BB08 /* IPostSourcesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAA04B5280DD7C200C0BB08 /* IPostSourcesRepository.swift */; };
+		DEAA04B8280DD7D100C0BB08 /* PostSourcesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAA04B7280DD7D100C0BB08 /* PostSourcesRepository.swift */; };
 		DED586EC280493AF00F037D5 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED586EB280493AF00F037D5 /* Post.swift */; };
 		DED586EE280493D200F037D5 /* IPostsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED586ED280493D200F037D5 /* IPostsRepository.swift */; };
 		DED586F02804952200F037D5 /* PostsCoreDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED586EF2804952200F037D5 /* PostsCoreDataRepository.swift */; };
@@ -121,6 +123,8 @@
 		DE7907562802D037003296B8 /* FeedCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCollectionViewLayout.swift; sourceTree = "<group>"; };
 		DE7907592802D5E4003296B8 /* FeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCollectionViewCell.swift; sourceTree = "<group>"; };
 		DE79075C28031D34003296B8 /* FeedInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedInfoView.swift; sourceTree = "<group>"; };
+		DEAA04B5280DD7C200C0BB08 /* IPostSourcesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPostSourcesRepository.swift; sourceTree = "<group>"; };
+		DEAA04B7280DD7D100C0BB08 /* PostSourcesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSourcesRepository.swift; sourceTree = "<group>"; };
 		DED586EB280493AF00F037D5 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		DED586ED280493D200F037D5 /* IPostsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPostsRepository.swift; sourceTree = "<group>"; };
 		DED586EF2804952200F037D5 /* PostsCoreDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsCoreDataRepository.swift; sourceTree = "<group>"; };
@@ -326,7 +330,7 @@
 				DE2E1F712805F8F7003B6C5A /* ImageLoader */,
 				DED586F328049FE900F037D5 /* Formatters */,
 				DED586EA280493A300F037D5 /* Models */,
-				DED586E92804937A00F037D5 /* PostsRepository */,
+				DED586E92804937A00F037D5 /* Repositories */,
 				DE7907532802CFE2003296B8 /* Extensions */,
 				DE79072B28019299003296B8 /* Coordinators */,
 				DE79071428015727003296B8 /* AppDelegate.swift */,
@@ -459,13 +463,31 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		DED586E92804937A00F037D5 /* PostsRepository */ = {
+		DEAA04B4280DD7AB00C0BB08 /* PostSourcesRepository */ = {
+			isa = PBXGroup;
+			children = (
+				DEAA04B5280DD7C200C0BB08 /* IPostSourcesRepository.swift */,
+				DEAA04B7280DD7D100C0BB08 /* PostSourcesRepository.swift */,
+			);
+			path = PostSourcesRepository;
+			sourceTree = "<group>";
+		};
+		DEAA04B9280DD7DF00C0BB08 /* PostsRepository */ = {
 			isa = PBXGroup;
 			children = (
 				DED586ED280493D200F037D5 /* IPostsRepository.swift */,
 				DED586EF2804952200F037D5 /* PostsCoreDataRepository.swift */,
 			);
 			path = PostsRepository;
+			sourceTree = "<group>";
+		};
+		DED586E92804937A00F037D5 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				DEAA04B9280DD7DF00C0BB08 /* PostsRepository */,
+				DEAA04B4280DD7AB00C0BB08 /* PostSourcesRepository */,
+			);
+			path = Repositories;
 			sourceTree = "<group>";
 		};
 		DED586EA280493A300F037D5 /* Models */ = {
@@ -615,6 +637,7 @@
 				DE79072D280192A8003296B8 /* Coordinator.swift in Sources */,
 				DE2E4F16280C5D7500EA0F11 /* FeedDetailsPresenter.swift in Sources */,
 				DE79075A2802D5E4003296B8 /* FeedCollectionViewCell.swift in Sources */,
+				DEAA04B8280DD7D100C0BB08 /* PostSourcesRepository.swift in Sources */,
 				DE2E4F3F280C60F800EA0F11 /* SettingsFactory.swift in Sources */,
 				DED586EE280493D200F037D5 /* IPostsRepository.swift in Sources */,
 				DED586F72804A0BB00F037D5 /* IDateFormatter.swift in Sources */,
@@ -664,6 +687,7 @@
 				DE7907492801CEFD003296B8 /* IFeedListViewIntput.swift in Sources */,
 				DE2E4F3C280C60F800EA0F11 /* ISettingsInteractor.swift in Sources */,
 				DE79071728015727003296B8 /* SceneDelegate.swift in Sources */,
+				DEAA04B6280DD7C200C0BB08 /* IPostSourcesRepository.swift in Sources */,
 				DED586F528049FF800F037D5 /* SourceFormatter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

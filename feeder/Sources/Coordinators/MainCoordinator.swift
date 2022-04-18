@@ -7,19 +7,27 @@ final class MainCoordinator: Coordinator {
 	private lazy var feedCoordinator: Coordinator = FeedCoordinator(
 		parentCoordinator: self,
 		postsRepository: postsRepository,
-		imageLoader: imageLoader
+		imageLoader: imageLoader,
+		sourceFormatter: sourceFormatter
 	)
-	private lazy var settingsCoordinator: Coordinator = SettingsCoordinator(parentCoordinator: self)
+	private lazy var settingsCoordinator: Coordinator = SettingsCoordinator(
+		parentCoordinator: self,
+		sourceFormatter: sourceFormatter,
+		sourcesRepository: postSourcesRepository
+	)
 
+	private let sourceFormatter: ISourceFormatter = SourceFormatter()
 	private let coreDataContainer = CoreDataContainer()
 	private let updater: PostsUpdater
 	private let postsRepository: IPostsRepository
+	private let postSourcesRepository: IPostSourcesRepository
 	private let imageLoader: IImageLoader = ImageLoader()
 
 	init(parentCoordinator: Coordinator?) {
 		self.parentCoordinator = parentCoordinator
 		postsRepository = PostsCoreDataRepository(coreDataContainer: coreDataContainer)
-		updater = PostsUpdater(feedSources: PostSource.allCases, repository: postsRepository)
+		postSourcesRepository = PostSourceUserDefaultsRepository()
+		updater = PostsUpdater(postsRepository: postsRepository, sourcesRepository: postSourcesRepository)
 	}
 
 	func start() -> UIViewController {

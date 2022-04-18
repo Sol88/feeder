@@ -1,15 +1,13 @@
 import UIKit
 
-final class SettingsFactory {
-	
-}
+final class SettingsFactory {}
 
 // MARK: - ISettingsFactory
 extension SettingsFactory: ISettingsFactory {
-	func make() -> UIViewController {
+	func make(sourceFormatter: ISourceFormatter, sourcesRepository: IPostSourcesRepository) -> UIViewController {
 		let viewController = SettingsViewController()
-		let interactor = SettingsInteractor()
-		let presenter = SettingsPresenter()
+		let interactor = SettingsInteractor(sourcesRepository: sourcesRepository)
+		let presenter = SettingsPresenter(sourceFormatter: sourceFormatter)
 		let router = SettingsRouter()
 
 		viewController.output = presenter
