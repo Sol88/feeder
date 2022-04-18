@@ -2,12 +2,12 @@ import Foundation
 import UIKit
 
 final class FeedListInteractor {
+	// MARK: - Public
+	var didChangeContentWithSnapshot: ((NSDiffableDataSourceSnapshot<String, Post.ID>) -> Void)?
+	
 	// MARK: - Private
 	private let repository: IPostsRepository
 	private let imageLoader: IImageLoader
-
-	// MARK: - Public
-	var didChangeContentWithSnapshot: ((NSDiffableDataSourceSnapshot<String, Post.ID>) -> Void)?
 
 	// MARK: - 
 	init(repository: IPostsRepository, imageLoader: IImageLoader) {

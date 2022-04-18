@@ -2,6 +2,19 @@ import Foundation
 import UIKit
 
 final class FeedListPresenter {
+	// MARK: - Public
+	weak var input: IFeedListViewIntput?
+	var interactor: IFeedListInteractor? {
+		didSet {
+			interactor?.didChangeContentWithSnapshot = { [weak self] snapshot in
+				guard let self = self else { return }
+				let convertedSnapshot = self.convertSnapshotToFeedSnapshot(snapshot)
+				self.props = .snapshot(convertedSnapshot)
+			}
+		}
+	}
+	var router: IFeedListRouter?
+	
 	// MARK: - Private
 	private var props: FeedListViewController.Props? {
 		didSet {
@@ -18,19 +31,6 @@ final class FeedListPresenter {
 	private let decompressedImageCache = Cache<Post.ID, UIImage>()
 	private var snapshotReconfigureThresholdTimer: Timer?
 	private var postIDsToReconfigure: Set<Post.ID> = Set()
-
-	// MARK: - Public
-	weak var input: IFeedListViewIntput?
-	var interactor: IFeedListInteractor? {
-		didSet {
-			interactor?.didChangeContentWithSnapshot = { [weak self] snapshot in
-				guard let self = self else { return }
-				let convertedSnapshot = self.convertSnapshotToFeedSnapshot(snapshot)
-				self.props = .snapshot(convertedSnapshot)
-			}
-		}
-	}
-	var router: IFeedListRouter?
 
 	// MARK: -
 	init(cellPropsFactory: FeedCollectionViewCellPropsFactory) {

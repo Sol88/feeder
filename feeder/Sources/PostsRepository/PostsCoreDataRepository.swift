@@ -3,6 +3,9 @@ import Foundation
 import UIKit.UIDiffableDataSource
 
 final class PostsCoreDataRepository: NSObject {
+	// MARK: - Public
+	var didChangeContentWithSnapshot: ((NSDiffableDataSourceSnapshot<String, Post.ID>) -> Void)?
+
 	// MARK: - Private
 	private(set) lazy var fetchedResultsController: NSFetchedResultsController<PostCoreData> = {
 		let descendingSortDescriptor = NSSortDescriptor(key: "pubDate", ascending: false)
@@ -33,9 +36,6 @@ final class PostsCoreDataRepository: NSObject {
 	private var viewContext: NSManagedObjectContext {
 		coreDataContainer.persistentContainer.viewContext
 	}
-
-	// MARK: - Public
-	var didChangeContentWithSnapshot: ((NSDiffableDataSourceSnapshot<String, Post.ID>) -> Void)?
 
 	// MARK: - 
 	init(coreDataContainer: CoreDataContainer) {

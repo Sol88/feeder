@@ -53,11 +53,11 @@ final class FeedListViewController: UIViewController {
 		return collectionView
 	}()
 
-	// MARK: - Private
-	private var dataSource: FeedDiffableDataSource?
-
 	// MARK: - Public
 	var output: IFeedListViewOutput?
+
+	// MARK: - Private
+	private var dataSource: FeedDiffableDataSource?
 
 	// MARK: - View cycle
 	override func viewDidLoad() {
