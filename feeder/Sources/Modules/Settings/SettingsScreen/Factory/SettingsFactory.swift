@@ -4,9 +4,13 @@ final class SettingsFactory {}
 
 // MARK: - ISettingsFactory
 extension SettingsFactory: ISettingsFactory {
-	func make(sourceFormatter: ISourceFormatter, sourcesRepository: IPostSourcesRepository) -> UIViewController {
+	func make(
+		sourceFormatter: ISourceFormatter,
+		sourcesRepository: IPostSourcesRepository,
+		updateTimeRepository: IUpdateTimeRepository
+	) -> UIViewController {
 		let viewController = SettingsViewController()
-		let interactor = SettingsInteractor(sourcesRepository: sourcesRepository)
+		let interactor = SettingsInteractor(sourcesRepository: sourcesRepository, updateTimeRepository: updateTimeRepository)
 		let presenter = SettingsPresenter(sourceFormatter: sourceFormatter)
 		let router = SettingsRouter()
 

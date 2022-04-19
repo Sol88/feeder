@@ -14,7 +14,8 @@ final class MainCoordinator: Coordinator {
 	private lazy var settingsCoordinator: Coordinator = SettingsCoordinator(
 		parentCoordinator: self,
 		sourceFormatter: sourceFormatter,
-		sourcesRepository: postSourcesRepository
+		sourcesRepository: postSourcesRepository,
+		updateTimeRepository: updateTimeRepository
 	)
 
 	private let sourceFormatter: ISourceFormatter = SourceFormatter()
@@ -23,6 +24,7 @@ final class MainCoordinator: Coordinator {
 	private let postsRepository: IPostsRepository
 	private let postSourcesRepository: IPostSourcesRepository
 	private let imageLoader: IImageLoader = ImageLoader()
+	private let updateTimeRepository: IUpdateTimeRepository = UserDefaultsUpdateTimeRepository()
 
 	init(parentCoordinator: Coordinator?) {
 		self.parentCoordinator = parentCoordinator

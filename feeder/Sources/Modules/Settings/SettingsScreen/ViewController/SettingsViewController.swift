@@ -43,8 +43,36 @@ final class SettingsViewController: UIViewController {
 	private let cellIdentifier = "SettingsIdentifier"
 	private typealias TableViewDataSource = UITableViewDiffableDataSource<Section, Item>
 
-	private lazy var tableView: UITableView = UITableView(frame: .zero, style: .insetGrouped)
+	private lazy var tableView: UITableView = {
+		let tableView = UITableView(frame: .zero, style: .insetGrouped)
+
+		tableView.delegate = self
+
+		return tableView
+	}()
 	private var dataSource: TableViewDataSource?
+	private lazy var timeUpdateTextField: UITextField = {
+		let textField = UITextField()
+
+		textField.inputView = timeUpdatePickerView
+		textField.isHidden = true
+
+		return textField
+	}()
+	private lazy var timeUpdatePickerView: UIPickerView = {
+		let pickerView = UIPickerView()
+
+		pickerView.dataSource = self
+		pickerView.delegate = self
+		pickerView.backgroundColor = .tertiarySystemBackground
+
+		return pickerView
+	}()
+	private lazy var tapGestureRecognizer: UITapGestureRecognizer = {
+		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapGestureRecognizerDidTap))
+		tapGestureRecognizer.numberOfTapsRequired = 1
+		return tapGestureRecognizer
+	}()
 
 	// MARK: -
 	override func viewDidLoad() {
@@ -57,6 +85,10 @@ final class SettingsViewController: UIViewController {
 // MARK: - IFeedDetailsViewInput
 extension SettingsViewController: ISettingsViewInput {
 	func setupViews() {
+		view.addSubview(timeUpdateTextField) { make in
+			make.leading.top.equalToSuperview()
+			make.size.equalTo(0)
+		}
 		view.backgroundColor = .secondarySystemBackground
 		view.addSubview(tableView) { make in
 			make.edges.equalToSuperview()
@@ -88,6 +120,48 @@ extension SettingsViewController: ISettingsViewInput {
 			return cell
 		}
 	}
+
+	func showTimeUpdatePicker() {
+		DispatchQueue.main.async {
+			self.view.addGestureRecognizer(self.tapGestureRecognizer)
+			self.timeUpdateTextField.becomeFirstResponder()
+		}
+	}
+
+	func hideTimeUpdatePicker() {
+		DispatchQueue.main.async {
+			self.view.removeGestureRecognizer(self.tapGestureRecognizer)
+			self.timeUpdateTextField.resignFirstResponder()
+		}
+	}
+}
+
+// MARK: - UITableViewDelegate
+extension SettingsViewController: UITableViewDelegate {
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		tableView.deselectRow(at: indexPath, animated: true)
+		output?.didSelectRow(atIndexPath: indexPath)
+	}
+}
+
+// MARK: - UIPickerViewDataSource
+extension SettingsViewController: UIPickerViewDataSource {
+	func numberOfComponents(in pickerView: UIPickerView) -> Int {
+		1
+	}
+
+	func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+		output?.numberOfElementsInTimeUpdatePicker() ?? 0
+	}
+
+	func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+		output?.timerUpdatePickerTitle(atRow: row)
+	}
+}
+
+// MARK: - UIPickerViewDelegate
+extension SettingsViewController: UIPickerViewDelegate {
+
 }
 
 // MARK: - Actions
@@ -99,5 +173,9 @@ private extension SettingsViewController {
 		else { return }
 
 		output?.switchDidChangeValue(switcher.isOn, atIndexPath: indexPath)
+	}
+
+	@objc func tapGestureRecognizerDidTap() {
+		output?.didTapGestureRecognizer()
 	}
 }

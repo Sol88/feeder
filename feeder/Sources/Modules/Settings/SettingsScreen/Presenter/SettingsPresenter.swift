@@ -8,10 +8,12 @@ final class SettingsPresenter {
 
 	// MARK: - Private
 	private let sourceFormatter: ISourceFormatter
+	private let timeFormatter: ITimeFormatter
 
 	// MARK: -
-	init(sourceFormatter: ISourceFormatter) {
+	init(sourceFormatter: ISourceFormatter, timeFormatter: ITimeFormatter = MinutesAndSecondsTimeFormatter()) {
 		self.sourceFormatter = sourceFormatter
+		self.timeFormatter = timeFormatter
 	}
 }
 
@@ -44,6 +46,26 @@ extension SettingsPresenter: ISettingsViewOutput {
 			sourcesEnabled: sourcesEnabled,
 			sourcesTitles: sourcesTitles
 		)
+	}
+
+	func didSelectRow(atIndexPath indexPath: IndexPath) {
+		if indexPath.section == 0 && indexPath.item == 0 {
+			// Timer cell
+			view?.showTimeUpdatePicker()
+		}
+	}
+
+	func numberOfElementsInTimeUpdatePicker() -> Int {
+		interactor?.fetchNumberOfUpdateTime() ?? 0
+	}
+
+	func timerUpdatePickerTitle(atRow row: Int) -> String? {
+		guard let time = interactor?.fetchUpdateTime(atRow: row) else { return nil }
+		return timeFormatter.format(time: time)
+	}
+
+	func didTapGestureRecognizer() {
+		view?.hideTimeUpdatePicker()
 	}
 }
 

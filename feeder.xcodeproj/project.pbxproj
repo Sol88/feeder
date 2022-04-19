@@ -32,6 +32,10 @@
 		DE2E4F41280C60F800EA0F11 /* SettingsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2E4F37280C60F800EA0F11 /* SettingsRouter.swift */; };
 		DE2E4F43280C63F300EA0F11 /* IFeedListModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2E4F42280C63F300EA0F11 /* IFeedListModuleOutput.swift */; };
 		DE2E4F45280C90E300EA0F11 /* PostSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2E4F44280C90E300EA0F11 /* PostSource.swift */; };
+		DE6065B0280F19E5005E6BDD /* ITimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6065AF280F19E5005E6BDD /* ITimeFormatter.swift */; };
+		DE6065B2280F19FF005E6BDD /* MinutesAndSecondsTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6065B1280F19FF005E6BDD /* MinutesAndSecondsTimeFormatter.swift */; };
+		DE6065B5280F1C93005E6BDD /* IUpdateTimeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6065B4280F1C93005E6BDD /* IUpdateTimeRepository.swift */; };
+		DE6065B7280F1CA8005E6BDD /* UpdateTimeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6065B6280F1CA8005E6BDD /* UpdateTimeRepository.swift */; };
 		DE79071528015727003296B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE79071428015727003296B8 /* AppDelegate.swift */; };
 		DE79071728015727003296B8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE79071628015727003296B8 /* SceneDelegate.swift */; };
 		DE79071E28015728003296B8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE79071D28015728003296B8 /* Assets.xcassets */; };
@@ -99,6 +103,10 @@
 		DE2E4F37280C60F800EA0F11 /* SettingsRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsRouter.swift; sourceTree = "<group>"; };
 		DE2E4F42280C63F300EA0F11 /* IFeedListModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IFeedListModuleOutput.swift; sourceTree = "<group>"; };
 		DE2E4F44280C90E300EA0F11 /* PostSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSource.swift; sourceTree = "<group>"; };
+		DE6065AF280F19E5005E6BDD /* ITimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITimeFormatter.swift; sourceTree = "<group>"; };
+		DE6065B1280F19FF005E6BDD /* MinutesAndSecondsTimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinutesAndSecondsTimeFormatter.swift; sourceTree = "<group>"; };
+		DE6065B4280F1C93005E6BDD /* IUpdateTimeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IUpdateTimeRepository.swift; sourceTree = "<group>"; };
+		DE6065B6280F1CA8005E6BDD /* UpdateTimeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTimeRepository.swift; sourceTree = "<group>"; };
 		DE79071128015727003296B8 /* feeder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = feeder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE79071428015727003296B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DE79071628015727003296B8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -293,6 +301,15 @@
 			path = Router;
 			sourceTree = "<group>";
 		};
+		DE6065B3280F1C82005E6BDD /* UpdateTimeRepository */ = {
+			isa = PBXGroup;
+			children = (
+				DE6065B4280F1C93005E6BDD /* IUpdateTimeRepository.swift */,
+				DE6065B6280F1CA8005E6BDD /* UpdateTimeRepository.swift */,
+			);
+			path = UpdateTimeRepository;
+			sourceTree = "<group>";
+		};
 		DE79070828015727003296B8 = {
 			isa = PBXGroup;
 			children = (
@@ -484,6 +501,7 @@
 		DED586E92804937A00F037D5 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				DE6065B3280F1C82005E6BDD /* UpdateTimeRepository */,
 				DEAA04B9280DD7DF00C0BB08 /* PostsRepository */,
 				DEAA04B4280DD7AB00C0BB08 /* PostSourcesRepository */,
 			);
@@ -504,6 +522,8 @@
 			children = (
 				DED586F428049FF800F037D5 /* SourceFormatter.swift */,
 				DED586F62804A0BB00F037D5 /* IDateFormatter.swift */,
+				DE6065AF280F19E5005E6BDD /* ITimeFormatter.swift */,
+				DE6065B1280F19FF005E6BDD /* MinutesAndSecondsTimeFormatter.swift */,
 			);
 			path = Formatters;
 			sourceTree = "<group>";
@@ -651,6 +671,7 @@
 				DE2E4F18280C5DD200EA0F11 /* FeedDetailsInteractor.swift in Sources */,
 				DE2E4F27280C5FBF00EA0F11 /* IFeedDetailsFactory.swift in Sources */,
 				DE79074B2801CF0F003296B8 /* IFeedListViewOutput.swift in Sources */,
+				DE6065B2280F19FF005E6BDD /* MinutesAndSecondsTimeFormatter.swift in Sources */,
 				DE7907572802D037003296B8 /* FeedCollectionViewLayout.swift in Sources */,
 				DED586F228049FD300F037D5 /* FeedCollectionViewCellPropsFactory.swift in Sources */,
 				DE2E4F39280C60F800EA0F11 /* SettingsPresenter.swift in Sources */,
@@ -674,9 +695,12 @@
 				DEE0CA04280889EE00750A6F /* Model.xcdatamodeld in Sources */,
 				DEF11838280720BA005AA8D1 /* PostsLoader.swift in Sources */,
 				DEF1183328071CDE005AA8D1 /* PostXMLParser.swift in Sources */,
+				DE6065B7280F1CA8005E6BDD /* UpdateTimeRepository.swift in Sources */,
 				DE7907382801C8FA003296B8 /* FeedListViewController.swift in Sources */,
 				DED586EC280493AF00F037D5 /* Post.swift in Sources */,
+				DE6065B5280F1C93005E6BDD /* IUpdateTimeRepository.swift in Sources */,
 				DE2E1F752805F91F003B6C5A /* IImageLoader.swift in Sources */,
+				DE6065B0280F19E5005E6BDD /* ITimeFormatter.swift in Sources */,
 				DE2E4F0D280C12E600EA0F11 /* Cache.swift in Sources */,
 				DE79074F2801CF38003296B8 /* IFeedListRouter.swift in Sources */,
 				DED586F02804952200F037D5 /* PostsCoreDataRepository.swift in Sources */,
