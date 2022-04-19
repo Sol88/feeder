@@ -28,6 +28,7 @@ extension SettingsPresenter: ISettingsViewOutput {
 		guard let sources = interactor?.fetchAllSources() else { return }
 		let source = sources[indexPath.item]
 		interactor?.saveSource(source, isEnabled: value)
+		props?.sourcesEnabled[source] = value
 	}
 
 	func didLoad() {
@@ -87,6 +88,8 @@ extension SettingsPresenter: ISettingsViewOutput {
 		var props = self.props
 		props?.timerUpdateAmount = timeFormatter.format(time: time)
 		self.props = props
+
+		view?.updateTableView()
 	}
 }
 

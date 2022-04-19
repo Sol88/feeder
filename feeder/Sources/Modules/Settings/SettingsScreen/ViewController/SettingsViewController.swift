@@ -22,7 +22,7 @@ final class SettingsViewController: UIViewController {
 		let snapshot: SettingsDiffableSnapshot
 		let timerTitle: String
 		var timerUpdateAmount: String
-		let sourcesEnabled: [PostSource: Bool]
+		var sourcesEnabled: [PostSource: Bool]
 		let sourcesTitles: [PostSource: String]
 	}
 
@@ -33,7 +33,7 @@ final class SettingsViewController: UIViewController {
 			}
 
 			DispatchQueue.main.async {
-				self.dataSource?.applySnapshotUsingReloadData(props.snapshot)
+				self.dataSource?.apply(props.snapshot, animatingDifferences: false)
 			}
 
 			view.setNeedsDisplay()
@@ -140,6 +140,12 @@ extension SettingsViewController: ISettingsViewInput {
 	func configureTimeUpdatePicker(defaultRow row: Int) {
 		DispatchQueue.main.async {
 			self.timeUpdatePickerView.selectRow(row, inComponent: 0, animated: false)
+		}
+	}
+
+	func updateTableView() {
+		DispatchQueue.main.async {
+			self.tableView.reloadData()
 		}
 	}
 }
