@@ -45,15 +45,15 @@ extension SettingsPresenter: ISettingsViewOutput {
 		var sourcesEnabled: [PostSource: Bool] = [:]
 		var sourcesTitles: [PostSource: String] = [:]
 
-		if let sources = interactor?.fetchAllSources() {
-			for source in sources {
-				sourcesTitles[source] = sourceFormatter.string(from: source)
-				sourcesEnabled[source] = interactor?.fetchIsSourceEnabled(source) ?? true
-			}
+		guard let sources = interactor?.fetchAllSources() else { return }
+
+		for source in sources {
+			sourcesTitles[source] = sourceFormatter.string(from: source)
+			sourcesEnabled[source] = interactor?.fetchIsSourceEnabled(source) ?? true
 		}
 
 		props = .init(
-			snapshot: makeSnapshot(),
+			snapshot: makeSnapshot(forSources: sources),
 			timerTitle: "Update content every",
 			timerUpdateAmount: timeFormatter.format(time: currentUpdateTime),
 			sourcesEnabled: sourcesEnabled,
@@ -95,16 +95,16 @@ extension SettingsPresenter: ISettingsViewOutput {
 
 // MARK: - Snapshot
 private extension SettingsPresenter {
-	func makeSnapshot() -> SettingsDiffableSnapshot {
+	func makeSnapshot(forSources sources: [PostSource]) -> SettingsDiffableSnapshot {
 		var snapshot = SettingsDiffableSnapshot()
 		snapshot.appendSections([.timer, .sources])
 		snapshot.appendItems([
 			SettingsViewController.Item(type: .timer)
 		], toSection: .timer)
-		snapshot.appendItems([
-			SettingsViewController.Item(type: .source(.lenta)),
-			SettingsViewController.Item(type: .source(.nyt))
-		], toSection: .sources)
+		snapshot.appendItems(
+			sources.map { SettingsViewController.Item(type: .source($0)) },
+			toSection: .sources
+		)
 		return snapshot
 	}
 }
