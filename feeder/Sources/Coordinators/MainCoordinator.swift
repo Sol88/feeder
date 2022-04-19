@@ -30,7 +30,25 @@ final class MainCoordinator: Coordinator {
 		self.parentCoordinator = parentCoordinator
 		postsRepository = PostsCoreDataRepository(coreDataContainer: coreDataContainer)
 		postSourcesRepository = PostSourceUserDefaultsRepository()
-		updater = PostsUpdater(postsRepository: postsRepository, sourcesRepository: postSourcesRepository)
+		updater = PostsUpdater(
+			postsRepository: postsRepository,
+			sourcesRepository: postSourcesRepository,
+			updateTimeRepository: updateTimeRepository
+		)
+
+		NotificationCenter.default.addObserver(
+			forName: UIApplication.willResignActiveNotification,
+			object: nil,
+			queue: nil) { [weak self] _ in
+				self?.updater.stop()
+			}
+
+		NotificationCenter.default.addObserver(
+			forName: UIApplication.didBecomeActiveNotification,
+			object: nil,
+			queue: nil) { [weak self] _ in
+				self?.updater.start()
+			}
 	}
 
 	func start() -> UIViewController {
@@ -45,7 +63,7 @@ final class MainCoordinator: Coordinator {
 
 		rootViewController = tabBarController
 
-		updater.update()
+		updater.start()
 
 		return tabBarController
 	}
