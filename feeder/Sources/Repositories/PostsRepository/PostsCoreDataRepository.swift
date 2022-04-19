@@ -105,6 +105,7 @@ private extension PostsCoreDataRepository {
 		let ascendingIDSortDescriptor = NSSortDescriptor(key: "id", ascending: true)
 		let fetchRequest = NSFetchRequest<PostCoreData>(entityName: "PostCoreData")
 		fetchRequest.sortDescriptors = [descendingPubDateSortDescriptor, ascendingIDSortDescriptor]
+		fetchRequest.fetchBatchSize = 20
 		var predicates: [NSPredicate] = []
 		for source in sources {
 			predicates.append(NSPredicate(format: "source == %@", source.rawValue))
