@@ -96,9 +96,10 @@ extension PostsCoreDataRepository: IPostsRepository {
 // MARK: - Private
 private extension PostsCoreDataRepository {
 	func makeFetchedResultsController(withSourcesFilter sources: [PostSource]) -> NSFetchedResultsController<PostCoreData> {
-		let descendingSortDescriptor = NSSortDescriptor(key: "pubDate", ascending: false)
+		let descendingPubDateSortDescriptor = NSSortDescriptor(key: "pubDate", ascending: false)
+		let ascendingIDSortDescriptor = NSSortDescriptor(key: "id", ascending: true)
 		let fetchRequest = NSFetchRequest<PostCoreData>(entityName: "PostCoreData")
-		fetchRequest.sortDescriptors = [descendingSortDescriptor]
+		fetchRequest.sortDescriptors = [descendingPubDateSortDescriptor, ascendingIDSortDescriptor]
 		var predicates: [NSPredicate] = []
 		for source in sources {
 			predicates.append(NSPredicate(format: "source == %@", source.rawValue))
