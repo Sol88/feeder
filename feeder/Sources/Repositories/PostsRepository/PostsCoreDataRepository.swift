@@ -34,8 +34,13 @@ extension PostsCoreDataRepository: IPostsRepository {
 	func add(_ elements: [XMLPost], forSource source: PostSource) {
 		let idSet = savedPostIds()
 		let backgroundContext = coreDataContainer.persistentContainer.newBackgroundContext()
-		for element in elements where !idSet.contains(element.id) {
-			insert(xmlPost: element, source: source, context: backgroundContext)
+		for element in elements {
+			if idSet.contains(element.id) {
+				// Sometimes news are changes after several minutes after publication. Added updating of already saved posts
+				update(xmlPost: element, source: source, context: backgroundContext)
+			} else {
+				insert(xmlPost: element, source: source, context: backgroundContext)
+			}
 		}
 
 		do {
@@ -149,6 +154,31 @@ private extension PostsCoreDataRepository {
 		post.source = source.rawValue
 		post.imageURL = xmlPost.imageURL
 		post.isRead = false
+	}
+
+	func update(
+		xmlPost: XMLPost,
+		source: PostSource,
+		context: NSManagedObjectContext
+	) {
+		guard let date = dateFormatter.date(from: xmlPost.pubDate) else { return }
+
+		let fetchRequest = NSFetchRequest<PostCoreData>(entityName: "PostCoreData")
+		fetchRequest.predicate = NSPredicate(format: "id == %@", xmlPost.id)
+		fetchRequest.fetchBatchSize = 1
+
+		do {
+			guard let postCoreData = try context.fetch(fetchRequest).first else { return }
+
+			postCoreData.summary = xmlPost.description
+			postCoreData.pubDate = date
+			postCoreData.link = xmlPost.link
+			postCoreData.title = xmlPost.title
+			postCoreData.source = source.rawValue
+			postCoreData.imageURL = xmlPost.imageURL
+		} catch {
+			assertionFailure("Fetching post with postId \(xmlPost.id) failed with error \(error)")
+		}
 	}
 }
 
