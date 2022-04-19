@@ -1,16 +1,19 @@
 import Foundation
 
 final class PostsUpdater {
-	private let postsLoaders: [IPostsLoader]
+	private let sourcesRepository: IPostSourcesRepository
 	private let postsRepository: IPostsRepository
+	private let urlSession: URLSession = .shared
 
 	init(postsRepository: IPostsRepository, sourcesRepository: IPostSourcesRepository) {
-		let urlSession: URLSession = .shared
-		self.postsLoaders = sourcesRepository.fetchAllSources().map { PostsLoader(session: urlSession, source: $0) }
 		self.postsRepository = postsRepository
+		self.sourcesRepository = sourcesRepository
 	}
 
 	func update() {
+		let postsLoaders = sourcesRepository.fetchAllSources()
+			.filter(sourcesRepository.fetchSourceIsEnabled)
+			.map { PostsLoader(session: urlSession, source: $0) }
 		for loader in postsLoaders {
 			Task {
 				guard let posts = try? await loader.fetchPosts() else { return }
