@@ -8,4 +8,5 @@ protocol ISettingsViewOutput: AnyObject {
 	func switchDidChangeValue(_ value: Bool, atIndexPath indexPath: IndexPath)
 	func numberOfElementsInTimeUpdatePicker() -> Int
 	func timerUpdatePickerTitle(atRow row: Int) -> String?
+	func timerUpdatePickerDidSelect(row: Int)
 }

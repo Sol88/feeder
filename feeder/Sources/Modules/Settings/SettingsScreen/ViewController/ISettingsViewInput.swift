@@ -4,4 +4,5 @@ protocol ISettingsViewInput: AnyObject {
 	func configureDataSource()
 	func showTimeUpdatePicker()
 	func hideTimeUpdatePicker()
+	func configureTimeUpdatePicker(defaultRow row: Int)
 }

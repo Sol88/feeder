@@ -9,6 +9,11 @@ final class SettingsPresenter {
 	// MARK: - Private
 	private let sourceFormatter: ISourceFormatter
 	private let timeFormatter: ITimeFormatter
+	private var props: SettingsViewController.Props? {
+		didSet {
+			view?.props = props
+		}
+	}
 
 	// MARK: -
 	init(sourceFormatter: ISourceFormatter, timeFormatter: ITimeFormatter = MinutesAndSecondsTimeFormatter()) {
@@ -29,6 +34,13 @@ extension SettingsPresenter: ISettingsViewOutput {
 		view?.setupViews()
 		view?.configureDataSource()
 
+		let currentUpdateTime = interactor?.fetchCurrentUpdateTime() ?? 0
+		if
+			let timeEntities = interactor?.fetchAllUpdateTimes(),
+			let index = timeEntities.firstIndex(of: currentUpdateTime) {
+			view?.configureTimeUpdatePicker(defaultRow: index)
+		}
+
 		var sourcesEnabled: [PostSource: Bool] = [:]
 		var sourcesTitles: [PostSource: String] = [:]
 
@@ -39,10 +51,10 @@ extension SettingsPresenter: ISettingsViewOutput {
 			}
 		}
 
-		view?.props = .init(
+		props = .init(
 			snapshot: makeSnapshot(),
 			timerTitle: "Update content every",
-			timerUpdateAmount: timeFormatter.format(time: 123),
+			timerUpdateAmount: timeFormatter.format(time: currentUpdateTime),
 			sourcesEnabled: sourcesEnabled,
 			sourcesTitles: sourcesTitles
 		)
@@ -56,7 +68,7 @@ extension SettingsPresenter: ISettingsViewOutput {
 	}
 
 	func numberOfElementsInTimeUpdatePicker() -> Int {
-		interactor?.fetchNumberOfUpdateTime() ?? 0
+		interactor?.fetchAllUpdateTimes().count ?? 0
 	}
 
 	func timerUpdatePickerTitle(atRow row: Int) -> String? {
@@ -66,6 +78,15 @@ extension SettingsPresenter: ISettingsViewOutput {
 
 	func didTapGestureRecognizer() {
 		view?.hideTimeUpdatePicker()
+	}
+
+	func timerUpdatePickerDidSelect(row: Int) {
+		guard let time = interactor?.fetchUpdateTime(atRow: row) else { return }
+		interactor?.updateCurrentUpdateTime(time)
+
+		var props = self.props
+		props?.timerUpdateAmount = timeFormatter.format(time: time)
+		self.props = props
 	}
 }
 

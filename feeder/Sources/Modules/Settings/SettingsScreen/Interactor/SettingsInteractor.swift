@@ -26,12 +26,20 @@ extension SettingsInteractor: ISettingsInteractor {
 		sourcesRepository.saveSource(source, isEnabled: isEnabled)
 	}
 
-	func fetchNumberOfUpdateTime() -> Int {
-		updateTimeRepository.fetchAllTimeEntities().count
+	func fetchAllUpdateTimes() -> [TimeInterval] {
+		updateTimeRepository.fetchAllTimeEntities()
 	}
 
 	func fetchUpdateTime(atRow row: Int) -> TimeInterval {
 		let entities = updateTimeRepository.fetchAllTimeEntities()
 		return entities[row]
+	}
+
+	func fetchCurrentUpdateTime() -> TimeInterval {
+		updateTimeRepository.fetchCurrentTimeEntity()
+	}
+
+	func updateCurrentUpdateTime(_ time: TimeInterval) {
+		updateTimeRepository.saveCurrentTimeEntity(time)
 	}
 }

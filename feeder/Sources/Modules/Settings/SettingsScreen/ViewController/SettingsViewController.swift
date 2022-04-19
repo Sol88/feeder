@@ -21,7 +21,7 @@ final class SettingsViewController: UIViewController {
 	struct Props {
 		let snapshot: SettingsDiffableSnapshot
 		let timerTitle: String
-		let timerUpdateAmount: String
+		var timerUpdateAmount: String
 		let sourcesEnabled: [PostSource: Bool]
 		let sourcesTitles: [PostSource: String]
 	}
@@ -33,8 +33,10 @@ final class SettingsViewController: UIViewController {
 			}
 
 			DispatchQueue.main.async {
-				self.dataSource?.apply(props.snapshot, animatingDifferences: false)
+				self.dataSource?.applySnapshotUsingReloadData(props.snapshot)
 			}
+
+			view.setNeedsDisplay()
 		}
 	}
 	var output: ISettingsViewOutput?
@@ -134,6 +136,12 @@ extension SettingsViewController: ISettingsViewInput {
 			self.timeUpdateTextField.resignFirstResponder()
 		}
 	}
+
+	func configureTimeUpdatePicker(defaultRow row: Int) {
+		DispatchQueue.main.async {
+			self.timeUpdatePickerView.selectRow(row, inComponent: 0, animated: false)
+		}
+	}
 }
 
 // MARK: - UITableViewDelegate
@@ -161,7 +169,9 @@ extension SettingsViewController: UIPickerViewDataSource {
 
 // MARK: - UIPickerViewDelegate
 extension SettingsViewController: UIPickerViewDelegate {
-
+	func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+		output?.timerUpdatePickerDidSelect(row: row)
+	}
 }
 
 // MARK: - Actions

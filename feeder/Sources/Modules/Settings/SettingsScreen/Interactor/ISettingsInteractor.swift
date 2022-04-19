@@ -5,6 +5,8 @@ protocol ISettingsInteractor: AnyObject {
 	func fetchIsSourceEnabled(_ source: PostSource) -> Bool
 	func saveSource(_ source: PostSource, isEnabled: Bool)
 
-	func fetchNumberOfUpdateTime() -> Int
+	func fetchAllUpdateTimes() -> [TimeInterval]
 	func fetchUpdateTime(atRow row: Int) -> TimeInterval
+	func updateCurrentUpdateTime(_ time: TimeInterval)
+	func fetchCurrentUpdateTime() -> TimeInterval
 }
