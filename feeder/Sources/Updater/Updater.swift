@@ -16,15 +16,15 @@ final class PostsUpdater {
 		self.postsRepository = postsRepository
 		self.sourcesRepository = sourcesRepository
 		self.updateTimeRepository = updateTimeRepository
+
+		self.updateTimeRepository.currentTimeChanged = { [weak self] fetchTime in
+			self?.startUpdateTimer(everyTime: fetchTime)
+		}
 	}
 
 	func start() {
 		let time = updateTimeRepository.fetchCurrentTimeEntity()
-		timer?.invalidate()
-		timer = Timer(timeInterval: time, repeats: true, block: { [weak self] _ in
-			self?.update()
-		})
-		RunLoop.main.add(timer!, forMode: .default)
+		startUpdateTimer(everyTime: time)
 		timer?.fire()
 	}
 
@@ -32,10 +32,19 @@ final class PostsUpdater {
 		timer?.invalidate()
 	}
 
+	private func startUpdateTimer(everyTime time: TimeInterval) {
+		timer?.invalidate()
+		timer = Timer(timeInterval: time, repeats: true, block: { [weak self] _ in
+			self?.update()
+		})
+		RunLoop.main.add(timer!, forMode: .default)
+	}
+
 	private func update() {
 		let postsLoaders = sourcesRepository.fetchAllSources()
 			.filter(sourcesRepository.fetchSourceIsEnabled)
 			.map { PostsLoader(session: urlSession, source: $0) }
+
 		for loader in postsLoaders {
 			Task {
 				guard let posts = try? await loader.fetchPosts() else { return }

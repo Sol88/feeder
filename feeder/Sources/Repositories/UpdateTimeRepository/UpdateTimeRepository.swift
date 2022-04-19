@@ -5,6 +5,8 @@ final class UserDefaultsUpdateTimeRepository {
 	private let userDefaultCurrentTimeKey = "userDefaultCurrentTimeKey"
 	private let userDefaults = UserDefaults.standard
 
+	var currentTimeChanged: ((TimeInterval) -> Void)?
+
 	init() {
 		userDefaults.register(defaults: [userDefaultCurrentTimeKey: timeEntities[0]])
 	}
@@ -21,6 +23,7 @@ extension UserDefaultsUpdateTimeRepository: IUpdateTimeRepository {
 	}
 
 	func saveCurrentTimeEntity(_ timeInterval: TimeInterval) {
+		currentTimeChanged?(timeInterval)
 		userDefaults.set(timeInterval, forKey: userDefaultCurrentTimeKey)
 	}
 }
