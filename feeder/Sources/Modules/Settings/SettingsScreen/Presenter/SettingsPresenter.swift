@@ -42,7 +42,7 @@ extension SettingsPresenter: ISettingsViewOutput {
 		view?.props = .init(
 			snapshot: makeSnapshot(),
 			timerTitle: "Update content every",
-			timerUpdateAmount: "123",
+			timerUpdateAmount: timeFormatter.format(time: 123),
 			sourcesEnabled: sourcesEnabled,
 			sourcesTitles: sourcesTitles
 		)
