@@ -21,9 +21,7 @@ final class FeedCoordinator: Coordinator {
 		sourcesRepository: IPostSourcesRepository
 	) {
 		self.parentCoordinator = parentCoordinator
-		let formatter = RelativeDateTimeFormatter()
-		formatter.dateTimeStyle = .named
-		self.dateFormatter = formatter
+		self.dateFormatter = DateFormatters.longAgoNamedDateFormatter
 		self.postsRepository = postsRepository
 		self.imageLoader = imageLoader
 		self.feedListFactory = FeedListFactory()

@@ -9,12 +9,7 @@ final class PostsCoreDataRepository: NSObject {
 	// MARK: - Private
 	private var fetchedResultsController: NSFetchedResultsController<PostCoreData>?
 
-	private let dateFormatter: DateFormatter = {
-		let formatter = DateFormatter()
-		formatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss ZZZZ"
-		formatter.locale = Locale(identifier: "en_US")
-		return formatter
-	}()
+	private let dateFormatter = DateFormatters.xmlPostPublicationDateFormatter
 
 	private let coreDataContainer: CoreDataContainer
 

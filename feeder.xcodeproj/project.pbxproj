@@ -63,6 +63,7 @@
 		DEAA04B8280DD7D100C0BB08 /* PostSourcesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAA04B7280DD7D100C0BB08 /* PostSourcesRepository.swift */; };
 		DECC8C92281059E9003D80A2 /* PostXMLParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECC8C91281059E9003D80A2 /* PostXMLParserTests.swift */; };
 		DECC8C9528106395003D80A2 /* XMLTestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECC8C9428106395003D80A2 /* XMLTestData.swift */; };
+		DECC8C98281068FE003D80A2 /* DateFormatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECC8C97281068FE003D80A2 /* DateFormatters.swift */; };
 		DED586EC280493AF00F037D5 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED586EB280493AF00F037D5 /* Post.swift */; };
 		DED586EE280493D200F037D5 /* IPostsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED586ED280493D200F037D5 /* IPostsRepository.swift */; };
 		DED586F02804952200F037D5 /* PostsCoreDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED586EF2804952200F037D5 /* PostsCoreDataRepository.swift */; };
@@ -149,6 +150,7 @@
 		DEAA04B7280DD7D100C0BB08 /* PostSourcesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSourcesRepository.swift; sourceTree = "<group>"; };
 		DECC8C91281059E9003D80A2 /* PostXMLParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostXMLParserTests.swift; sourceTree = "<group>"; };
 		DECC8C9428106395003D80A2 /* XMLTestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMLTestData.swift; sourceTree = "<group>"; };
+		DECC8C97281068FE003D80A2 /* DateFormatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatters.swift; sourceTree = "<group>"; };
 		DED586EB280493AF00F037D5 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		DED586ED280493D200F037D5 /* IPostsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPostsRepository.swift; sourceTree = "<group>"; };
 		DED586EF2804952200F037D5 /* PostsCoreDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsCoreDataRepository.swift; sourceTree = "<group>"; };
@@ -366,6 +368,7 @@
 		DE7907282801580B003296B8 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				DECC8C96281068DD003D80A2 /* DateFormatters */,
 				DE2E4F0B280C12DD00EA0F11 /* Cache */,
 				DE2E4F0A280B4B5400EA0F11 /* Modules */,
 				DEE0CA01280889C700750A6F /* CoreData */,
@@ -532,6 +535,14 @@
 				DECC8C9428106395003D80A2 /* XMLTestData.swift */,
 			);
 			path = TestData;
+			sourceTree = "<group>";
+		};
+		DECC8C96281068DD003D80A2 /* DateFormatters */ = {
+			isa = PBXGroup;
+			children = (
+				DECC8C97281068FE003D80A2 /* DateFormatters.swift */,
+			);
+			path = DateFormatters;
 			sourceTree = "<group>";
 		};
 		DED586E92804937A00F037D5 /* Repositories */ = {
@@ -773,6 +784,7 @@
 				DEF11838280720BA005AA8D1 /* PostsLoader.swift in Sources */,
 				DEF1183328071CDE005AA8D1 /* PostXMLParser.swift in Sources */,
 				DE6065B7280F1CA8005E6BDD /* UpdateTimeRepository.swift in Sources */,
+				DECC8C98281068FE003D80A2 /* DateFormatters.swift in Sources */,
 				DE7907382801C8FA003296B8 /* FeedListViewController.swift in Sources */,
 				DED586EC280493AF00F037D5 /* Post.swift in Sources */,
 				DE6065B5280F1C93005E6BDD /* IUpdateTimeRepository.swift in Sources */,
