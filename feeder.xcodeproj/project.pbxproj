@@ -73,6 +73,7 @@
 		DED586F528049FF800F037D5 /* SourceFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED586F428049FF800F037D5 /* SourceFormatter.swift */; };
 		DED586F72804A0BB00F037D5 /* IDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED586F62804A0BB00F037D5 /* IDateFormatter.swift */; };
 		DED6EB4D28107AD300A6DB8B /* CacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED6EB4C28107AD300A6DB8B /* CacheTests.swift */; };
+		DED6EB4F28108DB700A6DB8B /* FeedListInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED6EB4E28108DB700A6DB8B /* FeedListInteractorMock.swift */; };
 		DEE0CA04280889EE00750A6F /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DEE0CA02280889EE00750A6F /* Model.xcdatamodeld */; };
 		DEE0CA0628088BCB00750A6F /* CoreDataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE0CA0528088BCB00750A6F /* CoreDataContainer.swift */; };
 		DEF1183328071CDE005AA8D1 /* PostXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF1183228071CDE005AA8D1 /* PostXMLParser.swift */; };
@@ -163,6 +164,7 @@
 		DED586F428049FF800F037D5 /* SourceFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceFormatter.swift; sourceTree = "<group>"; };
 		DED586F62804A0BB00F037D5 /* IDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDateFormatter.swift; sourceTree = "<group>"; };
 		DED6EB4C28107AD300A6DB8B /* CacheTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheTests.swift; sourceTree = "<group>"; };
+		DED6EB4E28108DB700A6DB8B /* FeedListInteractorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedListInteractorMock.swift; sourceTree = "<group>"; };
 		DEE0CA03280889EE00750A6F /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		DEE0CA0528088BCB00750A6F /* CoreDataContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataContainer.swift; sourceTree = "<group>"; };
 		DEF1183228071CDE005AA8D1 /* PostXMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostXMLParser.swift; sourceTree = "<group>"; };
@@ -555,6 +557,7 @@
 			isa = PBXGroup;
 			children = (
 				DECC8C9C28107439003D80A2 /* FeedListPresenterTests.swift */,
+				DED6EB4E28108DB700A6DB8B /* FeedListInteractorMock.swift */,
 			);
 			path = FeedListTests;
 			sourceTree = "<group>";
@@ -830,6 +833,7 @@
 				DEF63027281047920007FB03 /* SourceFormatterTests.swift in Sources */,
 				DECC8C9D28107439003D80A2 /* FeedListPresenterTests.swift in Sources */,
 				DED6EB4D28107AD300A6DB8B /* CacheTests.swift in Sources */,
+				DED6EB4F28108DB700A6DB8B /* FeedListInteractorMock.swift in Sources */,
 				DECC8C9A28106B7D003D80A2 /* XMLPostPublicationDateFormatterTests.swift in Sources */,
 				DECC8C92281059E9003D80A2 /* PostXMLParserTests.swift in Sources */,
 				DECC8C9528106395003D80A2 /* XMLTestData.swift in Sources */,
