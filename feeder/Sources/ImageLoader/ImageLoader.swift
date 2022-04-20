@@ -8,6 +8,8 @@ final class ImageLoader {
 
 	init() {
 		let configuration = URLSessionConfiguration.default
+		configuration.timeoutIntervalForRequest = 10
+		configuration.timeoutIntervalForResource = 10
 		configuration.urlCache = URLCache(
 			memoryCapacity: Constants.memoryCache,
 			diskCapacity: Constants.diskCache,

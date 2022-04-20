@@ -3,7 +3,7 @@ import Foundation
 final class PostsUpdater {
 	private let sourcesRepository: IPostSourcesRepository
 	private let postsRepository: IPostsRepository
-	private let urlSession: URLSession = .shared
+	private let urlSession: URLSession
 	private let updateTimeRepository: IUpdateTimeRepository
 
 	private var timer: Timer?
@@ -16,6 +16,11 @@ final class PostsUpdater {
 		self.postsRepository = postsRepository
 		self.sourcesRepository = sourcesRepository
 		self.updateTimeRepository = updateTimeRepository
+
+		let sessionConfiguration = URLSessionConfiguration.default
+		sessionConfiguration.timeoutIntervalForRequest = 10
+		sessionConfiguration.timeoutIntervalForResource = 10
+		self.urlSession = URLSession(configuration: sessionConfiguration)
 
 		self.updateTimeRepository.currentTimeChanged = { [weak self] fetchTime in
 			self?.startUpdateTimer(everyTime: fetchTime)
