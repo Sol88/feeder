@@ -2,10 +2,14 @@ import Foundation
 import UIKit
 
 final class Cache<Key: Hashable, Value> {
-	private let maxAmountOfElements = 15
+	private let maxAmountOfElements: Int
 	private var datesForAddedCache: [CFTimeInterval: Key] = [:]
 	private var cache: [Key: Value] = [:]
 	private var lock = NSLock()
+
+	init(maxAmountOfElements: Int = 15) {
+		self.maxAmountOfElements = maxAmountOfElements
+	}
 
 	func insert(_ value: Value, forKey key: Key) {
 		defer { lock.unlock() }
