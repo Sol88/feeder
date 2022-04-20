@@ -76,6 +76,7 @@
 		DEF1183F28075DA6005AA8D1 /* IPostsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF1183E28075DA6005AA8D1 /* IPostsLoader.swift */; };
 		DEF118452807631C005AA8D1 /* IPostXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF118442807631C005AA8D1 /* IPostXMLParser.swift */; };
 		DEF6302528102DB50007FB03 /* MinutesAndSecondsTimeFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF6302428102DB50007FB03 /* MinutesAndSecondsTimeFormatterTests.swift */; };
+		DEF63027281047920007FB03 /* SourceFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF63026281047920007FB03 /* SourceFormatterTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -160,6 +161,7 @@
 		DEF118442807631C005AA8D1 /* IPostXMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPostXMLParser.swift; sourceTree = "<group>"; };
 		DEF6301A28102D710007FB03 /* feederTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = feederTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEF6302428102DB50007FB03 /* MinutesAndSecondsTimeFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinutesAndSecondsTimeFormatterTests.swift; sourceTree = "<group>"; };
+		DEF63026281047920007FB03 /* SourceFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceFormatterTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -597,6 +599,7 @@
 		DEF6301B28102D710007FB03 /* feederTests */ = {
 			isa = PBXGroup;
 			children = (
+				DEF63026281047920007FB03 /* SourceFormatterTests.swift */,
 				DEF6302428102DB50007FB03 /* MinutesAndSecondsTimeFormatterTests.swift */,
 			);
 			path = feederTests;
@@ -781,6 +784,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DEF6302528102DB50007FB03 /* MinutesAndSecondsTimeFormatterTests.swift in Sources */,
+				DEF63027281047920007FB03 /* SourceFormatterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
