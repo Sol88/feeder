@@ -6,6 +6,9 @@ struct MinutesAndSecondsTimeFormatter: ITimeFormatter {
 		let minutes = time / 60
 		let seconds = time % 60
 
+		if seconds == 0 && minutes == 0 {
+			return "0 sec"
+		}
 		var result = ""
 		if minutes > 0 {
 			result += "\(minutes) min"
