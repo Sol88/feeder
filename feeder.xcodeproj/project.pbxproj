@@ -61,6 +61,8 @@
 		DE79075D28031D34003296B8 /* FeedInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE79075C28031D34003296B8 /* FeedInfoView.swift */; };
 		DEAA04B6280DD7C200C0BB08 /* IPostSourcesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAA04B5280DD7C200C0BB08 /* IPostSourcesRepository.swift */; };
 		DEAA04B8280DD7D100C0BB08 /* PostSourcesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAA04B7280DD7D100C0BB08 /* PostSourcesRepository.swift */; };
+		DECC8C92281059E9003D80A2 /* PostXMLParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECC8C91281059E9003D80A2 /* PostXMLParserTests.swift */; };
+		DECC8C9528106395003D80A2 /* XMLTestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECC8C9428106395003D80A2 /* XMLTestData.swift */; };
 		DED586EC280493AF00F037D5 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED586EB280493AF00F037D5 /* Post.swift */; };
 		DED586EE280493D200F037D5 /* IPostsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED586ED280493D200F037D5 /* IPostsRepository.swift */; };
 		DED586F02804952200F037D5 /* PostsCoreDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED586EF2804952200F037D5 /* PostsCoreDataRepository.swift */; };
@@ -145,6 +147,8 @@
 		DE79075C28031D34003296B8 /* FeedInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedInfoView.swift; sourceTree = "<group>"; };
 		DEAA04B5280DD7C200C0BB08 /* IPostSourcesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPostSourcesRepository.swift; sourceTree = "<group>"; };
 		DEAA04B7280DD7D100C0BB08 /* PostSourcesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSourcesRepository.swift; sourceTree = "<group>"; };
+		DECC8C91281059E9003D80A2 /* PostXMLParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostXMLParserTests.swift; sourceTree = "<group>"; };
+		DECC8C9428106395003D80A2 /* XMLTestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMLTestData.swift; sourceTree = "<group>"; };
 		DED586EB280493AF00F037D5 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		DED586ED280493D200F037D5 /* IPostsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPostsRepository.swift; sourceTree = "<group>"; };
 		DED586EF2804952200F037D5 /* PostsCoreDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsCoreDataRepository.swift; sourceTree = "<group>"; };
@@ -522,6 +526,14 @@
 			path = PostsRepository;
 			sourceTree = "<group>";
 		};
+		DECC8C9328106384003D80A2 /* TestData */ = {
+			isa = PBXGroup;
+			children = (
+				DECC8C9428106395003D80A2 /* XMLTestData.swift */,
+			);
+			path = TestData;
+			sourceTree = "<group>";
+		};
 		DED586E92804937A00F037D5 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
@@ -599,6 +611,8 @@
 		DEF6301B28102D710007FB03 /* feederTests */ = {
 			isa = PBXGroup;
 			children = (
+				DECC8C9328106384003D80A2 /* TestData */,
+				DECC8C91281059E9003D80A2 /* PostXMLParserTests.swift */,
 				DEF63026281047920007FB03 /* SourceFormatterTests.swift */,
 				DEF6302428102DB50007FB03 /* MinutesAndSecondsTimeFormatterTests.swift */,
 			);
@@ -785,6 +799,8 @@
 			files = (
 				DEF6302528102DB50007FB03 /* MinutesAndSecondsTimeFormatterTests.swift in Sources */,
 				DEF63027281047920007FB03 /* SourceFormatterTests.swift in Sources */,
+				DECC8C92281059E9003D80A2 /* PostXMLParserTests.swift in Sources */,
+				DECC8C9528106395003D80A2 /* XMLTestData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
