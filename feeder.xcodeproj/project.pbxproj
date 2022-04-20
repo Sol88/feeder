@@ -64,6 +64,7 @@
 		DECC8C92281059E9003D80A2 /* PostXMLParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECC8C91281059E9003D80A2 /* PostXMLParserTests.swift */; };
 		DECC8C9528106395003D80A2 /* XMLTestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECC8C9428106395003D80A2 /* XMLTestData.swift */; };
 		DECC8C98281068FE003D80A2 /* DateFormatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECC8C97281068FE003D80A2 /* DateFormatters.swift */; };
+		DECC8C9A28106B7D003D80A2 /* XMLPostPublicationDateFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECC8C9928106B7D003D80A2 /* XMLPostPublicationDateFormatterTests.swift */; };
 		DED586EC280493AF00F037D5 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED586EB280493AF00F037D5 /* Post.swift */; };
 		DED586EE280493D200F037D5 /* IPostsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED586ED280493D200F037D5 /* IPostsRepository.swift */; };
 		DED586F02804952200F037D5 /* PostsCoreDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED586EF2804952200F037D5 /* PostsCoreDataRepository.swift */; };
@@ -151,6 +152,7 @@
 		DECC8C91281059E9003D80A2 /* PostXMLParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostXMLParserTests.swift; sourceTree = "<group>"; };
 		DECC8C9428106395003D80A2 /* XMLTestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMLTestData.swift; sourceTree = "<group>"; };
 		DECC8C97281068FE003D80A2 /* DateFormatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatters.swift; sourceTree = "<group>"; };
+		DECC8C9928106B7D003D80A2 /* XMLPostPublicationDateFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMLPostPublicationDateFormatterTests.swift; sourceTree = "<group>"; };
 		DED586EB280493AF00F037D5 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		DED586ED280493D200F037D5 /* IPostsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPostsRepository.swift; sourceTree = "<group>"; };
 		DED586EF2804952200F037D5 /* PostsCoreDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsCoreDataRepository.swift; sourceTree = "<group>"; };
@@ -622,6 +624,7 @@
 		DEF6301B28102D710007FB03 /* feederTests */ = {
 			isa = PBXGroup;
 			children = (
+				DECC8C9928106B7D003D80A2 /* XMLPostPublicationDateFormatterTests.swift */,
 				DECC8C9328106384003D80A2 /* TestData */,
 				DECC8C91281059E9003D80A2 /* PostXMLParserTests.swift */,
 				DEF63026281047920007FB03 /* SourceFormatterTests.swift */,
@@ -811,6 +814,7 @@
 			files = (
 				DEF6302528102DB50007FB03 /* MinutesAndSecondsTimeFormatterTests.swift in Sources */,
 				DEF63027281047920007FB03 /* SourceFormatterTests.swift in Sources */,
+				DECC8C9A28106B7D003D80A2 /* XMLPostPublicationDateFormatterTests.swift in Sources */,
 				DECC8C92281059E9003D80A2 /* PostXMLParserTests.swift in Sources */,
 				DECC8C9528106395003D80A2 /* XMLTestData.swift in Sources */,
 			);
