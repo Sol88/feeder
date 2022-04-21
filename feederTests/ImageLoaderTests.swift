@@ -78,6 +78,7 @@ final class ImageLoaderTests: XCTestCase {
 			XCTAssertEqual(url.absoluteString, "http://lenta.ru")
 			expURLSession.fulfill()
 		}
+		urlSession.returnData = Data()
 		imageLoader.fetchImage(forURL: URL(string: "http://lenta.ru")!, completion: { [weak self] _ in
 			self?.imageLoader.fetchImage(forURL: URL(string: "http://lenta.ru")!, completion: { _ in })
 		})

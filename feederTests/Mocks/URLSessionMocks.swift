@@ -18,13 +18,16 @@ final class URLSessionMock: IURLSession {
 	let mockTask: TaskMock
 	var didCallDataTaskWithURL: ((URL) -> Void)?
 
+	var returnData: Data?
+	var returnError: Error?
+
 	init(mockTask: TaskMock) {
 		self.mockTask = mockTask
 	}
 
 	func dataTask(with url: URL, completionHandler: @escaping (Data?, Error?) -> Void) -> Cancellable & Resumable {
 		didCallDataTaskWithURL?(url)
-		completionHandler(Data(), nil)
+		completionHandler(returnData, returnError)
 		return mockTask
 	}
 }
