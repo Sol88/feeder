@@ -27,7 +27,7 @@ final class PostsCoreDataRepository: NSObject {
 // MARK: - IPostsRepository
 extension PostsCoreDataRepository: IPostsRepository {
 	func add(_ elements: [XMLPost], forSource source: PostSource) {
-		let idSet = savedPostIds()
+		let idSet = savedPostIds(withSource: source)
 		let backgroundContext = coreDataContainer.updatingContext
 		for element in elements {
 			if idSet.contains(element.id) {
@@ -115,9 +115,11 @@ private extension PostsCoreDataRepository {
 
 		return fetchedResultsController
 	}
-	func savedPostIds() -> Set<String> {
+
+	func savedPostIds(withSource source: PostSource) -> Set<String> {
 		let fetchRequest = NSFetchRequest<PostCoreData>(entityName: "PostCoreData")
 		fetchRequest.propertiesToFetch = ["id"]
+		fetchRequest.predicate = NSPredicate(format: "source == %@", source.rawValue)
 
 		guard let result = try? viewContext.fetch(fetchRequest) else {
 			return Set()
@@ -183,7 +185,7 @@ extension PostsCoreDataRepository: NSFetchedResultsControllerDelegate {
 		for section in snapshot.sectionIdentifiers {
 			let items: [Post.ID] = snapshot.itemIdentifiers(inSection: section).compactMap {
 				guard
-					let postCoreData = viewContext.object(with: $0) as? PostCoreData,
+					let postCoreData = try? viewContext.existingObject(with: $0) as? PostCoreData,
 					let post = Post.make(fromCoreData: postCoreData, dateFormatter: dateFormatter)
 				else { return nil }
 
