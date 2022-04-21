@@ -23,11 +23,19 @@ final class MainCoordinator: Coordinator {
 	private let updater: PostsUpdater
 	private let postsRepository: IPostsRepository
 	private let postSourcesRepository: IPostSourcesRepository
-	private let imageLoader: IImageLoader = ImageLoader()
+	private let imageLoader: IImageLoader
 	private let updateTimeRepository: IUpdateTimeRepository = UserDefaultsUpdateTimeRepository()
-
 	init(parentCoordinator: Coordinator?) {
 		self.parentCoordinator = parentCoordinator
+		let configuration = URLSessionConfiguration.default
+		configuration.timeoutIntervalForRequest = 10
+		configuration.timeoutIntervalForResource = 10
+		configuration.urlCache = URLCache(
+			memoryCapacity: 30_000_000, // ~30 MB,
+			diskCapacity: 100_000_000, // ~100 MB,
+			directory: nil
+		)
+		imageLoader = ImageLoader(urlSession: URLSession(configuration: configuration))
 		postsRepository = PostsCoreDataRepository(coreDataContainer: coreDataContainer)
 		postSourcesRepository = PostSourceUserDefaultsRepository()
 		updater = PostsUpdater(

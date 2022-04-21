@@ -1,22 +1,13 @@
 import UIKit
 
 final class ImageLoader {
-	private let urlSession: URLSession
-	private var urlTasks: [URL: URLSessionDataTask] = [:]
+	private let urlSession: IURLSession
+	private var urlTasks: [URL: Cancellable] = [:]
 	private var urlCompletions: [URL: [(UIImage?) -> Void]] = [:]
 	private var queue = DispatchQueue(label: "queue.imageLoader.urlCompletions", attributes: .concurrent)
 
-	init() {
-		let configuration = URLSessionConfiguration.default
-		configuration.timeoutIntervalForRequest = 10
-		configuration.timeoutIntervalForResource = 10
-		configuration.urlCache = URLCache(
-			memoryCapacity: Constants.memoryCache,
-			diskCapacity: Constants.diskCache,
-			directory: nil
-		)
-
-		self.urlSession = URLSession(configuration: configuration)
+	init(urlSession: IURLSession) {
+		self.urlSession = urlSession
 	}
 }
 
@@ -48,8 +39,8 @@ extension ImageLoader: IImageLoader {
 
 // MARK: - Private
 private extension ImageLoader {
-	func dataTask(forURL url: URL) -> URLSessionDataTask {
-		urlSession.dataTask(with: url) { [weak self, url] data, _, _ in
+	func dataTask(forURL url: URL) -> Cancellable & Resumable {
+		urlSession.dataTask(with: url) { [weak self, url] data, _ in
 			self?.queue.async(flags: .barrier) {
 				self?.urlTasks.removeValue(forKey: url)
 			}
@@ -68,13 +59,5 @@ private extension ImageLoader {
 			self.urlCompletions[url]?.forEach { $0(image) }
 			self.urlCompletions.removeValue(forKey: url)
 		}
-	}
-}
-
-// MARK: - Constants
-private extension ImageLoader {
-	enum Constants {
-		static let memoryCache = 50_000_000 // ~50 MB
-		static let diskCache = 100_000_000 // ~100 MB
 	}
 }

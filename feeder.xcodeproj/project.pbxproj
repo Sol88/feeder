@@ -74,6 +74,11 @@
 		DED586F72804A0BB00F037D5 /* IDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED586F62804A0BB00F037D5 /* IDateFormatter.swift */; };
 		DED6EB4D28107AD300A6DB8B /* CacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED6EB4C28107AD300A6DB8B /* CacheTests.swift */; };
 		DED6EB4F28108DB700A6DB8B /* FeedListInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED6EB4E28108DB700A6DB8B /* FeedListInteractorMock.swift */; };
+		DED6EB522811192800A6DB8B /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED6EB512811192800A6DB8B /* Cancellable.swift */; };
+		DED6EB542811194E00A6DB8B /* Resumable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED6EB532811194E00A6DB8B /* Resumable.swift */; };
+		DED6EB56281119B100A6DB8B /* IURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED6EB55281119B100A6DB8B /* IURLSession.swift */; };
+		DED6EB58281119FE00A6DB8B /* ImageLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED6EB57281119FE00A6DB8B /* ImageLoaderTests.swift */; };
+		DED6EB5E2811239800A6DB8B /* URLSessionMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED6EB5D2811239800A6DB8B /* URLSessionMocks.swift */; };
 		DEE0CA04280889EE00750A6F /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DEE0CA02280889EE00750A6F /* Model.xcdatamodeld */; };
 		DEE0CA0628088BCB00750A6F /* CoreDataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE0CA0528088BCB00750A6F /* CoreDataContainer.swift */; };
 		DEF1183328071CDE005AA8D1 /* PostXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF1183228071CDE005AA8D1 /* PostXMLParser.swift */; };
@@ -165,6 +170,11 @@
 		DED586F62804A0BB00F037D5 /* IDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDateFormatter.swift; sourceTree = "<group>"; };
 		DED6EB4C28107AD300A6DB8B /* CacheTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheTests.swift; sourceTree = "<group>"; };
 		DED6EB4E28108DB700A6DB8B /* FeedListInteractorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedListInteractorMock.swift; sourceTree = "<group>"; };
+		DED6EB512811192800A6DB8B /* Cancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
+		DED6EB532811194E00A6DB8B /* Resumable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resumable.swift; sourceTree = "<group>"; };
+		DED6EB55281119B100A6DB8B /* IURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IURLSession.swift; sourceTree = "<group>"; };
+		DED6EB57281119FE00A6DB8B /* ImageLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoaderTests.swift; sourceTree = "<group>"; };
+		DED6EB5D2811239800A6DB8B /* URLSessionMocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionMocks.swift; sourceTree = "<group>"; };
 		DEE0CA03280889EE00750A6F /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		DEE0CA0528088BCB00750A6F /* CoreDataContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataContainer.swift; sourceTree = "<group>"; };
 		DEF1183228071CDE005AA8D1 /* PostXMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostXMLParser.swift; sourceTree = "<group>"; };
@@ -376,6 +386,7 @@
 		DE7907282801580B003296B8 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				DED6EB50281118FD00A6DB8B /* IURLSession */,
 				DECC8C96281068DD003D80A2 /* DateFormatters */,
 				DE2E4F0B280C12DD00EA0F11 /* Cache */,
 				DE2E4F0A280B4B5400EA0F11 /* Modules */,
@@ -557,7 +568,6 @@
 			isa = PBXGroup;
 			children = (
 				DECC8C9C28107439003D80A2 /* FeedListPresenterTests.swift */,
-				DED6EB4E28108DB700A6DB8B /* FeedListInteractorMock.swift */,
 			);
 			path = FeedListTests;
 			sourceTree = "<group>";
@@ -590,6 +600,25 @@
 				DE6065B1280F19FF005E6BDD /* MinutesAndSecondsTimeFormatter.swift */,
 			);
 			path = Formatters;
+			sourceTree = "<group>";
+		};
+		DED6EB50281118FD00A6DB8B /* IURLSession */ = {
+			isa = PBXGroup;
+			children = (
+				DED6EB512811192800A6DB8B /* Cancellable.swift */,
+				DED6EB532811194E00A6DB8B /* Resumable.swift */,
+				DED6EB55281119B100A6DB8B /* IURLSession.swift */,
+			);
+			path = IURLSession;
+			sourceTree = "<group>";
+		};
+		DED6EB5C2811237B00A6DB8B /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				DED6EB4E28108DB700A6DB8B /* FeedListInteractorMock.swift */,
+				DED6EB5D2811239800A6DB8B /* URLSessionMocks.swift */,
+			);
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 		DEE0CA01280889C700750A6F /* CoreData */ = {
@@ -639,6 +668,8 @@
 		DEF6301B28102D710007FB03 /* feederTests */ = {
 			isa = PBXGroup;
 			children = (
+				DED6EB5C2811237B00A6DB8B /* Mocks */,
+				DED6EB57281119FE00A6DB8B /* ImageLoaderTests.swift */,
 				DECC8C9B281072C4003D80A2 /* FeedListTests */,
 				DECC8C9928106B7D003D80A2 /* XMLPostPublicationDateFormatterTests.swift */,
 				DECC8C9328106384003D80A2 /* TestData */,
@@ -778,6 +809,7 @@
 				DE2E4F3D280C60F800EA0F11 /* SettingsInteractor.swift in Sources */,
 				DE2E4F18280C5DD200EA0F11 /* FeedDetailsInteractor.swift in Sources */,
 				DE2E4F27280C5FBF00EA0F11 /* IFeedDetailsFactory.swift in Sources */,
+				DED6EB542811194E00A6DB8B /* Resumable.swift in Sources */,
 				DE79074B2801CF0F003296B8 /* IFeedListViewOutput.swift in Sources */,
 				DE6065B2280F19FF005E6BDD /* MinutesAndSecondsTimeFormatter.swift in Sources */,
 				DE7907572802D037003296B8 /* FeedCollectionViewLayout.swift in Sources */,
@@ -786,6 +818,7 @@
 				DE2E4F1C280C5E0700EA0F11 /* IFeedDetailsRouter.swift in Sources */,
 				DE79072F280194B4003296B8 /* MainCoordinator.swift in Sources */,
 				DE79073C2801CAAA003296B8 /* FeedListInteractor.swift in Sources */,
+				DED6EB56281119B100A6DB8B /* IURLSession.swift in Sources */,
 				DE2E4F38280C60F800EA0F11 /* ISettingsViewOutput.swift in Sources */,
 				DEF118452807631C005AA8D1 /* IPostXMLParser.swift in Sources */,
 				DE2E4F1A280C5DE600EA0F11 /* FeedDetailsRouter.swift in Sources */,
@@ -793,6 +826,7 @@
 				DEE0CA0628088BCB00750A6F /* CoreDataContainer.swift in Sources */,
 				DE2E1F732805F908003B6C5A /* ImageLoader.swift in Sources */,
 				DE2E4F43280C63F300EA0F11 /* IFeedListModuleOutput.swift in Sources */,
+				DED6EB522811192800A6DB8B /* Cancellable.swift in Sources */,
 				DE2E4F1E280C5E4100EA0F11 /* IFeedDetailsInteractor.swift in Sources */,
 				DE79073E2801CABB003296B8 /* FeedListRouter.swift in Sources */,
 				DEF1183B2807230C005AA8D1 /* Updater.swift in Sources */,
@@ -831,9 +865,11 @@
 			files = (
 				DEF6302528102DB50007FB03 /* MinutesAndSecondsTimeFormatterTests.swift in Sources */,
 				DEF63027281047920007FB03 /* SourceFormatterTests.swift in Sources */,
+				DED6EB5E2811239800A6DB8B /* URLSessionMocks.swift in Sources */,
 				DECC8C9D28107439003D80A2 /* FeedListPresenterTests.swift in Sources */,
 				DED6EB4D28107AD300A6DB8B /* CacheTests.swift in Sources */,
 				DED6EB4F28108DB700A6DB8B /* FeedListInteractorMock.swift in Sources */,
+				DED6EB58281119FE00A6DB8B /* ImageLoaderTests.swift in Sources */,
 				DECC8C9A28106B7D003D80A2 /* XMLPostPublicationDateFormatterTests.swift in Sources */,
 				DECC8C92281059E9003D80A2 /* PostXMLParserTests.swift in Sources */,
 				DECC8C9528106395003D80A2 /* XMLTestData.swift in Sources */,
