@@ -14,11 +14,17 @@ final class FeedCollectionViewCellPropsFactory {
 	}
 
 	func make(from post: Post) -> FeedCollectionViewCell.Props {
-		FeedCollectionViewCell.Props(
+		let summary: String
+		if post.summary.isEmpty {
+			summary = "No summary"
+		} else {
+			summary = post.summary
+		}
+		return FeedCollectionViewCell.Props(
 			id: post.id,
 			title: post.title,
 			content: post.content,
-			summary: post.summary,
+			summary: summary,
 			date: dateFormatter.string(from: post.date),
 			source: sourceFormatter.string(from: post.source),
 			isRead: post.isRead,
