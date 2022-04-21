@@ -28,7 +28,7 @@ final class PostsCoreDataRepository: NSObject {
 extension PostsCoreDataRepository: IPostsRepository {
 	func add(_ elements: [XMLPost], forSource source: PostSource) {
 		let idSet = savedPostIds()
-		let backgroundContext = coreDataContainer.persistentContainer.newBackgroundContext()
+		let backgroundContext = coreDataContainer.updatingContext
 		for element in elements {
 			if idSet.contains(element.id) {
 				// Sometimes news are changes after several minutes after publication. Added updating of already saved posts
@@ -52,13 +52,11 @@ extension PostsCoreDataRepository: IPostsRepository {
 	}
 
 	func fetchPost(withPostId postId: Post.ID) -> Post? {
-		let backgroundContext = coreDataContainer.persistentContainer.newBackgroundContext()
-
 		let fetchRequest = NSFetchRequest<PostCoreData>(entityName: "PostCoreData")
 		fetchRequest.predicate = NSPredicate(format: "id == %@", postId)
 		fetchRequest.fetchBatchSize = 1
 		do {
-			guard let postCoreData = try backgroundContext.fetch(fetchRequest).first else { return nil }
+			guard let postCoreData = try viewContext.fetch(fetchRequest).first else { return nil }
 			return Post.make(fromCoreData: postCoreData, dateFormatter: dateFormatter)
 		} catch {
 			assertionFailure("Fetching post with postId \(postId) failed with error \(error)")
@@ -76,7 +74,7 @@ extension PostsCoreDataRepository: IPostsRepository {
 	}
 
 	func markReadPost(withPostId postId: Post.ID) {
-		let backgroundContext = coreDataContainer.persistentContainer.newBackgroundContext()
+		let backgroundContext = coreDataContainer.updatingContext
 
 		let fetchRequest = NSFetchRequest<PostCoreData>(entityName: "PostCoreData")
 		fetchRequest.predicate = NSPredicate(format: "id == %@", postId)
@@ -100,7 +98,6 @@ private extension PostsCoreDataRepository {
 		let ascendingIDSortDescriptor = NSSortDescriptor(key: "id", ascending: true)
 		let fetchRequest = NSFetchRequest<PostCoreData>(entityName: "PostCoreData")
 		fetchRequest.sortDescriptors = [descendingPubDateSortDescriptor, ascendingIDSortDescriptor]
-		fetchRequest.fetchBatchSize = 20
 		var predicates: [NSPredicate] = []
 		for source in sources {
 			predicates.append(NSPredicate(format: "source == %@", source.rawValue))
@@ -122,9 +119,7 @@ private extension PostsCoreDataRepository {
 		let fetchRequest = NSFetchRequest<PostCoreData>(entityName: "PostCoreData")
 		fetchRequest.propertiesToFetch = ["id"]
 
-		let backgroundContext = coreDataContainer.persistentContainer.newBackgroundContext()
-
-		guard let result = try? backgroundContext.fetch(fetchRequest) else {
+		guard let result = try? viewContext.fetch(fetchRequest) else {
 			return Set()
 		}
 

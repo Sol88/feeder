@@ -1,7 +1,10 @@
 import CoreData
 
 final class CoreDataContainer {
-	let persistentContainer: NSPersistentContainer = {
+	let updatingContext: NSManagedObjectContext
+	let persistentContainer: NSPersistentContainer
+
+	init() {
 		let container = NSPersistentContainer(name: "Model")
 		container.loadPersistentStores { store, error in
 			if let error = error {
@@ -10,6 +13,8 @@ final class CoreDataContainer {
 		}
 		container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
 		container.viewContext.automaticallyMergesChangesFromParent = true
-		return container
-	}()
+
+		self.persistentContainer = container
+		self.updatingContext = container.newBackgroundContext()
+	}
 }
