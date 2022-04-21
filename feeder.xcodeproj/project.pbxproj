@@ -79,6 +79,7 @@
 		DED6EB56281119B100A6DB8B /* IURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED6EB55281119B100A6DB8B /* IURLSession.swift */; };
 		DED6EB58281119FE00A6DB8B /* ImageLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED6EB57281119FE00A6DB8B /* ImageLoaderTests.swift */; };
 		DED6EB5E2811239800A6DB8B /* URLSessionMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED6EB5D2811239800A6DB8B /* URLSessionMocks.swift */; };
+		DED6EB61281124A900A6DB8B /* FeedListRouterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED6EB60281124A900A6DB8B /* FeedListRouterMock.swift */; };
 		DEE0CA04280889EE00750A6F /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DEE0CA02280889EE00750A6F /* Model.xcdatamodeld */; };
 		DEE0CA0628088BCB00750A6F /* CoreDataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE0CA0528088BCB00750A6F /* CoreDataContainer.swift */; };
 		DEF1183328071CDE005AA8D1 /* PostXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF1183228071CDE005AA8D1 /* PostXMLParser.swift */; };
@@ -175,6 +176,7 @@
 		DED6EB55281119B100A6DB8B /* IURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IURLSession.swift; sourceTree = "<group>"; };
 		DED6EB57281119FE00A6DB8B /* ImageLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoaderTests.swift; sourceTree = "<group>"; };
 		DED6EB5D2811239800A6DB8B /* URLSessionMocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionMocks.swift; sourceTree = "<group>"; };
+		DED6EB60281124A900A6DB8B /* FeedListRouterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedListRouterMock.swift; sourceTree = "<group>"; };
 		DEE0CA03280889EE00750A6F /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		DEE0CA0528088BCB00750A6F /* CoreDataContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataContainer.swift; sourceTree = "<group>"; };
 		DEF1183228071CDE005AA8D1 /* PostXMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostXMLParser.swift; sourceTree = "<group>"; };
@@ -617,6 +619,7 @@
 			children = (
 				DED6EB4E28108DB700A6DB8B /* FeedListInteractorMock.swift */,
 				DED6EB5D2811239800A6DB8B /* URLSessionMocks.swift */,
+				DED6EB60281124A900A6DB8B /* FeedListRouterMock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -865,6 +868,7 @@
 			files = (
 				DEF6302528102DB50007FB03 /* MinutesAndSecondsTimeFormatterTests.swift in Sources */,
 				DEF63027281047920007FB03 /* SourceFormatterTests.swift in Sources */,
+				DED6EB61281124A900A6DB8B /* FeedListRouterMock.swift in Sources */,
 				DED6EB5E2811239800A6DB8B /* URLSessionMocks.swift in Sources */,
 				DECC8C9D28107439003D80A2 /* FeedListPresenterTests.swift in Sources */,
 				DED6EB4D28107AD300A6DB8B /* CacheTests.swift in Sources */,

@@ -5,6 +5,7 @@ final class FeedListPresenterTests: XCTestCase {
 
 	private var presenter: IFeedListViewOutput!
 	private var interactor: FeedListInteractorMock!
+	private var router: FeedListRouterMock!
 
     override func setUpWithError() throws {
 		let presenter = FeedListPresenter(
@@ -17,9 +18,13 @@ final class FeedListPresenterTests: XCTestCase {
 		interactor = FeedListInteractorMock()
 		presenter.interactor = interactor
 
+		router = FeedListRouterMock()
+		presenter.router = router
+
 		self.presenter = presenter
     }
 
+	// MARK: - Interactor
     func test_willAppearCallFetchAllPosts() throws {
 		let exp = expectation(description: "Waiting for call of fetchAllPosts")
 		interactor.didCallFetchAllPosts = {
@@ -75,6 +80,38 @@ final class FeedListPresenterTests: XCTestCase {
 		}
 
 		presenter.didEndDisplayingCell(at: IndexPath(item: 2, section: 2))
+		wait(for: [exp], timeout: 1)
+	}
+
+	// MARK: - Router
+	func test_didSelectItemWillCallSelectPostWithId() {
+		let exp = expectation(description: "Waiting for call of selectPostWithId")
+		router.didCallSelectPostWithId = { id in
+			XCTAssertEqual(id, "123")
+			exp.fulfill()
+		}
+		interactor.returnFetchPost = Post(
+			id: "123",
+			imageURL: nil,
+			title: "",
+			content: URL(string: "http://lenta.ru")!,
+			summary: "",
+			date: Date(timeIntervalSince1970: 0),
+			source: .lenta,
+			isRead: false
+		)
+		presenter.didSelectItem(at: IndexPath(item: 0, section: 0))
+		wait(for: [exp], timeout: 1)
+	}
+
+	func test_didSelectItemWillNotCallSelectPostWithIdIfNoPostAtIndex() {
+		let exp = expectation(description: "Waiting for call of selectPostWithId")
+		exp.isInverted = true
+		router.didCallSelectPostWithId = { id in
+			exp.fulfill()
+		}
+		interactor.returnFetchPost = nil
+		presenter.didSelectItem(at: IndexPath(item: 0, section: 0))
 		wait(for: [exp], timeout: 1)
 	}
 }
